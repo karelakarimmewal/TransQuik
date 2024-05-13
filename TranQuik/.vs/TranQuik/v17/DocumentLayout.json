@@ -1,37 +1,33 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\",
+  "WorkspaceRootPath": "D:\\VB\\Project\\TranQuik\\TranQuik\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|d:\\practice wpf\\project\\misaw\\tranquik\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\Practice WPF\\Project\\MISAW\\TranQuik\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\Practice WPF\\Project\\MISAW\\TranQuik\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\Practice WPF\\Project\\MISAW\\TranQuik\\salemodepop.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\VB\\Project\\TranQuik\\TranQuik\\salemodepop.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
       "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:salemodepop.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\Practice WPF\\Project\\MISAW\\TranQuik\\model\\modelprocessing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:model\\modelprocessing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\Practice WPF\\Project\\MISAW\\TranQuik\\salemodepop.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\VB\\Project\\TranQuik\\TranQuik\\salemodepop.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:salemodepop.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\Practice WPF\\Project\\MISAW\\TranQuik\\model\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|d:\\vb\\project\\tranquik\\tranquik\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\VB\\Project\\TranQuik\\TranQuik\\model\\modelprocessing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:model\\modelprocessing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|d:\\vb\\project\\tranquik\\tranquik\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\VB\\Project\\TranQuik\\TranQuik\\model\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:model\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\Practice WPF\\Project\\MISAW\\TranQuik\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\VB\\Project\\TranQuik\\TranQuik\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -42,26 +38,35 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SaleModePop.xaml",
-              "DocumentMoniker": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\SaleModePop.xaml",
-              "RelativeDocumentMoniker": "SaleModePop.xaml",
-              "ToolTip": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\SaleModePop.xaml",
-              "RelativeToolTip": "SaleModePop.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-13T09:57:50.552Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
+              "Title": "SaleModePop.xaml",
+              "DocumentMoniker": "D:\\VB\\Project\\TranQuik\\TranQuik\\SaleModePop.xaml",
+              "RelativeDocumentMoniker": "SaleModePop.xaml",
+              "ToolTip": "D:\\VB\\Project\\TranQuik\\TranQuik\\SaleModePop.xaml",
+              "RelativeToolTip": "SaleModePop.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-13T09:57:50.552Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Model.cs",
-              "DocumentMoniker": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\Model\\Model.cs",
+              "DocumentMoniker": "D:\\VB\\Project\\TranQuik\\TranQuik\\Model\\Model.cs",
               "RelativeDocumentMoniker": "Model\\Model.cs",
-              "ToolTip": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\Model\\Model.cs",
+              "ToolTip": "D:\\VB\\Project\\TranQuik\\TranQuik\\Model\\Model.cs",
               "RelativeToolTip": "Model\\Model.cs",
               "ViewState": "AQIAACQAAAAAAAAAAAAkwBcAAABbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -69,11 +74,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "App.xaml.cs",
-              "DocumentMoniker": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\App.xaml.cs",
+              "DocumentMoniker": "D:\\VB\\Project\\TranQuik\\TranQuik\\App.xaml.cs",
               "RelativeDocumentMoniker": "App.xaml.cs",
-              "ToolTip": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\App.xaml.cs",
+              "ToolTip": "D:\\VB\\Project\\TranQuik\\TranQuik\\App.xaml.cs",
               "RelativeToolTip": "App.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -81,62 +86,68 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SaleModePop.xaml.cs",
-              "DocumentMoniker": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\SaleModePop.xaml.cs",
-              "RelativeDocumentMoniker": "SaleModePop.xaml.cs",
-              "ToolTip": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\SaleModePop.xaml.cs",
-              "RelativeToolTip": "SaleModePop.xaml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-13T05:03:32.988Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\MainWindow.xaml",
-              "RelativeToolTip": "MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-13T04:41:32.64Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\MainWindow.xaml.cs",
+              "DocumentMoniker": "D:\\VB\\Project\\TranQuik\\TranQuik\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\MainWindow.xaml.cs",
+              "ToolTip": "D:\\VB\\Project\\TranQuik\\TranQuik\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAAAQBAAAALzMzMzPxv0MBAAANAAAA",
+              "ViewState": "AQIAAGUAAAAAAAAAAAAwwBMAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-12T10:21:33.365Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "App.xaml",
-              "DocumentMoniker": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\App.xaml",
-              "RelativeDocumentMoniker": "App.xaml",
-              "ToolTip": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\App.xaml",
-              "RelativeToolTip": "App.xaml",
+              "DocumentIndex": 4,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "D:\\VB\\Project\\TranQuik\\TranQuik\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "D:\\VB\\Project\\TranQuik\\TranQuik\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-13T03:10:49.099Z"
+              "WhenOpened": "2024-05-13T14:57:23.496Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ModelProcessing.cs",
-              "DocumentMoniker": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\Model\\ModelProcessing.cs",
-              "RelativeDocumentMoniker": "Model\\ModelProcessing.cs",
-              "ToolTip": "D:\\Practice WPF\\Project\\MISAW\\TranQuik\\Model\\ModelProcessing.cs",
-              "RelativeToolTip": "Model\\ModelProcessing.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABkAAAAMAAAA",
+              "DocumentIndex": 0,
+              "Title": "SaleModePop.xaml.cs",
+              "DocumentMoniker": "D:\\VB\\Project\\TranQuik\\TranQuik\\SaleModePop.xaml.cs",
+              "RelativeDocumentMoniker": "SaleModePop.xaml.cs",
+              "ToolTip": "D:\\VB\\Project\\TranQuik\\TranQuik\\SaleModePop.xaml.cs",
+              "RelativeToolTip": "SaleModePop.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-13T05:09:26.376Z"
+              "WhenOpened": "2024-05-13T05:03:32.988Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ModelProcessing.cs",
+              "DocumentMoniker": "D:\\VB\\Project\\TranQuik\\TranQuik\\Model\\ModelProcessing.cs",
+              "RelativeDocumentMoniker": "Model\\ModelProcessing.cs",
+              "ToolTip": "D:\\VB\\Project\\TranQuik\\TranQuik\\Model\\ModelProcessing.cs",
+              "RelativeToolTip": "Model\\ModelProcessing.cs",
+              "ViewState": "AQIAACcAAAAAAAAAAAAowBkAAABMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-13T05:09:26.376Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 167,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
             }
           ]
         }

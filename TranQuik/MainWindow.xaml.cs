@@ -41,6 +41,7 @@ namespace TranQuik
         private int productButtonStartIndex = 0; // Start index for product buttons
         private int productButtonCount = 24; // Total count of product buttons
         private const int ButtonShiftAmount = 8; // Define the shift amount
+        private const int ProductButtonShiftAmount = 24; // Define the shift amount
 
 
         // Payment and Display Data
@@ -119,6 +120,8 @@ namespace TranQuik
             if (button != null)
             {
                 int productGroupId = Convert.ToInt32(button.Tag);
+                MainContentProduct.Visibility = Visibility.Visible;
+                PayementProcess.Visibility = Visibility.Collapsed;
                 modelProcessing.LoadProductDetails(productGroupId);
             }
         }
@@ -187,8 +190,6 @@ namespace TranQuik
                 }
             }
         }
-
-        private const int ProductButtonShiftAmount = 24; // Define the shift amount
 
         private void ScrollProductGroupsUp_Click(object sender, RoutedEventArgs e)
         {
