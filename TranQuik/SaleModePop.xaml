@@ -1,0 +1,59 @@
+﻿<Window x:Class="TranQuik.SaleModePop"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+        xmlns:local="clr-namespace:TranQuik"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        mc:Ignorable="d"
+        Title="SaleModePop" Height="150" Width="450">
+    <Grid Background="{StaticResource PrimaryBackgroundColor}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Button 1: CloneBill -->
+        <Button Grid.Column="0"
+            Height="150"
+            Style="{StaticResource ButtonStyle}" 
+            Effect="{StaticResource DropShadowEffect}"
+                Background="{StaticResource AccentColor}"
+            Margin="0" Click="Button_Click">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <materialIcons:MaterialIcon Kind="Restaurant" Height="24" VerticalAlignment="Center"/>
+                <TextBlock Text="DineIn" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+
+        <!-- Button 2: Take Away -->
+        <Button Grid.Column="1"
+                Height="150"
+                Style="{StaticResource ButtonStyle}" 
+                Background="{StaticResource SuccessColor}"
+                Effect="{StaticResource DropShadowEffect}"
+                Margin="0" Click="Button_Click_1">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <materialIcons:MaterialIcon Kind="FoodTakeoutBoxOutline" Height="24" VerticalAlignment="Center"/>
+                <TextBlock Text="TakeAway" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+
+        <!-- Button 3: Card -->
+        <Button Grid.Column="2"
+                Height="150"
+                Style="{StaticResource ButtonStyle}" 
+                Background="{StaticResource ButtonEnabledColor2}"
+                Effect="{StaticResource DropShadowEffect}"
+                Margin="0" Click="Button_Click_2">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <materialIcons:MaterialIcon Kind="Car" Height="24" VerticalAlignment="Center"/>
+                <TextBlock Text="DriveThru" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+
+</Window>
