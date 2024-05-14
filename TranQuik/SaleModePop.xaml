@@ -7,53 +7,15 @@
         xmlns:local="clr-namespace:TranQuik"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
+        WindowState="Normal"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
-        Title="SaleModePop" Height="150" Width="450">
-    <Grid Background="{StaticResource PrimaryBackgroundColor}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-
-        <!-- Button 1: CloneBill -->
-        <Button Grid.Column="0"
-            Height="150"
-            Style="{StaticResource ButtonStyle}" 
-            Effect="{StaticResource DropShadowEffect}"
-                Background="{StaticResource AccentColor}"
-            Margin="0" Click="Button_Click">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <materialIcons:MaterialIcon Kind="Restaurant" Height="24" VerticalAlignment="Center"/>
-                <TextBlock Text="DineIn" Margin="0,0,0,0" VerticalAlignment="Center"/>
-            </StackPanel>
-        </Button>
-
-        <!-- Button 2: Take Away -->
-        <Button Grid.Column="1"
-                Height="150"
-                Style="{StaticResource ButtonStyle}" 
-                Background="{StaticResource SuccessColor}"
-                Effect="{StaticResource DropShadowEffect}"
-                Margin="0" Click="Button_Click_1">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <materialIcons:MaterialIcon Kind="FoodTakeoutBoxOutline" Height="24" VerticalAlignment="Center"/>
-                <TextBlock Text="TakeAway" Margin="0,0,0,0" VerticalAlignment="Center"/>
-            </StackPanel>
-        </Button>
-
-        <!-- Button 3: Card -->
-        <Button Grid.Column="2"
-                Height="150"
-                Style="{StaticResource ButtonStyle}" 
-                Background="{StaticResource ButtonEnabledColor2}"
-                Effect="{StaticResource DropShadowEffect}"
-                Margin="0" Click="Button_Click_2">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <materialIcons:MaterialIcon Kind="Car" Height="24" VerticalAlignment="Center"/>
-                <TextBlock Text="DriveThru" Margin="0,0,0,0" VerticalAlignment="Center"/>
-            </StackPanel>
-        </Button>
+        Title="SaleModePop" Height="300" Width="450">
+    <Grid  Background="{StaticResource SecondaryBackgroundColor}" Effect="{StaticResource DropShadowEffect}">
+        <!-- GridSaleMode where buttons will be dynamically added -->
+        <Grid x:Name="GridSaleMode" Margin="0">
+            <!-- Content will be populated programmatically -->
+        </Grid>
     </Grid>
 
 </Window>

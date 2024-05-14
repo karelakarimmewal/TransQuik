@@ -110,7 +110,7 @@
                                     <TextBlock Text="Other Income:" Grid.Row="3" Grid.Column="0" Margin="0,5,5,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                     <TextBlock x:Name="OtherIncomeTextBlock" Text="0.00" Grid.Row="3" Grid.Column="1" Margin="5,5,0,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                                     <!-- Sales Mode -->
-                                    <TextBlock Text="VAT 7.00%:" Grid.Row="4" Grid.Column="0" Margin="0,5,5,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="VAT 7.00%:" x:Name="VatNumber" Grid.Row="4" Grid.Column="0" Margin="0,5,5,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                                     <TextBlock x:Name="VATModeText" Text="None"  Grid.Row="4" Grid.Column="1" Margin="5,5,0,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                                 </Grid>
                                 <Grid Grid.Column="1" Margin="5">
@@ -152,7 +152,7 @@
                                 Effect="{StaticResource DropShadowEffect}"
                                 HorizontalAlignment="Center" 
                                 VerticalAlignment="Center"
-                                Background="LightGray"
+                                Background="SlateGray"
                                 Foreground="{StaticResource FontColor}">
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <materialIcons:MaterialIcon Kind="Coupon" Width="28" Height="30" VerticalAlignment="Center"/>
@@ -167,7 +167,7 @@
                                 Effect="{StaticResource DropShadowEffect}"
                                 HorizontalAlignment="Center" 
                                 VerticalAlignment="Center"
-                                Background="LightGray"
+                                Background="LightSlateGray"
                                 Foreground="{StaticResource FontColor}">
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <materialIcons:MaterialIcon Kind="Discount" Width="28" Height="30" VerticalAlignment="Center"/>
@@ -182,7 +182,7 @@
                                 Effect="{StaticResource DropShadowEffect}"
                                 HorizontalAlignment="Center" 
                                 VerticalAlignment="Center"
-                                Background="LightGray"
+                                Background="LightSlateGray"
                                 Foreground="{StaticResource FontColor}">
                                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <materialIcons:MaterialIcon Kind="Tag" Width="28" Height="30" VerticalAlignment="Center"/>
@@ -299,27 +299,27 @@
                                 <TextBlock Text="Change" FontSize="10"  VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
-                        <Button Height="72" 
+                        <Button x:Name="ClearButton" Height="72" 
                             Width="90"
                             Margin="0,1"
                             Style="{StaticResource ButtonStyle}" 
                             Effect="{StaticResource DropShadowEffect}"
                             HorizontalAlignment="Center" 
                             VerticalAlignment="Center"
-                            Background="{StaticResource PrimaryButtonColor}" >
+                            Background="{StaticResource PrimaryButtonColor}" Click="ClearList_Click" >
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <materialIcons:MaterialIcon Kind="PlaylistRemove" Width="28" Height="30" VerticalAlignment="Center"/>
                                 <TextBlock Text="Clear List" FontSize="10"  VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
-                        <Button Height="72" 
+                        <Button x:Name="ModifierButton" Height="72" 
                             Width="90"
                             Margin="0,1"
                             Style="{StaticResource ButtonStyle}" 
                             Effect="{StaticResource DropShadowEffect}"
                             HorizontalAlignment="Center" 
                             VerticalAlignment="Center"
-                            Background="{StaticResource PrimaryButtonColor}">
+                            Background="{StaticResource PrimaryButtonColor}" Click="ModifierButton_Click">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <materialIcons:MaterialIcon Kind="ClipboardList" Width="28" Height="30" VerticalAlignment="Center"/>
                                 <TextBlock Text="Modifier" FontSize="10"  VerticalAlignment="Center"/>
@@ -327,9 +327,10 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Grid.Row="1">
-                        <Button Height="72" 
+                        <Button x:Name="BillDetail" Height="72" 
                         Width="90"
                         Margin="0,1"
+                                IsEnabled="True"
                         Style="{StaticResource ButtonStyle}" 
                         Effect="{StaticResource DropShadowEffect}"
                         HorizontalAlignment="Center" 
@@ -340,14 +341,14 @@
                                 <TextBlock Text="Bill Detail" FontSize="10"  VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
-                        <Button Height="72" 
+                        <Button x:Name="HoldButton" Height="72" 
                         Width="90"
-                        Margin="0,1"
+                        Margin="0,1" IsEnabled="False"
                         Style="{StaticResource ButtonStyle}" 
                         Effect="{StaticResource DropShadowEffect}"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center"
-                        Background="{StaticResource PrimaryButtonColor}" >
+                        Background="{StaticResource PrimaryButtonColor}" Click="HoldButton_Click" >
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <materialIcons:MaterialIcon Kind="ContentSaveCheck" Width="28" Height="30" VerticalAlignment="Center"/>
                                 <TextBlock Text="Hold" FontSize="10"  VerticalAlignment="Center"/>
@@ -428,44 +429,16 @@
 
                                 <StackPanel x:Name="TopMainContent_DetailFeature" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" >
                                     <!-- Button 1: TakeAway -->
-                                    <Button x:Name="TakeAway" Height="72" 
-                                            Width="72"
+                                    <Button x:Name="salesModeSee" Height="72" 
+                                            Width="250"
                                             Background="{StaticResource PrimaryButtonColor}"
                                             Style="{StaticResource ButtonStyle}" 
                                             Effect="{StaticResource DropShadowEffect}"
                                             HorizontalAlignment="Center" 
                                             VerticalAlignment="Center" >
                                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <materialIcons:MaterialIcon Kind="Motorbike" Width="24" Height="24" VerticalAlignment="Center"/>
-                                            <TextBlock Text="Take Away"  VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Button>
-
-                                    <!-- Button 2: DineIn -->
-                                    <Button x:Name="DineIn" Height="72" 
-                                            Width="72"
-                                            Background="{StaticResource PrimaryButtonColor}"
-                                            Style="{StaticResource ButtonStyle}" 
-                                            Effect="{StaticResource DropShadowEffect}"
-                                            HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center">
-                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <materialIcons:MaterialIcon Kind="Restaurant" Width="24" Height="24" VerticalAlignment="Center"/>
-                                            <TextBlock Text="Dine In"  VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Button>
-
-                                    <!-- Button 3: DriveThru -->
-                                    <Button x:Name="DriveThru" Height="72" 
-                                            Width="72"
-                                            Background="{StaticResource PrimaryButtonColor}"
-                                            Style="{StaticResource ButtonStyle}" 
-                                            Effect="{StaticResource DropShadowEffect}"
-                                            HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center" >
-                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <materialIcons:MaterialIcon Kind="Car" Width="24" Height="24" VerticalAlignment="Center"/>
-                                            <TextBlock Text="DriveThru"  VerticalAlignment="Center"/>
+                                            <materialIcons:MaterialIcon x:Name="salesModeIcon" Kind="BorderNone" Width="24" Height="24" VerticalAlignment="Center"/>
+                                            <TextBlock x:Name="salesModeText"  Text="None Selected"  VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
                                 </StackPanel>
@@ -473,35 +446,35 @@
 
                             <WrapPanel x:Name="TopSideMainPanel" Grid.Row="1">
                                 <!--Menu Button-->
-                                <Button x:Name="MenuButton" Style="{StaticResource ButtonStyle}" Foreground="{StaticResource FontColor}" Background="LightGray" Height="36" Width="100" VerticalAlignment="Center" >
+                                <Button x:Name="MenuButton" Style="{StaticResource ButtonStyle}" Foreground="{StaticResource FontColor}" Background="SlateGray" Height="36" Width="100" VerticalAlignment="Center" >
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <materialIcons:MaterialIcon Kind="Billboard" Width="24" Height="24" VerticalAlignment="Center"/>
                                         <TextBlock Text="Menu" Margin="5,0,0,0"  VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
                                 <!--Favorite Button-->
-                                <Button x:Name="FavoriteButton" Style="{StaticResource ButtonStyle}" Foreground="{StaticResource FontColor}" Background="LightGray" Height="36" Width="100" VerticalAlignment="Center">
+                                <Button x:Name="FavoriteButton" Style="{StaticResource ButtonStyle}" Foreground="{StaticResource FontColor}" Background="SlateGray" Height="36" Width="100" VerticalAlignment="Center">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <materialIcons:MaterialIcon Kind="FavoriteAdd" Width="24" Height="24" VerticalAlignment="Center"/>
                                         <TextBlock Text="Fav" Margin="5,0,0,0"  VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
                                 <!--Search Button-->
-                                <Button x:Name="SearchButton" Style="{StaticResource ButtonStyle}" Foreground="{StaticResource FontColor}" Background="LightGray" Height="36" Width="100" VerticalAlignment="Center">
+                                <Button x:Name="SearchButton" Style="{StaticResource ButtonStyle}" Foreground="{StaticResource FontColor}" Background="SlateGray" Height="36" Width="100" VerticalAlignment="Center">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <materialIcons:MaterialIcon Kind="Search" Width="24" Height="24" VerticalAlignment="Center"/>
                                         <TextBlock Text="Search" Margin="5,0,0,0"  VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
                                 <!--Promotion Button-->
-                                <Button x:Name="PromotionButton" Style="{StaticResource ButtonStyle}" Foreground="{StaticResource FontColor}" Background="LightGray" Height="36" Width="100" VerticalAlignment="Center">
+                                <Button x:Name="PromotionButton" Style="{StaticResource ButtonStyle}" Foreground="{StaticResource FontColor}" Background="SlateGray" Height="36" Width="100" VerticalAlignment="Center">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <materialIcons:MaterialIcon Kind="Discount" Width="24" Height="24" VerticalAlignment="Center"/>
                                         <TextBlock Text="Promotion" Margin="5,0,0,0"  VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
                                 <!--Payment Button-->
-                                <Button x:Name="PaymentButton" Style="{StaticResource ButtonStyle}" Foreground="{StaticResource FontColor}" Background="LightGray" Height="36" Width="100" VerticalAlignment="Center">
+                                <Button x:Name="PaymentButton" Style="{StaticResource ButtonStyle}" Foreground="{StaticResource FontColor}" Background="SlateGray" Height="36" Width="100" VerticalAlignment="Center">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <materialIcons:MaterialIcon Kind="PaymentClock" Width="24" Height="24" VerticalAlignment="Center"/>
                                         <TextBlock Text="Payment" Margin="5,0,0,0"  VerticalAlignment="Center"/>
@@ -619,28 +592,28 @@
                                             </Grid.ColumnDefinitions>
 
                                             <!-- Row 1 -->
-                                            <Button Grid.Row="1" Grid.Column="0" Content="7" FontSize="24" FontFamily="arial" Background="Azure" />
-                                            <Button Grid.Row="1" Grid.Column="1" Content="8" FontSize="24" FontFamily="arial" Background="Azure" />
-                                            <Button Grid.Row="1" Grid.Column="2" Content="9" FontSize="24" FontFamily="arial" Background="Azure" />
-                                            <Button Grid.Row="1" Grid.Column="3" Content="C" FontSize="18" FontFamily="arial" Background="{StaticResource SecondaryButtonColor}"/>
+                                            <Button Grid.Row="1" Grid.Column="0" Content="7" FontSize="24" FontFamily="arial" Background="Azure" Click="Number_Click"/>
+                                            <Button Grid.Row="1" Grid.Column="1" Content="8" FontSize="24" FontFamily="arial" Background="Azure" Click="Number_Click"/>
+                                            <Button Grid.Row="1" Grid.Column="2" Content="9" FontSize="24" FontFamily="arial" Background="Azure" Click="Number_Click"/>
+                                            <Button Grid.Row="1" Grid.Column="3" Content="C" FontSize="18" FontFamily="arial" Background="{StaticResource SecondaryButtonColor}" Click="Clear_Click"/>
 
                                             <!-- Row 2 -->
-                                            <Button Grid.Row="2" Grid.Column="0" Content="4" FontSize="24" FontFamily="arial" Background="Azure" />
-                                            <Button Grid.Row="2" Grid.Column="1" Content="5" FontSize="24" FontFamily="arial" Background="Azure" />
-                                            <Button Grid.Row="2" Grid.Column="2" Content="6" FontSize="24" FontFamily="arial" Background="Azure" />
-                                            <Button Grid.Row="2" Grid.Column="3" Content="⌫" FontSize="18" FontFamily="arial"  Background="{StaticResource ErrorColor}"/>
+                                            <Button Grid.Row="2" Grid.Column="0" Content="4" FontSize="24" FontFamily="arial" Background="Azure" Click="Number_Click"/>
+                                            <Button Grid.Row="2" Grid.Column="1" Content="5" FontSize="24" FontFamily="arial" Background="Azure" Click="Number_Click"/>
+                                            <Button Grid.Row="2" Grid.Column="2" Content="6" FontSize="24" FontFamily="arial" Background="Azure" Click="Number_Click"/>
+                                            <Button Grid.Row="2" Grid.Column="3" Content="⌫" FontSize="18" FontFamily="arial"  Background="{StaticResource ErrorColor}" Click="Backspace_Click"/>
                                             
 
                                             <!-- Row 3 -->
-                                            <Button Grid.Row="3" Grid.Column="0" Content="1" FontSize="24" FontFamily="arial" Background="Azure" />
-                                            <Button Grid.Row="3" Grid.Column="1" Content="2" FontSize="24" FontFamily="arial" Background="Azure" />
-                                            <Button Grid.Row="3" Grid.Column="2" Content="3" FontSize="24" FontFamily="arial" Background="Azure" />
-                                            <Button Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Content="ENTER"  FontSize="18" FontFamily="arial" Background="{StaticResource PrimaryButtonColor}"/>
+                                            <Button Grid.Row="3" Grid.Column="0" Content="1" FontSize="24" FontFamily="arial" Background="Azure" Click="Number_Click"/>
+                                            <Button Grid.Row="3" Grid.Column="1" Content="2" FontSize="24" FontFamily="arial" Background="Azure" Click="Number_Click"/>
+                                            <Button Grid.Row="3" Grid.Column="2" Content="3" FontSize="24" FontFamily="arial" Background="Azure" Click="Number_Click"/>
+                                            <Button Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Content="ENTER"  FontSize="18" FontFamily="arial" Background="{StaticResource PrimaryButtonColor}" Click="Enter_Click"/>
 
                                             <!-- Row 4 -->
-                                            <Button Grid.Row="4" Grid.Column="0" Content="0" FontSize="24" FontFamily="arial" Background="Azure" />
-                                            <Button Grid.Row="4" Grid.Column="1" Content="00" FontSize="24" FontFamily="arial" Background="Azure" />
-                                            <Button Grid.Row="4" Grid.Column="2" Content="000" FontSize="24" FontFamily="arial" Background="Azure" />
+                                            <Button Grid.Row="4" Grid.Column="0" Content="0" FontSize="24" FontFamily="arial" Background="Azure"  Click="Number_Click"/>
+                                            <Button Grid.Row="4" Grid.Column="1" Content="00" FontSize="24" FontFamily="arial" Background="Azure"  Click="Number_Click"/>
+                                            <Button Grid.Row="4" Grid.Column="2" Content="000" FontSize="24" FontFamily="arial" Background="Azure"  Click="Number_Click"/>
                                         </Grid>
                                     </Grid>
                                 </Grid>

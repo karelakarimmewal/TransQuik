@@ -134,6 +134,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfScreenHelper, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\WpfScreenHelper.2.1.0\lib\net40\WpfScreenHelper.dll</HintPath>
+    </Reference>
     <Reference Include="ZstdSharp, Version=0.7.1.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
       <HintPath>packages\ZstdSharp.Port.0.7.1\lib\net461\ZstdSharp.dll</HintPath>
     </Reference>
@@ -148,6 +151,12 @@
     <Compile Include="Controller\RelayCommand.cs" />
     <Compile Include="Model\ModelProcessing.cs" />
     <Compile Include="Model\ProductDetails.cs" />
+    <Compile Include="Pages\Receipt.xaml.cs">
+      <DependentUpon>Receipt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SecondaryMonitor.xaml.cs">
+      <DependentUpon>SecondaryMonitor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ShutDownPopup.xaml.cs">
       <DependentUpon>ShutDownPopup.xaml</DependentUpon>
     </Compile>
@@ -169,6 +178,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\Receipt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SecondaryMonitor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ShutDownPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

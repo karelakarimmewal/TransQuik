@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1.X509;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using TranQuik.Pages;
 
 namespace TranQuik.Model
 {
@@ -16,15 +18,17 @@ namespace TranQuik.Model
     {
         private LocalDbConnector localDbConnector;
         private MainWindow mainWindow;
-        private List<Product> cartProducts = new List<Product>();
-        private int taxPercentage = 11; // Tax percentage
-        private decimal discountPercentage = 0; // Discount percentage
-
+        private  SecondaryMonitor secondaryMonitor;
+        public List<Product> cartProducts = new List<Product>();
+        public decimal productVATPercent;
+        public string vatDesp;
 
         public ModelProcessing(MainWindow mainWindow)
         {
             this.localDbConnector = new LocalDbConnector(); // Instantiate LocalDbConnector
             this.mainWindow = mainWindow; // Assign the MainWindow instance
+            this.secondaryMonitor = mainWindow.secondaryMonitor;
+            GetProductVATInfo();
         }
 
         public void GetProductGroupNamesAndIds(out List<string> productGroupNames, out List<int> productGroupIds)
@@ -37,9 +41,11 @@ namespace TranQuik.Model
                 using (MySqlConnection connection = localDbConnector.GetMySqlConnection())
                 {
                     string query = @"
-                        SELECT PD.ProductDeptID, PD.ProductDeptName
-                        FROM ProductDept PD
-                        WHERE PD.ProductDeptActivate = 1";
+                                SELECT DISTINCT PD.ProductDeptID, PD.ProductDeptName
+                                FROM ProductDept PD
+                                JOIN products P ON PD.ProductDeptID = P.ProductDeptID
+                                WHERE PD.ProductDeptActivate = 1 AND P.ProductTypeID IN (0, 1, 2, 7) ";
+
 
                     MySqlCommand command = new MySqlCommand(query, connection);
                     connection.Open();
@@ -340,18 +346,18 @@ namespace TranQuik.Model
             mainWindow.cartGridListView.ItemContainerStyle = itemContainerStyle;
 
             mainWindow.subTotal.Text = $"{totalPrice:C0}";
-            mainWindow.total.Text = (totalPrice + (totalPrice * taxPercentage / 100)).ToString("#,0");
-            mainWindow.GrandTextBlock.Text = $"{totalPrice + (totalPrice * taxPercentage / 100):C0}";
+            mainWindow.total.Text = (totalPrice + (totalPrice * productVATPercent / 100)).ToString("#,0");
+            mainWindow.VATModeText.Text = $"{(totalPrice * productVATPercent / 100).ToString("#,0")}";
+            mainWindow.GrandTextBlock.Text = $"{totalPrice + (totalPrice * productVATPercent / 100):C0}";
             mainWindow.totalQty.Text = totalQuantity.ToString("0.00");
-            mainWindow.GrandTotalCalculator.Text = $"{(totalPrice + (totalPrice * taxPercentage / 100)).ToString("#,0")}";
+            mainWindow.GrandTotalCalculator.Text = $"{(totalPrice + (totalPrice * productVATPercent / 100)).ToString("#,0")}";
 
             bool hasItemsInCart = cartProducts.Any();
             // Enable or disable the PayButton based on whether there are items in cartProducts
             mainWindow.PayButton.IsEnabled = hasItemsInCart;
-            //secondaryWindow.CartProducts = cartProducts;
-            //secondaryWindow.TaxPercentage = taxPercentage;
-            //secondaryWindow.Discount = discountPercentage;
-            //secondaryWindow.UpdateCartUI();
+            mainWindow.HoldButton.IsEnabled = hasItemsInCart;
+            mainWindow.ClearButton.IsEnabled = hasItemsInCart;
+            mainWindow.UpdateSecondayMonitor();
 
         }
 
@@ -416,7 +422,133 @@ namespace TranQuik.Model
             }
         }
 
+        public void UpdateVisibleButtons()
+        {
+            // Determine the endIndex based on startIndex and visibleButtonCount
+            mainWindow.endIndex = Math.Min(mainWindow.startIndex + mainWindow.visibleButtonCounts, mainWindow.productGroupButtons.Count);
 
+            for (int i = 0; i < mainWindow.productGroupButtons.Count; i++)
+            {
+                // Check if the current button index is within the visible range
+                if (i >= mainWindow.startIndex && i < mainWindow.endIndex)
+                {
+                    // Show the button if it's within the visible range
+                    mainWindow.productGroupButtons[i].Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    // Hide the button if it's outside the visible range
+                    mainWindow.productGroupButtons[i].Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        public void UpdateVisibleProductGroupButtons()
+        {
+            // Determine the endIndex based on productButtonStartIndex and productButtonCount
+            int endIndex = Math.Min(mainWindow.productButtonStartIndex + mainWindow.productButtonCount, mainWindow.MainContentProduct.Children.Count);
+            Console.WriteLine(mainWindow.MainContentProduct.Children.Count);
+            for (int i = 0; i < mainWindow.MainContentProduct.Children.Count; i++)
+            {
+                // Check if the current button index is within the visible range
+                if (i >= mainWindow.productButtonStartIndex && i < endIndex)
+                {
+                    // Show the button if it's within the visible range
+                    mainWindow.MainContentProduct.Children[i].Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    // Hide the button if it's outside the visible range
+                    mainWindow.MainContentProduct.Children[i].Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        public void Calculating()
+        {
+            // Parse the text values into double (assuming they represent numbers)
+            if (double.TryParse(mainWindow.displayText.Text, out double currentTextValue) &&
+                double.TryParse(mainWindow.GrandTotalCalculator.Text, out double grandTotalValue))
+            {
+                // Perform the subtraction
+                double returnAmount = currentTextValue - grandTotalValue;
+
+                // Update the TotalReturnCalculator with the calculated value
+                mainWindow.TotalReturnCalculator.Text = returnAmount.ToString("#,0");
+            }
+            else
+            {
+                // Handle parsing failure or invalid input (e.g., non-numeric text)
+                MessageBox.Show("Invalid input. Please enter valid numeric values.");
+            }
+        }
+        public void UpdateFormattedDisplay()
+        {
+            // Get the raw numerical value from the displayed text
+            if (double.TryParse(mainWindow.displayText.Text.Replace(".", ""), out double number))
+            {
+                // Format the number with dots as thousands separators
+                mainWindow.displayText.Text = number.ToString("#,##0");
+            }
+            else
+            {
+                // Invalid input handling (e.g., if parsing fails)
+                mainWindow.displayText.Text = "0";
+            }
+        }
+
+        public void GetProductVATInfo()
+        {
+            string query = "SELECT ProductVATPercent, VATDesp FROM ProductVAT WHERE ProductVATCode = 'V'";
+
+            try
+            {
+                using (MySqlConnection connection = localDbConnector.GetMySqlConnection())
+                {
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    connection.Open();
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            productVATPercent = reader.GetDecimal("ProductVATPercent");
+                            vatDesp = reader.GetString("VATDesp");
+                            
+                        }
+                        else
+                        {
+                            Console.WriteLine("No data found for ProductVATCode = 'V'.");
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"MySQL Error: {ex.Message}");
+                Console.WriteLine($"Error Code: {ex.ErrorCode}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving ProductVAT information: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+            }
+        }
+
+        public void ResetUI()
+        {
+            // Clear the display after processing the input
+            mainWindow.displayText.Text = "0";
+            cartProducts.Clear();
+            UpdateCartUI();
+            Calculating();
+            mainWindow.PayementProcess.Visibility = Visibility.Collapsed;
+            mainWindow.MainContentProduct.Visibility = Visibility.Visible;
+            mainWindow.SaleMode = 0;
+            mainWindow.SaleModeView();
+            //secondaryWindow.ResetUI();
+        }
 
 
     }

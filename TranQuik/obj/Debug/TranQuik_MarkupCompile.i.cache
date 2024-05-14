@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Practice WPF\Project\MISAW\TranQuik\obj\Debug\
+D:\Practice WPF\Project\TransQuik\TranQuik\obj\Debug\
 TranQuik
 none
 false
 DEBUG;TRACE
-D:\Practice WPF\Project\MISAW\TranQuik\App.xaml
-3-565134460
+D:\Practice WPF\Project\TransQuik\TranQuik\App.xaml
+5-181929660
 
-17190179474
-40-382041012
-MainWindow.xaml;Pages\ShutDownPopup.xaml;SaleModePop.xaml;
+19-293615166
+41-219296160
+MainWindow.xaml;Pages\Receipt.xaml;Pages\SecondaryMonitor.xaml;Pages\ShutDownPopup.xaml;SaleModePop.xaml;
 
 True
 

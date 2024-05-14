@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Material.Icons;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace TranQuik.Model
 {
@@ -34,7 +35,15 @@ namespace TranQuik.Model
     }
 
 
-
+    public class SaleMode
+    {
+        public int SaleModeID { get; set; }
+        public string SaleModeName { get; set; }
+        public string ReceiptHeaderText { get; set; }
+        public string NotInPayTypeList { get; set; }
+        public string PrefixText { get; set; }
+        public string PrefixQueue { get; set; }
+    }
 
     public class HeldCart
     {
@@ -62,4 +71,51 @@ namespace TranQuik.Model
             return sb.ToString();
         }
     }
+    public class SaleModeIconMapper
+    {
+        // Dictionary to store SaleModeID to MaterialIconKind and Brush mappings
+        private Dictionary<int, (MaterialIconKind, Brush)> iconMappings = new Dictionary<int, (MaterialIconKind, Brush)>
+    {
+        { 2, (MaterialIconKind.Motorbike, (Brush)Application.Current.FindResource("AccentColor")) },             // Example color: Red
+        { 9, (MaterialIconKind.Car, (Brush)Application.Current.FindResource("SuccessColor")) },                   // Example color: Blue
+        { 1, (MaterialIconKind.Restaurant, (Brush)Application.Current.FindResource("PrimaryButtonColor")) },           // Example color: Green
+        { 3, (MaterialIconKind.PackageDelivered, (Brush)Application.Current.FindResource("ErrorColor")) },    // Example color: Orange
+        { 10, (MaterialIconKind.Shopping,(Brush)Application.Current.FindResource("ButtonEnabledColor1")) },           // Example color: Purple
+        { 11, (MaterialIconKind.Shopping, (Brush)Application.Current.FindResource("ButtonEnabledColor1")) },           // Example color: Yellow
+        { 12, (MaterialIconKind.Shopping,(Brush)Application.Current.FindResource("ButtonEnabledColor1")) },             // Example color: Cyan
+        { 13, (MaterialIconKind.Shopping, (Brush)Application.Current.FindResource("ButtonEnabledColor1")) },           // Example color: Magenta
+        { 14, (MaterialIconKind.Shopping, (Brush)Application.Current.FindResource("ButtonEnabledColor1")) }             // Example color: Brown
+    };
+
+        // Method to retrieve the MaterialIconKind for a given SaleModeID
+        public MaterialIconKind GetIconForSaleMode(int saleModeID)
+        {
+            // Check if the SaleModeID exists in the iconMappings dictionary
+            if (iconMappings.ContainsKey(saleModeID))
+            {
+                return iconMappings[saleModeID].Item1; // Return the MaterialIconKind
+            }
+            else
+            {
+                // Default to MaterialIconKind.Restaurant if SaleModeID is not found
+                return MaterialIconKind.Restaurant;
+            }
+        }
+
+        // Method to retrieve the Brush (color) for a given SaleModeID
+        public Brush GetColorForSaleMode(int saleModeID)
+        {
+            // Check if the SaleModeID exists in the iconMappings dictionary
+            if (iconMappings.ContainsKey(saleModeID))
+            {
+                return iconMappings[saleModeID].Item2; // Return the Brush (color)
+            }
+            else
+            {
+                // Default color (if SaleModeID is not found, return a fallback color)
+                return Brushes.Black; // Example fallback color: Black
+            }
+        }
+    }
+
 }

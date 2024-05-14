@@ -60,8 +60,10 @@ namespace TranQuik.Configuration
                 { "_AppSaleMode", "3" },
                 { "_AppID", "Development" },
                 { "_AppSecMonitor", "False" },
-                { "_AppAllowImage", "True" },
+                { "_AppSecMonitorBorder", "1" },
+                { "_AppAllowImage", "False" },
                 { "_AppStatus", "False" },
+                { "_ComputerID", "000" },
                 { "_LocalDbServer", "localhost" },
                 { "_LocalDbPort", "3308" },
                 { "_LocalDbUser", "vtecPOS" },
@@ -71,7 +73,8 @@ namespace TranQuik.Configuration
                 { "_CloudDbPort", "0" },
                 { "_CloudDbUser", "" },
                 { "_CloudDbPassword", "" },
-                { "_CloudDbName", "" }
+                { "_CloudDbName", "" },
+                
             };
 
             string json = JsonSerializer.Serialize(defaultSettings, new JsonSerializerOptions { WriteIndented = true });
@@ -85,8 +88,10 @@ namespace TranQuik.Configuration
             AppSettings.AppSaleMode = GetSettingInt(appSettings, "_AppSaleMode", AppSettings.AppSaleMode);
             AppSettings.AppID = GetSettingString(appSettings, "_AppID", AppSettings.AppID);
             AppSettings.AppSecMonitor = GetSettingBool(appSettings, "_AppSecMonitor", AppSettings.AppSecMonitor);
+            AppSettings.AppSecMonitorBorder = GetSettingInt(appSettings, "_AppSecMonitorBorder", AppSettings.AppSecMonitorBorder);
             AppSettings.AppAllowImage = GetSettingBool(appSettings, "_AppAllowImage", AppSettings.AppAllowImage);
             AppSettings.AppStatus = GetSettingBool(appSettings, "_AppStatus", AppSettings.AppStatus);
+            AppSettings.ComputerID = GetSettingInt(appSettings, "_ComputerID", AppSettings.ComputerID);
         }
 
         private static void UpdateDatabaseSettings(Dictionary<string, string> appSettings)
@@ -143,8 +148,10 @@ namespace TranQuik.Configuration
                     { "_AppSaleMode", AppSettings.AppSaleMode.ToString() },
                     { "_AppID", AppSettings.AppID },
                     { "_AppSecMonitor", AppSettings.AppSecMonitor.ToString() },
+                    { "_AppSecMonitorBorder", AppSettings.AppSecMonitorBorder.ToString() },
                     { "_AppAllowImage", AppSettings.AppAllowImage.ToString() },
                     { "_AppStatus", AppSettings.AppStatus.ToString() },
+                    { "_ComputerID", AppSettings.ComputerID.ToString() },
 
                     { "_LocalDbServer", DatabaseSettings.LocalDbServer },
                     { "_LocalDbPort", DatabaseSettings.LocalDbPort.ToString() },

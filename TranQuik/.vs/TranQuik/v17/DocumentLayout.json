@@ -1,33 +1,45 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\VB\\Project\\TranQuik\\TranQuik\\",
+  "WorkspaceRootPath": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\VB\\Project\\TranQuik\\TranQuik\\salemodepop.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:salemodepop.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\VB\\Project\\TranQuik\\TranQuik\\salemodepop.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:salemodepop.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|d:\\vb\\project\\tranquik\\tranquik\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\VB\\Project\\TranQuik\\TranQuik\\model\\modelprocessing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\model\\modelprocessing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:model\\modelprocessing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|d:\\vb\\project\\tranquik\\tranquik\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|d:\\practice wpf\\project\\transquik\\tranquik\\pages\\receipt.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:pages\\receipt.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|d:\\practice wpf\\project\\transquik\\tranquik\\pages\\secondarymonitor.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:pages\\secondarymonitor.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|d:\\practice wpf\\project\\transquik\\tranquik\\mainwindow.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:mainwindow.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|d:\\practice wpf\\project\\transquik\\tranquik\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\VB\\Project\\TranQuik\\TranQuik\\model\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:model\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|d:\\practice wpf\\project\\transquik\\tranquik\\pages\\secondarymonitor.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:pages\\secondarymonitor.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|D:\\VB\\Project\\TranQuik\\TranQuik\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|d:\\practice wpf\\project\\transquik\\tranquik\\configuration\\appsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:configuration\\appsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|d:\\practice wpf\\project\\transquik\\tranquik\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|d:\\practice wpf\\project\\transquik\\tranquik\\pages\\receipt.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:pages\\receipt.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|d:\\practice wpf\\project\\transquik\\tranquik\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0BBD0013-9791-412C-9904-E4F811983E2F}|TranQuik.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -41,113 +53,130 @@
           "SelectedChildIndex": 7,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SaleModePop.xaml",
-              "DocumentMoniker": "D:\\VB\\Project\\TranQuik\\TranQuik\\SaleModePop.xaml",
-              "RelativeDocumentMoniker": "SaleModePop.xaml",
-              "ToolTip": "D:\\VB\\Project\\TranQuik\\TranQuik\\SaleModePop.xaml",
-              "RelativeToolTip": "SaleModePop.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-13T09:57:50.552Z",
+              "DocumentIndex": 5,
+              "Title": "SecondaryMonitor.xaml.cs",
+              "DocumentMoniker": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\Pages\\SecondaryMonitor.xaml.cs",
+              "RelativeDocumentMoniker": "Pages\\SecondaryMonitor.xaml.cs",
+              "ToolTip": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\Pages\\SecondaryMonitor.xaml.cs",
+              "RelativeToolTip": "Pages\\SecondaryMonitor.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAH0AAABJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-14T09:27:47.965Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Model.cs",
-              "DocumentMoniker": "D:\\VB\\Project\\TranQuik\\TranQuik\\Model\\Model.cs",
-              "RelativeDocumentMoniker": "Model\\Model.cs",
-              "ToolTip": "D:\\VB\\Project\\TranQuik\\TranQuik\\Model\\Model.cs",
-              "RelativeToolTip": "Model\\Model.cs",
-              "ViewState": "AQIAACQAAAAAAAAAAAAkwBcAAABbAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-13T08:03:29.393Z"
+              "DocumentIndex": 7,
+              "Title": "App.xaml",
+              "DocumentMoniker": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\App.xaml",
+              "RelativeDocumentMoniker": "App.xaml",
+              "ToolTip": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\App.xaml",
+              "RelativeToolTip": "App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-14T07:16:08.812Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "App.xaml.cs",
-              "DocumentMoniker": "D:\\VB\\Project\\TranQuik\\TranQuik\\App.xaml.cs",
+              "DocumentMoniker": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\App.xaml.cs",
               "RelativeDocumentMoniker": "App.xaml.cs",
-              "ToolTip": "D:\\VB\\Project\\TranQuik\\TranQuik\\App.xaml.cs",
+              "ToolTip": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\App.xaml.cs",
               "RelativeToolTip": "App.xaml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-13T07:22:13.997Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "D:\\VB\\Project\\TranQuik\\TranQuik\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "D:\\VB\\Project\\TranQuik\\TranQuik\\MainWindow.xaml.cs",
-              "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAAGUAAAAAAAAAAAAwwBMAAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-12T10:21:33.365Z",
+              "WhenOpened": "2024-05-14T03:52:17.71Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "D:\\VB\\Project\\TranQuik\\TranQuik\\MainWindow.xaml",
+              "DocumentMoniker": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "D:\\VB\\Project\\TranQuik\\TranQuik\\MainWindow.xaml",
+              "ToolTip": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-13T14:57:23.496Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SaleModePop.xaml.cs",
-              "DocumentMoniker": "D:\\VB\\Project\\TranQuik\\TranQuik\\SaleModePop.xaml.cs",
-              "RelativeDocumentMoniker": "SaleModePop.xaml.cs",
-              "ToolTip": "D:\\VB\\Project\\TranQuik\\TranQuik\\SaleModePop.xaml.cs",
-              "RelativeToolTip": "SaleModePop.xaml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-13T05:03:32.988Z",
+              "WhenOpened": "2024-05-14T02:58:46.051Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AQIAAJEAAAAAAAAAAAAcwA0AAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-14T02:56:29.084Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SecondaryMonitor.xaml",
+              "DocumentMoniker": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\Pages\\SecondaryMonitor.xaml",
+              "RelativeDocumentMoniker": "Pages\\SecondaryMonitor.xaml",
+              "ToolTip": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\Pages\\SecondaryMonitor.xaml",
+              "RelativeToolTip": "Pages\\SecondaryMonitor.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-14T09:22:06.986Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Receipt.xaml.cs",
+              "DocumentMoniker": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\Pages\\Receipt.xaml.cs",
+              "RelativeDocumentMoniker": "Pages\\Receipt.xaml.cs",
+              "ToolTip": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\Pages\\Receipt.xaml.cs",
+              "RelativeToolTip": "Pages\\Receipt.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-14T08:37:15.234Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "ModelProcessing.cs",
-              "DocumentMoniker": "D:\\VB\\Project\\TranQuik\\TranQuik\\Model\\ModelProcessing.cs",
+              "DocumentMoniker": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\Model\\ModelProcessing.cs",
               "RelativeDocumentMoniker": "Model\\ModelProcessing.cs",
-              "ToolTip": "D:\\VB\\Project\\TranQuik\\TranQuik\\Model\\ModelProcessing.cs",
+              "ToolTip": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\Model\\ModelProcessing.cs",
               "RelativeToolTip": "Model\\ModelProcessing.cs",
-              "ViewState": "AQIAACcAAAAAAAAAAAAowBkAAABMAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-13T05:09:26.376Z",
               "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 167,
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Receipt.xaml",
+              "DocumentMoniker": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\Pages\\Receipt.xaml",
+              "RelativeDocumentMoniker": "Pages\\Receipt.xaml",
+              "ToolTip": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\Pages\\Receipt.xaml",
+              "RelativeToolTip": "Pages\\Receipt.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-14T08:37:08.425Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AppSettings.cs",
+              "DocumentMoniker": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\Configuration\\AppSettings.cs",
+              "RelativeDocumentMoniker": "Configuration\\AppSettings.cs",
+              "ToolTip": "D:\\Practice WPF\\Project\\TransQuik\\TranQuik\\Configuration\\AppSettings.cs",
+              "RelativeToolTip": "Configuration\\AppSettings.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAA4wB0AAAA6AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-14T09:38:03.56Z",
+              "EditorCaption": ""
             }
           ]
         }

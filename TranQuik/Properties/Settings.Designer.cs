@@ -226,5 +226,29 @@ namespace TranQuik.Properties {
                 this["_CloudDbName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("21")]
+        public int _ComputerID {
+            get {
+                return ((int)(this["_ComputerID"]));
+            }
+            set {
+                this["_ComputerID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int _AppSecMonitorBorder {
+            get {
+                return ((int)(this["_AppSecMonitorBorder"]));
+            }
+            set {
+                this["_AppSecMonitorBorder"] = value;
+            }
+        }
     }
 }

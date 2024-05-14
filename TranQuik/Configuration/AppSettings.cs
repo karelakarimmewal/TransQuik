@@ -10,8 +10,10 @@ namespace TranQuik.Configuration
         public static int AppSaleMode { get; set; }
         public static string AppID { get; set; }
         public static bool AppSecMonitor { get; set; }
+        public static int AppSecMonitorBorder { get; set; }
         public static bool AppAllowImage { get; set; }
         public static bool AppStatus { get; set; }
+        public static int ComputerID { get; set; }
     }
 
     public static class SavedSettings
@@ -26,8 +28,10 @@ namespace TranQuik.Configuration
                 Properties.Settings.Default._AppSaleMode = AppSettings.AppSaleMode;
                 Properties.Settings.Default._AppID = AppSettings.AppID;
                 Properties.Settings.Default._AppSecMonitor = AppSettings.AppSecMonitor;
+                Properties.Settings.Default._AppSecMonitorBorder = AppSettings.AppSecMonitorBorder;
                 Properties.Settings.Default._AppAllowImage = AppSettings.AppAllowImage;
                 Properties.Settings.Default._AppStatus = AppSettings.AppStatus;
+                Properties.Settings.Default._ComputerID = AppSettings.ComputerID;
 
                 // Save the updated settings
                 Properties.Settings.Default.Save();
