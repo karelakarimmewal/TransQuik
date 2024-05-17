@@ -11,10 +11,8 @@
         ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="SaleModePop" Height="300" Width="450">
-    <Grid  Background="{StaticResource SecondaryBackgroundColor}" Effect="{StaticResource DropShadowEffect}">
-        <!-- GridSaleMode where buttons will be dynamically added -->
-        <Grid x:Name="GridSaleMode" Margin="0">
-            <!-- Content will be populated programmatically -->
+    <Grid  Background="{StaticResource PrimaryBackgroundColor}" Effect="{StaticResource DropShadowEffect}">
+        <Grid x:Name="GridSaleMode" Margin="2">
         </Grid>
     </Grid>
 

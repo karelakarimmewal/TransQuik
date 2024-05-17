@@ -20,6 +20,7 @@ namespace TranQuik.Pages
         public SecondaryMonitor(ModelProcessing modelProcessing)
         {
             InitializeComponent();
+            BorderCheck();
             Screen[] screens = Screen.AllScreens.ToArray();
             this.modelProcessing = modelProcessing;
             // Check if there are at least two screens available
@@ -41,7 +42,7 @@ namespace TranQuik.Pages
                 this.Top = secondScreenCenterY - (this.Height / 2);
 
 
-                string videoFileName = "AwAds.mp4";
+                string videoFileName = "ads.mp4";
                 string videoDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Video");
                 string videoUrl = System.IO.Path.Combine(videoDirectory, videoFileName);
 
@@ -68,6 +69,19 @@ namespace TranQuik.Pages
             }
         }
 
+        private void BorderCheck()
+        {
+            int BorderSettings = Properties.Settings.Default._AppSecMonitorBorder;
+            if (BorderSettings == 0)
+            {
+                Bordererd.Visibility = Visibility.Collapsed;
+            }
+            else if (BorderSettings == 1)
+            {
+                Bordererd.Visibility = Visibility.Visible;
+            }
+        }
+        
         public void UpdateQRCodeImage(byte[] imageData, string transactionQrUrl)
         {
             // Display the QR code image
@@ -89,9 +103,14 @@ namespace TranQuik.Pages
         {
             // Clear existing items in the ListView
             bool hasItemsInCart = modelProcessing.cartProducts.Any();
+            bool hasItemsActive = modelProcessing.cartProducts.Any(product => product.Status);
+            if (!hasItemsInCart)
+            {
+                hasItemsActive = false;
+            }
 
             // Set the visibility of PaymentDetail based on the presence of items in CartProducts
-            PaymentDetail.Visibility = hasItemsInCart ? Visibility.Visible : Visibility.Collapsed;
+            PaymentDetail.Visibility = hasItemsActive ? Visibility.Visible : Visibility.Collapsed;
 
             cartPanelSecondary.Items.Clear();
             decimal totalPrice = 0;
@@ -101,8 +120,8 @@ namespace TranQuik.Pages
 
             // Define a style for the header columns
             Style headerColumnStyle = new Style(typeof(GridViewColumnHeader));
-            headerColumnStyle.Setters.Add(new Setter(GridViewColumnHeader.BackgroundProperty, Brushes.LightGray)); // Set background color
-            headerColumnStyle.Setters.Add(new Setter(GridViewColumnHeader.ForegroundProperty, Brushes.Black)); // Set foreground color
+            headerColumnStyle.Setters.Add(new Setter(GridViewColumnHeader.BackgroundProperty, (Brush)Application.Current.FindResource("FontColor"))); // Set background color
+            headerColumnStyle.Setters.Add(new Setter(GridViewColumnHeader.ForegroundProperty, Brushes.LightYellow)); // Set foreground color
             headerColumnStyle.Setters.Add(new Setter(GridViewColumnHeader.FontWeightProperty, FontWeights.Bold)); // Set font weight
             headerColumnStyle.Setters.Add(new Setter(GridViewColumnHeader.HorizontalContentAlignmentProperty, HorizontalAlignment.Center)); // Horizontally center the header content
 
@@ -126,8 +145,8 @@ namespace TranQuik.Pages
             quantityColumnTemplate.VisualTree = quantityTextBlockFactory;
 
             gridView.Columns.Add(new GridViewColumn { Header = "#", DisplayMemberBinding = new Binding("Index"), Width = 20, HeaderContainerStyle = headerColumnStyle, CellTemplate = indexColumnTemplate });
-            gridView.Columns.Add(new GridViewColumn { Header = "Product", DisplayMemberBinding = new Binding("ProductName"), Width = 70, HeaderContainerStyle = headerColumnStyle });
-            gridView.Columns.Add(new GridViewColumn { Header = "Price", DisplayMemberBinding = new Binding("ProductPrice"), Width = 80, HeaderContainerStyle = headerColumnStyle });
+            gridView.Columns.Add(new GridViewColumn { Header = "Product", DisplayMemberBinding = new Binding("ProductName"), Width = 80, HeaderContainerStyle = headerColumnStyle });
+            gridView.Columns.Add(new GridViewColumn { Header = "Price", DisplayMemberBinding = new Binding("ProductPrice"), Width = 65, HeaderContainerStyle = headerColumnStyle });
             gridView.Columns.Add(new GridViewColumn { Header = "Qty", DisplayMemberBinding = new Binding("Quantity"), Width = 25, HeaderContainerStyle = headerColumnStyle, CellTemplate = quantityColumnTemplate });
             gridView.Columns.Add(new GridViewColumn { Header = "Total", DisplayMemberBinding = new Binding("TotalPrice"), Width = 80, HeaderContainerStyle = headerColumnStyle });
 
@@ -139,7 +158,7 @@ namespace TranQuik.Pages
 
             // Setters for ListViewItem properties
             listViewItemStyle.Setters.Add(new Setter(ListViewItem.HeightProperty, rowHeight)); // Set the height of each ListViewItem
-            listViewItemStyle.Setters.Add(new Setter(ListViewItem.BorderBrushProperty, Brushes.LightGray)); // Set border brush
+            listViewItemStyle.Setters.Add(new Setter(ListViewItem.BorderBrushProperty, (Brush)Application.Current.FindResource("FontColor"))); // Set border brush
             listViewItemStyle.Setters.Add(new Setter(ListViewItem.BorderThicknessProperty, new Thickness(0, 0, 0, 1))); // Set border thickness (bottom only)
             listViewItemStyle.Setters.Add(new Setter(ListViewItem.HorizontalContentAlignmentProperty, HorizontalAlignment.Center)); // Center content horizontally
 
@@ -169,6 +188,13 @@ namespace TranQuik.Pages
                 Brush rowForeground = product.Status ? Brushes.Black : Brushes.White; // Foreground color for canceled (false) products
                 if (product.Status)
                 {
+                    if (product.ChildItems != null && product.ChildItems.Any())
+                    {
+                        foreach (ChildItem childItem in product.ChildItems)
+                        {
+                            totalProductPrice += (childItem.Price * childItem.Quantity);
+                        }
+                    }
                     totalPrice += totalProductPrice; // Only add to totalPrice if status is true
                 }
                 else
@@ -185,6 +211,22 @@ namespace TranQuik.Pages
                     TotalPrice = totalProductPrice.ToString("#,0"),
                     ProductId = product.ProductId,
                 });
+                if (product.ChildItems != null && product.ChildItems.Any())
+                {
+                    foreach (ChildItem childItem in product.ChildItems)
+                    {
+                        // Add each child item to the ListView
+                        cartPanelSecondary.Items.Add(new
+                        {
+                            Index = "-", // Indent child items with a dash for visual separation
+                            ProductName = childItem.Name,
+                            ProductPrice = childItem.Price.ToString("#,0"),
+                            Quantity = childItem.Quantity,
+                            Background = rowBackground, // Inherit parent's background color
+                            Foreground = rowForeground // Inherit parent's foreground color
+                        });
+                    }
+                }
                 index++;
             }
 
@@ -192,6 +234,12 @@ namespace TranQuik.Pages
             priceTextBlock.Text = $"{totalPrice:C0}";
             taxTextBlock.Text = $"{totalPrice * TaxPercentage / 100:C0}";
             finalPriceTextBlock.Text = $"{totalPrice + totalPrice * TaxPercentage / 100:C0}";
+
+            if (cartPanelSecondary.Items.Count > 0)
+            {
+                // Scroll into the last item
+                cartPanelSecondary.ScrollIntoView(cartPanelSecondary.Items[cartPanelSecondary.Items.Count - 1]);
+            }
         }
 
         public void ResetUI()

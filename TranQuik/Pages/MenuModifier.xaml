@@ -1,0 +1,32 @@
+﻿<Window x:Class="TranQuik.Pages.MenuModifier"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+        xmlns:local="clr-namespace:TranQuik.Pages"
+        mc:Ignorable="d"
+        Title="MenuModifier"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        WindowState="Normal"
+        ResizeMode="NoResize"
+        Height="500" 
+        Width="800">
+    <Grid  Background="{StaticResource PrimaryBackgroundColor}" Effect="{StaticResource DropShadowEffect}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="{StaticResource FontColor}"/>
+        <Button x:Name="addOnSave" Content="{materialIcons:MaterialIconExt Kind=ContentSaveMove}" Background="{StaticResource ButtonEnabledColor1}" Foreground="{StaticResource FontColor}" Grid.Row="0" HorizontalAlignment="Right" Width="72" Margin="1" Click="addOnSave_Click"/>
+        <TextBlock Text="Add On Menu" Grid.Row="0" FontSize="32" FontFamily="arial"  Foreground="LightYellow" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
+        <Grid x:Name="GridModifierModeGroup" Grid.Row="1" >
+
+        </Grid>
+        <Grid x:Name="GridModifierModeMenu" Grid.Row="2" >
+
+        </Grid>
+    </Grid>
+</Window>

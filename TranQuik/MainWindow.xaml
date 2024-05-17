@@ -319,7 +319,7 @@
                             Effect="{StaticResource DropShadowEffect}"
                             HorizontalAlignment="Center" 
                             VerticalAlignment="Center"
-                            Background="{StaticResource PrimaryButtonColor}" Click="ModifierButton_Click">
+                            Background="{StaticResource PrimaryButtonColor}"  Click="ModifierButton_Click">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <materialIcons:MaterialIcon Kind="ClipboardList" Width="28" Height="30" VerticalAlignment="Center"/>
                                 <TextBlock Text="Modifier" FontSize="10"  VerticalAlignment="Center"/>
@@ -401,11 +401,11 @@
 
                                     <!-- Button 2: Staff -->
                                     <Button Height="72" 
-            Width="90" 
-            Style="{StaticResource ButtonStyle}" 
-            Effect="{StaticResource DropShadowEffect}"
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center">
+                                            Width="90" 
+                                            Style="{StaticResource ButtonStyle}" 
+                                            Effect="{StaticResource DropShadowEffect}"
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center">
                                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <materialIcons:MaterialIcon Kind="BusinessCard" Width="24" Height="24" VerticalAlignment="Center"/>
                                             <TextBlock Text="Staff"  VerticalAlignment="Center"/>
@@ -414,11 +414,11 @@
 
                                     <!-- Button 3: CloneBill -->
                                     <Button Height="72" 
-            Width="90" 
-            Style="{StaticResource ButtonStyle}" 
-            Effect="{StaticResource DropShadowEffect}"
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center">
+                                            Width="90" 
+                                            Style="{StaticResource ButtonStyle}" 
+                                            Effect="{StaticResource DropShadowEffect}"
+                                            HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center">
                                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <materialIcons:MaterialIcon Kind="Billboard" Width="24" Height="24" VerticalAlignment="Center"/>
                                             <TextBlock Text="CloneBill"  VerticalAlignment="Center"/>
@@ -426,16 +426,15 @@
                                     </Button>
                                 </WrapPanel>
 
-
                                 <StackPanel x:Name="TopMainContent_DetailFeature" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" >
                                     <!-- Button 1: TakeAway -->
                                     <Button x:Name="salesModeSee" Height="72" 
-                                            Width="250"
+                                            Width="250" IsEnabled="False"
                                             Background="{StaticResource PrimaryButtonColor}"
                                             Style="{StaticResource ButtonStyle}" 
                                             Effect="{StaticResource DropShadowEffect}"
                                             HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center" >
+                                            VerticalAlignment="Center" Click="salesModeSee_Click" >
                                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <materialIcons:MaterialIcon x:Name="salesModeIcon" Kind="BorderNone" Width="24" Height="24" VerticalAlignment="Center"/>
                                             <TextBlock x:Name="salesModeText"  Text="None Selected"  VerticalAlignment="Center"/>
@@ -446,7 +445,7 @@
 
                             <WrapPanel x:Name="TopSideMainPanel" Grid.Row="1">
                                 <!--Menu Button-->
-                                <Button x:Name="MenuButton" Style="{StaticResource ButtonStyle}" Foreground="{StaticResource FontColor}" Background="SlateGray" Height="36" Width="100" VerticalAlignment="Center" >
+                                <Button x:Name="MenuButton" Style="{StaticResource ButtonStyle}" Foreground="{StaticResource FontColor}" Background="SlateGray" Height="36" Width="100" VerticalAlignment="Center" Click="MenuButton_Click" >
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <materialIcons:MaterialIcon Kind="Billboard" Width="24" Height="24" VerticalAlignment="Center"/>
                                         <TextBlock Text="Menu" Margin="5,0,0,0"  VerticalAlignment="Center"/>

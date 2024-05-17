@@ -9,6 +9,7 @@
         WindowState="Normal"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
+        ResizeMode="NoResize"
         Title="ShutDownPopup" Height="150" Width="400">
     <Grid>
             <Grid>

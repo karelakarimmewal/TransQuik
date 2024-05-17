@@ -59,7 +59,6 @@ namespace TranQuik.Model
                         productGroupNames.Add(groupName);
                         productGroupIds.Add(groupId);
                     }
-
                     reader.Close();
                 }
             }
@@ -269,42 +268,43 @@ namespace TranQuik.Model
             FrameworkElementFactory stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
             stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
 
-            // Create and configure the decrease button
-
+            //Create and configure the decrease button
             FrameworkElementFactory decreaseButtonFactory = new FrameworkElementFactory(typeof(Button));
             decreaseButtonFactory.SetValue(Button.ContentProperty, "-");
+            decreaseButtonFactory.SetValue(Button.FontSizeProperty, 12.0); // Set the font size to 12 points
+                                                                           // Assuming you have access to the Product instance
+            
             decreaseButtonFactory.SetValue(Button.FontWeightProperty, FontWeights.Bold);
-            decreaseButtonFactory.SetValue(Button.WidthProperty, 20.0);
+            decreaseButtonFactory.SetValue(Button.WidthProperty, 50.0);
             decreaseButtonFactory.SetValue(Button.MarginProperty, new Thickness(5));
             decreaseButtonFactory.SetBinding(Button.CommandParameterProperty, new Binding("ProductId"));
             decreaseButtonFactory.AddHandler(Button.ClickEvent, new RoutedEventHandler(DecreaseQuantity));
             decreaseButtonFactory.SetValue(Button.StyleProperty, Application.Current.FindResource("DecreaseButtonStyle"));
 
             // Create and configure the delete button
-            FrameworkElementFactory deleteButtonFactory = new FrameworkElementFactory(typeof(Button));
-            deleteButtonFactory.SetValue(Button.ContentProperty, "DEL");
-            deleteButtonFactory.SetValue(Button.FontWeightProperty, FontWeights.Bold);
-            deleteButtonFactory.SetValue(Button.WidthProperty, 20.0);
-            deleteButtonFactory.SetValue(Button.MarginProperty, new Thickness(5));
-            deleteButtonFactory.SetBinding(Button.CommandParameterProperty, new Binding("ProductId"));
-            deleteButtonFactory.AddHandler(Button.ClickEvent, new RoutedEventHandler(DeleteFromCart));
-            deleteButtonFactory.SetValue(Button.StyleProperty, Application.Current.FindResource("DeleteButtonStyle"));
+            //FrameworkElementFactory deleteButtonFactory = new FrameworkElementFactory(typeof(Button));
+            //deleteButtonFactory.SetValue(Button.ContentProperty, "DEL");
+            //deleteButtonFactory.SetValue(Button.FontWeightProperty, FontWeights.Bold);
+            //deleteButtonFactory.SetValue(Button.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+            //deleteButtonFactory.SetValue(Button.WidthProperty, 75.0);
+            //deleteButtonFactory.SetValue(Button.MarginProperty, new Thickness(5));
+            //deleteButtonFactory.SetBinding(Button.CommandParameterProperty, new Binding("ProductId"));
+            //deleteButtonFactory.AddHandler(Button.ClickEvent, new RoutedEventHandler(DeleteFromCart));
+            //deleteButtonFactory.SetValue(Button.StyleProperty, Application.Current.FindResource("DeleteButtonStyle"));
 
 
             // Add buttons to the stack panel
             stackPanelFactory.AppendChild(decreaseButtonFactory);
-            stackPanelFactory.AppendChild(deleteButtonFactory);
+            //stackPanelFactory.AppendChild(deleteButtonFactory);
 
             // Set the stack panel as the visual tree of the DataTemplate
             actionCellTemplate.VisualTree = stackPanelFactory;
 
             // Add the Action column to the GridView
-            gridView.Columns.Add(new GridViewColumn { Header = "Action", CellTemplate = actionCellTemplate, Width = 80, HeaderContainerStyle = headerColumnStyle });
+            gridView.Columns.Add(new GridViewColumn { Header = "Action", CellTemplate = actionCellTemplate, Width = 75, HeaderContainerStyle = headerColumnStyle });
 
             // Set the ListView's View to the created GridView
             mainWindow.cartGridListView.View = gridView;
-
-
 
             int index = 1;
 
@@ -313,16 +313,25 @@ namespace TranQuik.Model
             {
                 decimal totalProductPrice = product.ProductPrice * product.Quantity; // Total price for the product
                 totalQuantity += product.Quantity;
-                TextDecorationCollection textDecorations = new TextDecorationCollection();
+
                 // Determine background and foreground colors based on product status
                 Brush rowBackground = product.Status ? Brushes.Transparent : Brushes.Red;
-                Brush rowForeground = product.Status ? Brushes.Black : Brushes.White; // Foreground color for canceled (false) products
+                Brush rowForeground = product.Status ? Brushes.Black : Brushes.White;
+
                 if (product.Status)
                 {
+                    if (product.ChildItems != null && product.ChildItems.Any())
+                    {
+                        foreach (ChildItem childItem in product.ChildItems)
+                        {
+                            totalProductPrice += (childItem.Price * childItem.Quantity);
+                        }
+                    }
                     totalPrice += totalProductPrice; // Only add to totalPrice if status is true
                 }
 
-                // Add item to ListView
+
+                // Add the main product to the ListView
                 mainWindow.cartGridListView.Items.Add(new
                 {
                     Index = index,
@@ -330,14 +339,33 @@ namespace TranQuik.Model
                     ProductPrice = product.ProductPrice.ToString("#,0"), // Format ProductPrice without currency symbol
                     Quantity = product.Quantity,
                     TotalPrice = totalProductPrice.ToString("#,0"),
-                    ChildItems = product.ChildItems,
                     ProductId = product.ProductId,
                     Background = rowBackground,
-                    Foreground = rowForeground // Set foreground color based on product status
+                    Foreground = rowForeground
                 });
-                index++;
-            }
 
+                // Add child items if they exist
+                if (product.ChildItems != null && product.ChildItems.Any())
+                {
+                    foreach (ChildItem childItem in product.ChildItems)
+                    {
+                        // Add each child item to the ListView
+                        mainWindow.cartGridListView.Items.Add(new
+                        {
+                            Index = "-", // Indent child items with a dash for visual separation
+                            ProductName = childItem.Name,
+                            ProductPrice = childItem.Price.ToString("#,0"),
+                            Quantity = childItem.Quantity,
+                            Background = rowBackground, // Inherit parent's background color
+                            Foreground = rowForeground // Inherit parent's foreground color
+                        });
+                    }
+                }
+
+
+                index++; // Increment the index for the next item
+                
+            }
             // Update displayed total prices
             // Define and apply the custom item container style for ListViewItems
             Style itemContainerStyle = new Style(typeof(ListViewItem));
@@ -359,6 +387,11 @@ namespace TranQuik.Model
             mainWindow.ClearButton.IsEnabled = hasItemsInCart;
             mainWindow.UpdateSecondayMonitor();
 
+            if (mainWindow.cartGridListView.Items.Count > 0)
+            {
+                // Scroll into the last item
+                mainWindow.cartGridListView.ScrollIntoView(mainWindow.cartGridListView.Items[mainWindow.cartGridListView.Items.Count - 1]);
+            }
         }
 
         private void DecreaseQuantity(object sender, RoutedEventArgs e)
@@ -378,9 +411,7 @@ namespace TranQuik.Model
                     else
                     {
                         // If the quantity is already 1, you may choose to remove the product instead
-
-                        productToDecrease.Status = false;
-                        productToDecrease.Quantity = 0;
+                        productToDecrease.Quantity = 1;
                     }
 
                     // Update cart UI
@@ -402,8 +433,18 @@ namespace TranQuik.Model
                     productToCancel.Status = false;
                     productToCancel.Quantity = 0;
 
+                    // Cancel child items associated with the product
+                    if (productToCancel.ChildItems != null && productToCancel.ChildItems.Any())
+                    {
+                        foreach (ChildItem childItem in productToCancel.ChildItems)
+                        {
+                            childItem.Status = false;
+                            childItem.Quantity = 0;
+                        }
+                    }
+
                     // Debug: Print confirmation
-                    Console.WriteLine($"Product with ID {productId} marked as canceled.");
+                    Console.WriteLine($"Product with ID {productId} and associated child items marked as canceled.");
 
                     // Update cart UI to reflect the status change
                     UpdateCartUI();
@@ -413,11 +454,20 @@ namespace TranQuik.Model
                     // Debug: Print message if product not found
                     Console.WriteLine($"Product with ID {productId} not found in the cart.");
                 }
+
                 // Debug: Print details of cartProducts
                 Console.WriteLine("Cart Products:");
                 foreach (var product in cartProducts)
                 {
-                    Console.WriteLine($"ProductId: {product.ProductId}, ProductName: {product.ProductName}, Quantity: {product.Quantity}, Status: {product.Status}");
+                    Console.WriteLine($"ProductId: {product.ProductId}, ProductName: {product.ProductName}, Quantity: {product.Quantity}, Status: {(product.Status ? "Active" : "Canceled")}");
+                    if (product.ChildItems != null && product.ChildItems.Any())
+                    {
+                        Console.WriteLine("Child Items:");
+                        foreach (var childItem in product.ChildItems)
+                        {
+                            Console.WriteLine($"- {childItem.Name}, Price: {childItem.Price:C}, Quantity: {childItem.Quantity}, Status: {(childItem.Status ? "Active" : "Canceled")}");
+                        }
+                    }
                 }
             }
         }
@@ -539,12 +589,13 @@ namespace TranQuik.Model
         public void ResetUI()
         {
             // Clear the display after processing the input
+            mainWindow.isNew = true;
             mainWindow.displayText.Text = "0";
             cartProducts.Clear();
             UpdateCartUI();
             Calculating();
             mainWindow.PayementProcess.Visibility = Visibility.Collapsed;
-            mainWindow.MainContentProduct.Visibility = Visibility.Visible;
+            mainWindow.MainContentProduct.Visibility = Visibility.Hidden;
             mainWindow.SaleMode = 0;
             mainWindow.SaleModeView();
             //secondaryWindow.ResetUI();

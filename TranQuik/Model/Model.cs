@@ -7,12 +7,22 @@ using System.Windows.Media;
 
 namespace TranQuik.Model
 {
-    public class ChildItem
+    
+    public class Customer
     {
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        // Add additional properties as needed
+        private static int lastCustomerId = 0; // Static field to track the last used CustomerId
+        public int CustomerId { get; private set; } // CustomerId property
+
+        public DateTime Time { get; private set; } // Time property
+
+        // Constructor to initialize a new Customer instance
+        public Customer(DateTime time)
+        {
+            CustomerId = ++lastCustomerId; // Increment and assign the new CustomerId
+            Time = time; // Set the Time property
+        }
     }
+
 
     public class Product
     {
@@ -22,7 +32,12 @@ namespace TranQuik.Model
         public int Quantity { get; set; } = 1; // Default quantity is 1
         public bool Status { get; set; } // Status property
 
-        public List<string> ChildItems { get; set; } // List of child items for the product
+        public List<ChildItem> ChildItems { get; set; } // List of child items for the product
+
+        public bool HasChildItems()
+        {
+            return ChildItems != null && ChildItems.Count > 0;
+        }
 
         public Product(int productId, string productName, decimal productPrice)
         {
@@ -30,7 +45,23 @@ namespace TranQuik.Model
             ProductName = productName;
             ProductPrice = productPrice;
             Status = true; // Default status is Active
-            ChildItems = new List<string>(); // Initialize child items list
+            ChildItems = new List<ChildItem>(); // Initialize child items list
+        }
+    }
+
+
+    public class ChildItem
+    {
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
+        public bool Status { get; set; }
+        public ChildItem(string name, decimal price, int quantity, bool status)
+        {
+            Name = name;
+            Quantity = quantity;
+            Price = price;
+            Status = status;
         }
     }
 
@@ -45,17 +76,36 @@ namespace TranQuik.Model
         public string PrefixQueue { get; set; }
     }
 
+    public class ModifierGroup
+    {
+        public string ModifierGroupID { get; set; }
+        public string ModifierGroupCode { get; set; }
+        public string ModifierName { get; set; }
+    }
+
+    public class ModifierMenu
+    {
+        public string ModifierMenuCode { get; set; }
+        public string ModifierMenuName { get; set; }
+        public decimal ModifierMenuPrice { get; set; }
+        public int ModifierMenuQuantity { get; set; } = 0;
+    }
+
     public class HeldCart
     {
         public int CustomerId { get; set; }
         public DateTime TimeStamp { get; set; }
         public List<Product> CartProducts { get; set; }
+        public int SalesMode { get; set; } // New property for SalesMode
+        public string SalesModeName { get; set; }
 
-        public HeldCart(int customerId, DateTime timeStamp, List<Product> cartProducts)
+        public HeldCart(int customerId, DateTime timeStamp, List<Product> cartProducts, int salesMode, string salesModeName)
         {
             CustomerId = customerId;
             TimeStamp = timeStamp;
             CartProducts = cartProducts;
+            SalesMode = salesMode; // Assign SalesMode
+            SalesModeName = salesModeName;
         }
 
         public override string ToString()
@@ -63,6 +113,8 @@ namespace TranQuik.Model
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Customer: {CustomerId}");
             sb.AppendLine($"TimeStamp: {TimeStamp}");
+            sb.AppendLine($"SalesMode: {SalesMode}"); // Include SalesMode in the string representation
+            sb.AppendLine($"SalesModeName: {SalesModeName}"); // Include SalesMode in the string representation
             sb.AppendLine("CartProduct:");
             foreach (var product in CartProducts)
             {
@@ -71,6 +123,8 @@ namespace TranQuik.Model
             return sb.ToString();
         }
     }
+
+
     public class SaleModeIconMapper
     {
         // Dictionary to store SaleModeID to MaterialIconKind and Brush mappings
@@ -113,7 +167,7 @@ namespace TranQuik.Model
             else
             {
                 // Default color (if SaleModeID is not found, return a fallback color)
-                return Brushes.Black; // Example fallback color: Black
+                return Brushes.Orange; // Example fallback color: Black
             }
         }
     }

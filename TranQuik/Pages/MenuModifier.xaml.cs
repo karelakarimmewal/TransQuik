@@ -1,0 +1,339 @@
+﻿using MaterialDesignThemes.Wpf;
+using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media.Effects;
+using System.Windows.Media;
+using TranQuik.Model;
+using WpfScreenHelper;
+using System.Linq;
+
+namespace TranQuik.Pages
+{
+    public partial class MenuModifier : Window
+    {
+        private MainWindow mainWindow; // Reference to MainWindow
+        private LocalDbConnector localDbConnector;
+        private int buttonHeight;
+        private int buttonWidth;
+        private int columns;
+        private int saleMode;
+        private List<ModifierGroup> modifierGroup;
+        private List<ModifierMenu> modifierMenus;
+
+
+        public MenuModifier(MainWindow mainWindow)
+        {
+            InitializeComponent();
+            this.mainWindow = mainWindow;
+            this.localDbConnector = new LocalDbConnector();
+            columns = 5; // Assuming 3 columns
+            buttonWidth = 150; // Adjust as needed based on the button size
+            buttonHeight = 100; // Adjust as needed based on the button size
+            saleMode = mainWindow.SaleMode;
+
+            modifierGroup = GetModifierGroups(saleMode);
+            CreateButtonsForModifierGroups(modifierGroup);
+            
+
+            int rowCount = (int)Math.Ceiling((double)modifierGroup.Count / columns);
+            double totalWidth = columns * buttonWidth;
+            //double totalHeight = 500;
+            this.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
+        }
+
+        public List<ModifierGroup> GetModifierGroups(int saleMode)
+        {
+            List<ModifierGroup> modifierGroups = new List<ModifierGroup>();
+
+            try
+            {
+                using (MySqlConnection connection = localDbConnector.GetMySqlConnection())
+                {
+                    connection.Open();
+
+                    string sqlQuery = @"
+                SELECT DISTINCT PD.ProductDeptID, PD.ProductDeptCode, PD.ProductDeptName
+                FROM Products P
+                JOIN ProductPrice PP ON P.ProductID = PP.ProductID
+                JOIN ProductDept PD ON PD.ProductDeptID = P.ProductDeptID
+                JOIN ProductGroup PG ON P.ProductGroupID = PG.ProductGroupID
+                WHERE P.ProductActivate = 1 AND PG.ProductGroupID = 11 AND PP.SaleMode = @SaleMode";
+
+                    using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
+                    {
+                        // Add parameter for SaleMode
+                        command.Parameters.AddWithValue("@SaleMode", saleMode);
+
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ModifierGroup modifierGroup = new ModifierGroup();
+                                modifierGroup.ModifierGroupID = reader["ProductDeptID"].ToString();
+                                modifierGroup.ModifierGroupCode = reader["ProductDeptCode"].ToString();
+                                modifierGroup.ModifierName = reader["ProductDeptName"].ToString();
+                                modifierGroups.Add(modifierGroup);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions here (e.g., log the error)
+                Console.WriteLine("Error retrieving modifier groups: " + ex.Message);
+            }
+
+            return modifierGroups;
+        }
+
+
+        public void CreateButtonsForModifierGroups(List<ModifierGroup> modifierGroups)
+        {
+            GridModifierModeGroup.Children.Clear(); // Assuming GridSaleMode is defined in XAML
+
+            // Create a UniformGrid to contain the buttons
+            UniformGrid uniformGrid = new UniformGrid
+            {
+                Columns = columns, // Set the number of columns in the grid (adjust as needed)
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(1) // Add margin to the grid for spacing
+            };
+
+            // Add the UniformGrid to GridSaleMode (assuming GridSaleMode is defined in XAML)
+            GridModifierModeGroup.Children.Add(uniformGrid);
+
+            foreach (var modifierGroup in modifierGroups)
+            {
+                // Create a new Button
+                Button button = new Button
+                {
+                    Height = buttonHeight,
+                    Width = buttonWidth,
+                    Style = (Style)Application.Current.Resources["ButtonStyle"], // Apply custom ButtonStyle defined in XAML
+                    Effect = (DropShadowEffect)Application.Current.Resources["DropShadowEffect"], // Apply DropShadowEffect if desired
+                    Background = (Brush)Application.Current.Resources["AccentColor"], // Set the button's background color to AccentColor
+                    Margin = new Thickness(1) // Add margin to the button for spacing
+                };
+
+                // Create a StackPanel for button content
+                StackPanel stackPanel = new StackPanel
+                {
+                    Orientation = Orientation.Vertical,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                // Add TextBlock to StackPanel (ModifierGroup Name)
+                TextBlock textBlock = new TextBlock
+                {
+                    Text = modifierGroup.ModifierName, // Assuming ProductDeptName is the name property of ModifierGroup
+                    Margin = new Thickness(0),
+                    FontSize = 14,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+                stackPanel.Children.Add(textBlock);
+
+                // Add StackPanel to Button Content
+                button.Content = stackPanel;
+
+                // Add Click Event Handler with ModifierGroupID and ModifierGroupName parameters
+                button.Click += (sender, e) => ModifierGroup_Click(sender, e, modifierGroup.ModifierGroupID, modifierGroup.ModifierName);
+                // Add Button to UniformGrid
+                uniformGrid.Children.Add(button);
+            }
+        }
+
+        private void ModifierGroup_Click(object sender, RoutedEventArgs e, string modifierGroupID, string modifierName)
+        {
+            // Retrieve modifier menus for the selected modifier group
+            modifierMenus = GetModifierMenus(modifierGroupID);
+
+            if (modifierMenus != null)
+            {
+                // Add buttons for the retrieved modifier menus
+                AddButtonsToGrid(modifierMenus);
+            }
+            else
+            {
+                // Handle the case where modifierMenus is null (e.g., log error, display message, etc.)
+                Console.WriteLine("ModifierMenus is null. Unable to display modifier menus.");
+            }
+        }
+
+        private List<ModifierMenu> GetModifierMenus(string modifierGroupID)
+        {
+            List<ModifierMenu> modifierMenus = new List<ModifierMenu>();
+
+            try
+            {
+                using (MySqlConnection connection = localDbConnector.GetMySqlConnection())
+                {
+                    connection.Open();
+
+                    string sqlQuery = @"
+                SELECT PG.`ProductGroupCode`, P.`ProductDeptID`, PD.`ProductDeptCode`, PD.`ProductDeptName`, 
+                       P.`ProductCode`, P.`ProductName`, P.`ProductName2`, PP.`ProductPrice`, PP.`SaleMode`
+                FROM Products P
+                JOIN ProductPrice PP ON P.`ProductID` = PP.`ProductID`
+                JOIN ProductDept PD ON PD.`ProductDeptID` = P.`ProductDeptID`
+                JOIN ProductGroup PG ON P.`ProductGroupID` = PG.`ProductGroupID`
+                WHERE P.`ProductActivate` = 1 AND PG.`ProductGroupID` = 11 AND PP.`SaleMode` = @SaleMode AND PD.`ProductDeptID` = @ModifierGroupID
+                ORDER BY P.`ProductName`";
+
+                    using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@SaleMode", saleMode); // Specify the sale mode value
+                        command.Parameters.AddWithValue("@ModifierGroupID", modifierGroupID);
+                        Console.WriteLine($"Ini adalah Sale Mode {saleMode}");
+                        Console.WriteLine($"Ini adalah ModifierGroup {modifierGroupID}");
+
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ModifierMenu modifierMenu = new ModifierMenu();
+                                modifierMenu.ModifierMenuCode = reader["ProductCode"].ToString();
+                                modifierMenu.ModifierMenuName = reader["ProductName"].ToString();
+                                modifierMenu.ModifierMenuPrice = Convert.ToDecimal(reader["ProductPrice"]);
+                                modifierMenu.ModifierMenuQuantity++;
+                                modifierMenus.Add(modifierMenu);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the error message and details
+                Console.WriteLine("Error retrieving modifier menus: " + ex.Message);
+                // You can also throw or rethrow the exception based on your application's error handling strategy
+            }
+
+            return modifierMenus;
+        }
+
+
+        private void AddButtonsToGrid(List<ModifierMenu> modifierMenus)
+        {
+            // Clear existing children in GridModifierModeMenu
+            GridModifierModeMenu.Children.Clear();
+
+            // Create a new Grid to contain the buttons
+            Grid buttonGrid = new Grid();
+
+            // Define fixed rows and columns for the button grid
+            for (int i = 0; i < 3; i++) // 3 rows
+            {
+                buttonGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
+            }
+
+            for (int j = 0; j < 5; j++) // 5 columns
+            {
+                buttonGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+            }
+
+            // Display buttons for the modifierMenus
+            DisplayModifierMenus(buttonGrid, modifierMenus);
+            // Add the button grid to GridModifierModeMenu
+            GridModifierModeMenu.Children.Add(buttonGrid);
+        }
+
+        private void DisplayModifierMenus(Grid buttonGrid, List<ModifierMenu> modifierMenus)
+        {
+            // Clear existing children in the button grid
+            buttonGrid.Children.Clear();
+
+            for (int index = 0; index < modifierMenus.Count; index++)
+            {
+                int row = index / 5;
+                int col = index % 5;
+
+                // Retrieve ModifierMenu data
+                ModifierMenu modifierMenu = modifierMenus[index];
+
+                // Create a button for each ModifierMenu
+                Button button = new Button
+                {
+                    Content = modifierMenu.ModifierMenuName,
+                    FontSize = 12,
+                    Height = 100,
+                    FontWeight = FontWeights.Bold,
+                    Margin = new Thickness(2),
+                    Padding = new Thickness(10),
+                    Background = Brushes.Azure,
+                    Foreground = Brushes.Black,
+                    IsEnabled = true
+                };
+
+                // Attach click event handler to the button
+                button.Click += (sender, e) => ModifierMenuButton_Click(sender, e, modifierMenu);
+
+                // Apply DropShadowEffect to the button
+                button.Effect = new DropShadowEffect();
+
+                // Add the button to the button grid
+                Grid.SetRow(button, row);
+                Grid.SetColumn(button, col);
+                buttonGrid.Children.Add(button);
+                this.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
+            }
+        }
+        private void ModifierMenuButton_Click(object sender, RoutedEventArgs e, ModifierMenu modifierMenu)
+        {
+            // Check if a ChildItem corresponding to the ModifierMenu already exists
+            ChildItem existingItem = mainWindow.childItemsSelected.FirstOrDefault(item =>
+                item.Name == modifierMenu.ModifierMenuName &&
+                item.Price == modifierMenu.ModifierMenuPrice);
+
+            if (existingItem != null)
+            {
+                // Increment the quantity of the existing ChildItem
+                existingItem.Quantity++;
+            }
+            else
+            {
+                // Create a new ChildItem based on the selected ModifierMenu
+                ChildItem childItem = new ChildItem(
+                    modifierMenu.ModifierMenuName,
+                    modifierMenu.ModifierMenuPrice,
+                    modifierMenu.ModifierMenuQuantity,
+                    true // Assuming StatusBar is a property of ChildItem
+                );
+
+                // Add the ChildItem to the mainWindow's childItemsSelected collection
+                mainWindow.childItemsSelected.Add(childItem);
+            }
+
+            // Update the visual state of the button to reflect selection
+            UpdateButtonVisualState(sender as Button, true);
+        }
+
+        private void UpdateButtonVisualState(Button button, bool isSelected)
+        {
+            // Update button appearance based on selection state
+            if (isSelected)
+            {
+                button.Background = Brushes.LightBlue; // Example: Change background color for selected state
+            }
+            else
+            {
+                button.Background = Brushes.Azure; // Example: Change background color for deselected state
+            }
+        }
+
+        private void addOnSave_Click(object sender, RoutedEventArgs e)
+        {
+            // Close the MenuModifier window
+            this.Close();
+        }
+
+
+    }
+}

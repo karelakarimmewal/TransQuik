@@ -1,7 +1,6 @@
 ﻿<Application x:Class="TranQuik.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:TranQuik"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -63,7 +62,7 @@
           ShadowDepth="1"
           Opacity="0.5" />
             <Style x:Key="DecreaseButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="LightYellow"/>
+                <Setter Property="Background" Value="{StaticResource ErrorColor}"/>
                 <!-- Light yellow -->
                 <Setter Property="Foreground" Value="Black"/>
                 <!-- Black text color -->

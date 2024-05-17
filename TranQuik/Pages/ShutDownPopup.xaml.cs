@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Windows;
 
 namespace TranQuik.Pages
@@ -12,6 +13,7 @@ namespace TranQuik.Pages
 
         private void ShutdownButton(object sender, RoutedEventArgs e)
         {
+            Log.ForContext("LogType", "ApplicationLog").Information("Application Stopped");
             Environment.Exit(0);
         }
 
