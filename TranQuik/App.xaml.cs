@@ -1,5 +1,6 @@
 ﻿using Serilog;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Windows;
@@ -24,6 +25,11 @@ namespace TranQuik
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            // Get the current process
+            Process currentProcess = Process.GetCurrentProcess();
+
+            // Set the priority to High
+            currentProcess.PriorityClass = ProcessPriorityClass.High;
         }
     }
 }

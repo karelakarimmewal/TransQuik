@@ -21,16 +21,16 @@
                 <!-- This row for the price and buttons -->
             </Grid.RowDefinitions>
             <Grid x:Name="Bordererd" Grid.Row="0" Height="60">
-                <Border Grid.Row="0" Grid.ColumnSpan="3" Height="60" Background="{StaticResource SecondaryBackgroundColor}" BorderThickness="0,0,0,2" Effect="{StaticResource DropShadowEffect}">
+                <Border Grid.Row="0" Grid.ColumnSpan="3" Height="60" Background="{StaticResource FontColor}" BorderThickness="0,0,0,2" Effect="{StaticResource DropShadowEffect}">
                     <Border.BorderBrush>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                            <GradientStop Offset="0" Color="LightBlue"/>
-                            <GradientStop Offset="1" Color="Azure"/>
+                            <GradientStop Offset="0" Color="DarkSlateGray"/>
+                            <GradientStop Offset="1" Color="Black"/>
                         </LinearGradientBrush>
                     </Border.BorderBrush>
                 </Border>
 
-                <Image Height="30" Source="../Img/TranQuik.png" 
+                <Image Height="30" Source="../Img/TranQuik-Original.png" 
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Margin="10"/>
@@ -63,7 +63,7 @@
                         <ScrollViewer Grid.Row="0" Background="{StaticResource PrimaryBackgroundColor}" VerticalScrollBarVisibility="Auto">
                             <!--<WrapPanel x:Name="cartWrapPanel" Margin="0" Visibility="Visible" Grid.Row="0" />-->
 
-                            <ListView x:Name="cartPanelSecondary" Margin="0" Visibility="Visible" Background="{StaticResource TertiaryBackgroundColor}" Foreground="{StaticResource FontColor}" Grid.Row="0" ></ListView>
+                            <ListView x:Name="cartPanelSecondary" Margin="0" Visibility="Visible"  Foreground="{StaticResource FontColor}" Grid.Row="0" Background="{StaticResource TertiaryBackgroundColor}" ></ListView>
                         </ScrollViewer>
                         <!-- Total Price TextBlock -->
                         <Grid Grid.Row="1" Grid.ColumnSpan="3">
@@ -97,7 +97,7 @@
                                 <RowDefinition />
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-                            <TextBlock x:Name="Payment" Text="No Payment" Effect="{StaticResource DropShadowEffect}"  FontSize="14" FontFamily="arial" FontWeight="Bold" FontStyle="Italic" VerticalAlignment="Center" Background="{StaticResource PrimaryButtonColor}" Foreground="{StaticResource FontColor}" TextAlignment="Center"  />
+                            <TextBlock x:Name="Payment" Text="No Payment" Effect="{StaticResource DropShadowEffect}"  FontSize="14" FontFamily="arial" FontWeight="Bold" FontStyle="Italic" VerticalAlignment="Center" Background="{StaticResource WarningColor}" Foreground="{StaticResource FontColor}" TextAlignment="Center"  />
                             <Image x:Name="imageLoader" Grid.Row="1"  Height="auto" Margin="0,0,0,0" />
                         </Grid>
                     </Border>

@@ -11,9 +11,59 @@
         ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="SaleModePop" Height="300" Width="450">
-    <Grid  Background="{StaticResource PrimaryBackgroundColor}" Effect="{StaticResource DropShadowEffect}">
-        <Grid x:Name="GridSaleMode" Margin="2">
+    <Grid  Background="{StaticResource FontColor}" Effect="{StaticResource DropShadowEffect}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border Background="{StaticResource FontColor}" Grid.Row="0" BorderBrush="Black" BorderThickness="0,0,0,0"/>
+            <TextBlock x:Name="HeaderText" Text="SaleMode" Grid.Row="0" FontSize="24" FontFamily="arial" FontWeight="Black"  Foreground="LightYellow" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
+            <Grid x:Name="paxGrid" Visibility="Collapsed" Grid.Row="1" Margin="5,5,5,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <!-- Buttons for numbers 0-9 and backspace -->
+                <Border Grid.Column="0" Background="LightYellow" BorderBrush="{StaticResource FontColor}" BorderThickness="1" />
+                <TextBlock x:Name="paxDisplay" Text="1" Grid.Column="0" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Content="0" Grid.Column="1" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" />
+                <Button Content="1" Grid.Column="2" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" />
+                <Button Content="2" Grid.Column="3" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" />
+                <Button Content="3" Grid.Column="4" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" />
+                <Button Content="4" Grid.Column="5" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" />
+                <Button Content="5" Grid.Column="6" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" />
+                <Button Content="6" Grid.Column="7" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" />
+                <Button Content="7" Grid.Column="8" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" />
+                <Button Content="8" Grid.Column="9" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" />
+                <Button Content="9" Grid.Column="10" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" />
+                <Button Grid.Column="11" Background="Azure" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="BackspaceButton_Click">
+                    <Viewbox Width="18" Height="24">
+                        <!-- Adjust width and height as needed -->
+                        <ContentControl Content="{materialIcons:MaterialIconExt Kind=Backspace}" FontSize="14" />
+                    </Viewbox>
+                </Button>
+            </Grid>
         </Grid>
+        <Grid x:Name="GridSaleMode" Margin="2" Grid.Row="1"></Grid>
     </Grid>
 
 </Window>

@@ -8,8 +8,8 @@
             <SolidColorBrush x:Key="ButtonEnabledColor1" Color="#FF6FCF94" />
             <SolidColorBrush x:Key="ButtonEnabledColor2" Color="#FFFDCA40" />
             <SolidColorBrush x:Key="ButtonEnabledColor3" Color="#FFAC92EB" />
-            
             <!-- Background Colors -->
+            
             <!-- Primary Background Color -->
             <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#F5F5F5" />
             <!-- Secondary Background Color -->

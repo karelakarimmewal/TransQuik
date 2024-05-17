@@ -250,5 +250,17 @@ namespace TranQuik.Properties {
                 this["_AppSecMonitorBorder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string _AppSecMonitorUrl {
+            get {
+                return ((string)(this["_AppSecMonitorUrl"]));
+            }
+            set {
+                this["_AppSecMonitorUrl"] = value;
+            }
+        }
     }
 }

@@ -61,6 +61,7 @@ namespace TranQuik.Configuration
                 { "_AppID", "Development" },
                 { "_AppSecMonitor", "False" },
                 { "_AppSecMonitorBorder", "1" },
+                { "_AppSecMonitorUrl", "" },
                 { "_AppAllowImage", "False" },
                 { "_AppStatus", "False" },
                 { "_ComputerID", "000" },
@@ -89,6 +90,7 @@ namespace TranQuik.Configuration
             AppSettings.AppID = GetSettingString(appSettings, "_AppID", AppSettings.AppID);
             AppSettings.AppSecMonitor = GetSettingBool(appSettings, "_AppSecMonitor", AppSettings.AppSecMonitor);
             AppSettings.AppSecMonitorBorder = GetSettingInt(appSettings, "_AppSecMonitorBorder", AppSettings.AppSecMonitorBorder);
+            AppSettings.AppSecMonitorUrl = GetSettingString(appSettings, "_AppSecMonitorUrl", AppSettings.AppSecMonitorUrl);
             AppSettings.AppAllowImage = GetSettingBool(appSettings, "_AppAllowImage", AppSettings.AppAllowImage);
             AppSettings.AppStatus = GetSettingBool(appSettings, "_AppStatus", AppSettings.AppStatus);
             AppSettings.ComputerID = GetSettingInt(appSettings, "_ComputerID", AppSettings.ComputerID);
@@ -149,6 +151,7 @@ namespace TranQuik.Configuration
                     { "_AppID", AppSettings.AppID },
                     { "_AppSecMonitor", AppSettings.AppSecMonitor.ToString() },
                     { "_AppSecMonitorBorder", AppSettings.AppSecMonitorBorder.ToString() },
+                    { "_AppSecMonitorUrl", AppSettings.AppSecMonitorUrl.ToString() },
                     { "_AppAllowImage", AppSettings.AppAllowImage.ToString() },
                     { "_AppStatus", AppSettings.AppStatus.ToString() },
                     { "_ComputerID", AppSettings.ComputerID.ToString() },

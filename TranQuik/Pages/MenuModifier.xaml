@@ -13,14 +13,21 @@
         ResizeMode="NoResize"
         Height="500" 
         Width="800">
-    <Grid  Background="{StaticResource PrimaryBackgroundColor}" Effect="{StaticResource DropShadowEffect}">
+    <Grid  Background="{StaticResource FontColor}" Effect="{StaticResource DropShadowEffect}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="{StaticResource FontColor}"/>
-        <Button x:Name="addOnSave" Content="{materialIcons:MaterialIconExt Kind=ContentSaveMove}" Background="{StaticResource ButtonEnabledColor1}" Foreground="{StaticResource FontColor}" Grid.Row="0" HorizontalAlignment="Right" Width="72" Margin="1" Click="addOnSave_Click"/>
+        <Grid HorizontalAlignment="Right">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="addOnSave" Grid.Column="1" Content="{materialIcons:MaterialIconExt Kind=ContentSaveMove}" Background="{StaticResource ButtonEnabledColor1}" Foreground="{StaticResource FontColor}" Grid.Row="0" HorizontalAlignment="Right" Width="72" Margin="1" Click="addOnSave_Click"/>
+            <Button x:Name="addOnReset" Grid.Column="0" Content="{materialIcons:MaterialIconExt Kind=DeleteAlert}" Background="{StaticResource ErrorColor}" Foreground="{StaticResource FontColor}" Grid.Row="0" HorizontalAlignment="Right" Width="72" Margin="1" Click="addOnReset_Click"/>
+        </Grid>
         <TextBlock Text="Add On Menu" Grid.Row="0" FontSize="32" FontFamily="arial"  Foreground="LightYellow" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
         <Grid x:Name="GridModifierModeGroup" Grid.Row="1" >
 

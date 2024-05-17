@@ -42,7 +42,7 @@ namespace TranQuik.Pages
                 this.Top = secondScreenCenterY - (this.Height / 2);
 
 
-                string videoFileName = "ads.mp4";
+                string videoFileName = Properties.Settings.Default._AppSecMonitorUrl;
                 string videoDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Video");
                 string videoUrl = System.IO.Path.Combine(videoDirectory, videoFileName);
 
@@ -50,6 +50,7 @@ namespace TranQuik.Pages
 
                 // Set the source of the MediaElement
                 MediaPlayer.Source = videoUri;
+                MediaPlayer.Stretch = Stretch.UniformToFill;
 
                 // Set the loaded behavior to play the video automatically when loaded
                 MediaPlayer.LoadedBehavior = MediaState.Play;
@@ -222,18 +223,16 @@ namespace TranQuik.Pages
                             ProductName = childItem.Name,
                             ProductPrice = childItem.Price.ToString("#,0"),
                             Quantity = childItem.Quantity,
-                            Background = rowBackground, // Inherit parent's background color
+                            Background = Brushes.LightGray, // Inherit parent's background color
                             Foreground = rowForeground // Inherit parent's foreground color
                         });
                     }
                 }
                 index++;
             }
-
-            // Update total price text blocks
             priceTextBlock.Text = $"{totalPrice:C0}";
-            taxTextBlock.Text = $"{totalPrice * TaxPercentage / 100:C0}";
-            finalPriceTextBlock.Text = $"{totalPrice + totalPrice * TaxPercentage / 100:C0}";
+            taxTextBlock.Text = $"{(totalPrice * modelProcessing.productVATPercent / 100).ToString("#,0")}";
+            finalPriceTextBlock.Text = $"{totalPrice + (totalPrice * modelProcessing.productVATPercent / 100):C0}";
 
             if (cartPanelSecondary.Items.Count > 0)
             {

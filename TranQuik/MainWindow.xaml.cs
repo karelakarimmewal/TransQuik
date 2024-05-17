@@ -1,6 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
+using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -8,9 +10,6 @@ using System.Windows.Media.Effects;
 using TranQuik.Configuration;
 using TranQuik.Model;
 using TranQuik.Pages;
-using Serilog;
-using System.Linq;
-using System.Windows.Documents;
 
 namespace TranQuik
 {
@@ -50,7 +49,8 @@ namespace TranQuik
         // Cart and Customer Management
         public Dictionary<DateTime, HeldCart> heldCarts = new Dictionary<DateTime, HeldCart>(); // Dictionary of held carts
 
-        public int CustomerID { get; set; }
+        public int OrderID { get; set; }
+        public int paxTotal { get; set; }
         public DateTime CustomerTime { get; set; }
 
         public MainWindow()
@@ -76,9 +76,6 @@ namespace TranQuik
                 secondaryMonitor.Topmost = true;
                 secondaryMonitor.Show(); // Show the SecondaryWindow
             }
-            //Log.ForContext("LogType", "UserLog").Information("User logged in.");
-            //Log.ForContext("LogType", "SyncLog").Information("Sync process started.");
-            //Log.ForContext("LogType", "TransactionLog").Information("Transaction completed.");
         }
 
         public void SaleModeView()
@@ -89,12 +86,9 @@ namespace TranQuik
             saleModeWindow.ShowDialog(); // Show SaleModePop window as modal
         }
 
-        public void ModifierMenuView()
+        public void ModifierMenuView(int productID)
         {
-            MenuModifier menuModifier= new MenuModifier(this); // Pass reference to MainWindow
-            menuModifier.Topmost = true;
-            menuModifier.ResizeMode = ResizeMode.NoResize;
-            menuModifier.ShowInTaskbar = false;
+            MenuModifier menuModifier= new MenuModifier(this, modelProcessing, productID); // Pass reference to MainWindow
             menuModifier.ShowDialog(); // Show SaleModePop window as modal
         }
 
@@ -244,7 +238,7 @@ namespace TranQuik
                     ModifierButton.IsEnabled = true;
 
                     // Open the function or command to retrieve child items (modifiers)
-                    RetrieveChildItems();
+                    ModifierMenuView(productId);
 
                     // Add retrieved child items to the selected product's ChildItems collection
                     if (childItemsSelected != null && childItemsSelected.Any())
@@ -303,17 +297,6 @@ namespace TranQuik
             }
         }
 
-
-        // Function to retrieve child items (modifiers) for the selected product
-        private void RetrieveChildItems()
-        {
-            // Invoke the ModifierMenuView method to display the MenuModifier window
-            ModifierMenuView();
-        }
-
-
-
-
         private void shutDownTrigger(object sender, RoutedEventArgs e)
         {
             // Create and show the ShutDownPopup window
@@ -331,7 +314,7 @@ namespace TranQuik
             CalculatorShowed.Visibility = Visibility.Visible;
             modelProcessing.Calculating();
             AddButtonGridToPaymentMethod();
-            Log.ForContext("LogType", "TransactionLog").Information($"Cart for Customer ID: {CustomerID} Payment Process, Cash");
+            Log.ForContext("LogType", "TransactionLog").Information($"Cart for Order ID: {OrderID} Payment Process, Cash");
         }
 
         private void PayButton_Click(object sender, RoutedEventArgs e)
@@ -342,7 +325,7 @@ namespace TranQuik
             CalculatorShowed.Visibility = Visibility.Hidden;
             modelProcessing.Calculating();
             AddButtonGridToPaymentMethod();
-            Log.ForContext("LogType", "TransactionLog").Information($"Cart for Customer ID: {CustomerID} Payment Process, Selecting.....");
+            Log.ForContext("LogType", "TransactionLog").Information($"Cart for Order ID: {OrderID} Payment Process, Selecting.....");
         }
 
 
@@ -600,18 +583,18 @@ namespace TranQuik
                 existingHeldCart.CartProducts = currentCartProducts;
 
                 // Notify the user that the cart has been updated
-                Log.ForContext("LogType", "TransactionLog").Information($"Cart for Customer ID: {existingHeldCart.CustomerId} at {existingHeldCart.TimeStamp} has been updated.");
+                Log.ForContext("LogType", "TransactionLog").Information($"Cart for Order ID: {existingHeldCart.CustomerId} at {existingHeldCart.TimeStamp} has been updated.");
             }
             else
             {
                 // Create a new HeldCart instance
-                HeldCart heldCart = new HeldCart(CustomerID, CustomerTime, currentCartProducts, SaleMode, salesModeText.Text);
+                HeldCart heldCart = new HeldCart(OrderID, CustomerTime, currentCartProducts, SaleMode, salesModeText.Text);
 
                 // Add the held cart to the dictionary with the timestamp as the key
                 heldCarts.Add(CustomerTime, heldCart);
 
                 // Notify the user that the cart has been held
-                Log.ForContext("LogType", "TransactionLog").Information($"Cart has been held for Customer ID: {CustomerID} at {CustomerTime}");
+                Log.ForContext("LogType", "TransactionLog").Information($"Cart has been held for Order ID: {OrderID} at {CustomerTime}");
             }
 
             // Reset the UI
@@ -627,7 +610,7 @@ namespace TranQuik
             foreach (var kvp in heldCarts)
             {
                 Console.WriteLine($"Timestamp: {kvp.Key}");
-                Console.WriteLine($"Customer ID: {kvp.Value.CustomerId}");
+                Console.WriteLine($"Order ID: {kvp.Value.CustomerId}");
                 Console.WriteLine("Cart Products:");
                 foreach (var product in kvp.Value.CartProducts)
                 {
@@ -745,7 +728,7 @@ namespace TranQuik
                     if (returnAmount < 0)
                     {
                         // Display a message indicating insufficient funds
-                        Log.ForContext("LogType", "TransactionLog").Information($"Cart for Customer ID: {CustomerID}. Insufficient funds. Please enter more money to proceed.");
+                        Log.ForContext("LogType", "TransactionLog").Information($"Cart for Order ID: {OrderID}. Insufficient funds. Please enter more money to proceed.");
                         MessageBox.Show("Insufficient funds. Please enter more money to proceed.");
                         return; // Exit the method without further processing
                     }
@@ -753,7 +736,7 @@ namespace TranQuik
                     {
                         // Proceed with the rest of the processing
                         SuccessfullyTransaction();
-                        Log.ForContext("LogType", "TransactionLog").Information($"Cart for Customer ID: {CustomerID} Cash transaction Successfully return value is {returnAmount}");
+                        Log.ForContext("LogType", "TransactionLog").Information($"Cart for Order ID: {OrderID} Cash transaction Successfully return value is {returnAmount}");
                         modelProcessing.ResetUI();
                     }
                 }
@@ -778,7 +761,7 @@ namespace TranQuik
         private void salesModeSee_Click(object sender, RoutedEventArgs e)
         {
             isNew = false;
-            Log.ForContext("LogType", "TransactionLog").Information($"Customer ID {CustomerID} changed Sales Mode");
+            Log.ForContext("LogType", "TransactionLog").Information($"Order ID {OrderID} changed Sales Mode");
             SaleModeView();
         }
 

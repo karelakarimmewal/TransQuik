@@ -1,5 +1,4 @@
 ﻿using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Asn1.X509;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -356,7 +355,7 @@ namespace TranQuik.Model
                             ProductName = childItem.Name,
                             ProductPrice = childItem.Price.ToString("#,0"),
                             Quantity = childItem.Quantity,
-                            Background = rowBackground, // Inherit parent's background color
+                            Background = Brushes.LightGray, // Inherit parent's background color
                             Foreground = rowForeground // Inherit parent's foreground color
                         });
                     }
@@ -379,6 +378,7 @@ namespace TranQuik.Model
             mainWindow.GrandTextBlock.Text = $"{totalPrice + (totalPrice * productVATPercent / 100):C0}";
             mainWindow.totalQty.Text = totalQuantity.ToString("0.00");
             mainWindow.GrandTotalCalculator.Text = $"{(totalPrice + (totalPrice * productVATPercent / 100)).ToString("#,0")}";
+            
 
             bool hasItemsInCart = cartProducts.Any();
             // Enable or disable the PayButton based on whether there are items in cartProducts

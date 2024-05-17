@@ -1,6 +1,7 @@
 ﻿using Material.Icons;
 using Material.Icons.WPF;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1.X509;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -135,6 +136,8 @@ namespace TranQuik
 
         public void CreateButtonsForSalesModes(List<SaleMode> saleModes)
         {
+            HeaderText.Text = "SaleMode";
+            paxGrid.Visibility = Visibility.Visible;
             GridSaleMode.Children.Clear();
             SaleModeIconMapper iconMapper = new SaleModeIconMapper();
             isHoldBillList = mainWindow.heldCarts.Any();
@@ -268,7 +271,7 @@ namespace TranQuik
                 Height = buttonHeight,
                 Style = (Style)Application.Current.Resources["ButtonStyle"],
                 Effect = (DropShadowEffect)Application.Current.Resources["DropShadowEffect"],
-                Background = (Brush)Application.Current.Resources["AccentColor"], // Use AccentColor as the background
+                Background = (Brush)Application.Current.Resources["ErrorColor"], // Use AccentColor as the background
                 Margin = new Thickness(1)
             };
 
@@ -283,7 +286,7 @@ namespace TranQuik
             // Add MaterialIcon to the StackPanel
             MaterialIcon exitIcon = new MaterialIcon
             {
-                Kind = MaterialIconKind.ExitToApp,
+                Kind = MaterialIconKind.Shutdown,
                 Height = 24,
                 VerticalAlignment = VerticalAlignment.Center
             };
@@ -292,7 +295,7 @@ namespace TranQuik
             // Add TextBlock for button text below the icon
             TextBlock exitText = new TextBlock
             {
-                Text = "Exit Application",
+                Text = "Log Off",
                 Margin = new Thickness(0),
                 FontSize = 14,
                 VerticalAlignment = VerticalAlignment.Center
@@ -307,12 +310,12 @@ namespace TranQuik
 
             // Add the button to the UniformGrid
             uniformGrid.Children.Add(exitButton);
-
-
         }
 
         public void CreateButtonsForHeldCarts(Dictionary<DateTime, HeldCart> heldCarts)
         {
+            HeaderText.Text = "Hold List";
+            paxGrid.Visibility = Visibility.Collapsed;
             GridSaleMode.Children.Clear();
 
             // Create a UniformGrid to contain the buttons
@@ -327,8 +330,14 @@ namespace TranQuik
             // Add the UniformGrid to the parent element (e.g., GridSaleMode with the actual parent control)
             GridSaleMode.Children.Add(uniformGrid);
 
+            // Create an instance of SaleModeIconMapper to map sale mode IDs to background colors
+            SaleModeIconMapper iconMapper = new SaleModeIconMapper();
+
             foreach (var heldCart in heldCarts)
             {
+                // Get the background color for the held cart based on its sales mode
+                Brush backgroundColor = iconMapper.GetColorForSaleMode(heldCart.Value.SalesMode);
+
                 // Create a new Button for the held cart
                 Button button = new Button
                 {
@@ -336,7 +345,7 @@ namespace TranQuik
                     Width = buttonWidth,
                     Style = (Style)Application.Current.Resources["ButtonStyle"],
                     Effect = (DropShadowEffect)Application.Current.Resources["DropShadowEffect"],
-                    Background = (Brush)Application.Current.Resources["AccentColor"], // Set the button's background color
+                    Background = backgroundColor, // Set the button's background color
                     Margin = new Thickness(1) // Add margin to the button for spacing
                 };
 
@@ -360,7 +369,7 @@ namespace TranQuik
                 // Add TextBlock to StackPanel (customize the text based on heldCart properties)
                 TextBlock textBlock = new TextBlock
                 {
-                    Text = $"Customer: {heldCart.Value.CustomerId}\n{heldCart.Value.TimeStamp}",
+                    Text = $"OrderID: {heldCart.Value.CustomerId}\n{heldCart.Value.TimeStamp}",
                     Margin = new Thickness(0),
                     FontSize = 14,
                     VerticalAlignment = VerticalAlignment.Center
@@ -376,11 +385,19 @@ namespace TranQuik
                 // Add the Button to the UniformGrid
                 uniformGrid.Children.Add(button);
             }
-
             // Create and add the "Back" button to the UniformGrid
+            // Create the MaterialIcon for the "Back" button
+            MaterialIcon backButtonIcon = new MaterialIcon
+            {
+                Kind = MaterialIconKind.NavigateBefore, // Set the icon kind to ArrowBack or any other desired icon
+                Height = 24,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            // Create the "Back" button
             Button backButton = new Button
             {
-                Content = "Back",
+                Content = backButtonIcon, // Set the content to the MaterialIcon
                 Height = buttonHeight,
                 Width = buttonWidth,
                 Style = (Style)Application.Current.Resources["ButtonStyle"],
@@ -389,6 +406,7 @@ namespace TranQuik
                 Margin = new Thickness(1)
             };
 
+
             // Add Click Event Handler for the "Back" button
             backButton.Click += (sender, e) => HandleBackButtonClick(sender, e);
 
@@ -396,7 +414,44 @@ namespace TranQuik
             uniformGrid.Children.Add(backButton);
         }
 
+        private void NumberButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                string number = button.Content.ToString();
 
+                // If the textbox is empty, replace the default value with the clicked number
+                if (string.IsNullOrEmpty(paxDisplay.Text))
+                {
+                    // Validate that the first number is not '0'
+                    if (number != "0")
+                    {
+                        paxDisplay.Text = number;
+                        mainWindow.paxTotal = int.Parse(paxDisplay.Text);
+                    }
+                }
+                else
+                {
+                    // Ensure that the input can start with '0'
+                    if (number != "0" || (!paxDisplay.Text.StartsWith("0") && paxDisplay.Text.Length == 1))
+                    {
+                        paxDisplay.Text += number;
+                        mainWindow.paxTotal = int.Parse(paxDisplay.Text);
+                    }
+                }
+            }
+            
+        }
+
+        private void BackspaceButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle the backspace button click
+            // Assuming you have a TextBox named inputTextBox
+            if (!string.IsNullOrEmpty(paxDisplay.Text))
+            {
+                paxDisplay.Text = paxDisplay.Text.Substring(0, paxDisplay.Text.Length - 1);
+            }
+        }
 
         private void HandleBackButtonClick(object sender, RoutedEventArgs e)
         {
@@ -419,7 +474,7 @@ namespace TranQuik
         private void Button_Click(object sender, RoutedEventArgs e, int saleModeID, string saleModeName)
         {
             NewCustomer();
-            Log.ForContext("LogType", "TransactionLog").Information($"Transaction {mainWindow.CustomerID} ({saleModeName}-{saleModeID})");
+            Log.ForContext("LogType", "TransactionLog").Information($"Transaction {mainWindow.OrderID} ({saleModeName}-{saleModeID})");
             SetSaleModeAndClose(saleModeID, saleModeName);
         }
 
@@ -430,15 +485,14 @@ namespace TranQuik
                 return;
             }
             Customer customer = new Customer(DateTime.Now);
-            mainWindow.CustomerID = customer.CustomerId;
+            mainWindow.OrderID = customer.CustomerId;
             mainWindow.CustomerTime = customer.Time;
         }
 
         private void HeldCartButton_Click(object sender, RoutedEventArgs e, DateTime timeStamp, HeldCart heldCart)
         {
-
             mainWindow.HoldBill(heldCart.CartProducts);
-            mainWindow.CustomerID = heldCart.CustomerId;
+            mainWindow.OrderID = heldCart.CustomerId;
             mainWindow.CustomerTime = heldCart.TimeStamp;
             mainWindow.SaleMode = heldCart.SalesMode;
             mainWindow.salesModeText.Text = heldCart.SalesModeName;
@@ -447,13 +501,13 @@ namespace TranQuik
 
         private void SetSaleModeAndClose(int saleMode, string buttonName)
         {
-
             if (mainWindow != null)
             {
                 mainWindow.SaleMode = saleMode; // Set SaleMode property of MainWindow
                 mainWindow.salesModeSee.Background = (Brush)Application.Current.FindResource("AccentColor");
                 mainWindow.salesModeText.Text = buttonName;
             }
+            paxGrid.Visibility = Visibility.Collapsed;
             mainWindow.StatusCondition.Text = buttonName;
             mainWindow.ProductGroupLoad();
             this.Close(); 

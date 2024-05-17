@@ -1,35 +1,37 @@
-﻿using MaterialDesignThemes.Wpf;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Media.Effects;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using TranQuik.Model;
-using WpfScreenHelper;
-using System.Linq;
 
 namespace TranQuik.Pages
 {
     public partial class MenuModifier : Window
     {
         private MainWindow mainWindow; // Reference to MainWindow
+        private ModelProcessing modelProcessing; // Reference to ModelProcessing
         private LocalDbConnector localDbConnector;
         private int buttonHeight;
         private int buttonWidth;
         private int columns;
         private int saleMode;
+        private int ProductIDSelected;
         private List<ModifierGroup> modifierGroup;
         private List<ModifierMenu> modifierMenus;
 
 
-        public MenuModifier(MainWindow mainWindow)
+        public MenuModifier(MainWindow mainWindow, ModelProcessing modelProcessing, int productID)
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
+            this.modelProcessing = modelProcessing;
+            this.ProductIDSelected = productID;
             this.localDbConnector = new LocalDbConnector();
             columns = 5; // Assuming 3 columns
             buttonWidth = 150; // Adjust as needed based on the button size
@@ -40,9 +42,7 @@ namespace TranQuik.Pages
             CreateButtonsForModifierGroups(modifierGroup);
             
 
-            int rowCount = (int)Math.Ceiling((double)modifierGroup.Count / columns);
-            double totalWidth = columns * buttonWidth;
-            //double totalHeight = 500;
+
             this.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
         }
 
@@ -150,24 +150,20 @@ namespace TranQuik.Pages
             }
         }
 
-        private void ModifierGroup_Click(object sender, RoutedEventArgs e, string modifierGroupID, string modifierName)
+        private async void ModifierGroup_Click(object sender, RoutedEventArgs e, string modifierGroupID, string modifierName)
         {
-            // Retrieve modifier menus for the selected modifier group
-            modifierMenus = GetModifierMenus(modifierGroupID);
+            // Retrieve modifier menus for the selected modifier group asynchronously
+            modifierMenus = await Task.Run(() => GetModifierMenus(modifierGroupID));
 
-            if (modifierMenus != null)
+            // Check if modifierMenus is not null and not empty
+            if (modifierMenus?.Count > 0)
             {
                 // Add buttons for the retrieved modifier menus
                 AddButtonsToGrid(modifierMenus);
             }
-            else
-            {
-                // Handle the case where modifierMenus is null (e.g., log error, display message, etc.)
-                Console.WriteLine("ModifierMenus is null. Unable to display modifier menus.");
-            }
         }
 
-        private List<ModifierMenu> GetModifierMenus(string modifierGroupID)
+        private async Task<List<ModifierMenu>> GetModifierMenus(string modifierGroupID)
         {
             List<ModifierMenu> modifierMenus = new List<ModifierMenu>();
 
@@ -175,17 +171,17 @@ namespace TranQuik.Pages
             {
                 using (MySqlConnection connection = localDbConnector.GetMySqlConnection())
                 {
-                    connection.Open();
+                    await connection.OpenAsync();
 
                     string sqlQuery = @"
-                SELECT PG.`ProductGroupCode`, P.`ProductDeptID`, PD.`ProductDeptCode`, PD.`ProductDeptName`, 
-                       P.`ProductCode`, P.`ProductName`, P.`ProductName2`, PP.`ProductPrice`, PP.`SaleMode`
-                FROM Products P
-                JOIN ProductPrice PP ON P.`ProductID` = PP.`ProductID`
-                JOIN ProductDept PD ON PD.`ProductDeptID` = P.`ProductDeptID`
-                JOIN ProductGroup PG ON P.`ProductGroupID` = PG.`ProductGroupID`
-                WHERE P.`ProductActivate` = 1 AND PG.`ProductGroupID` = 11 AND PP.`SaleMode` = @SaleMode AND PD.`ProductDeptID` = @ModifierGroupID
-                ORDER BY P.`ProductName`";
+            SELECT PG.`ProductGroupCode`, P.`ProductDeptID`, PD.`ProductDeptCode`, PD.`ProductDeptName`, 
+                   P.`ProductCode`, P.`ProductName`, P.`ProductName2`, PP.`ProductPrice`, PP.`SaleMode`
+            FROM Products P
+            JOIN ProductPrice PP ON P.`ProductID` = PP.`ProductID`
+            JOIN ProductDept PD ON PD.`ProductDeptID` = P.`ProductDeptID`
+            JOIN ProductGroup PG ON P.`ProductGroupID` = PG.`ProductGroupID`
+            WHERE P.`ProductActivate` = 1 AND PG.`ProductGroupID` = 11 AND PP.`SaleMode` = @SaleMode AND PD.`ProductDeptID` = @ModifierGroupID
+            ORDER BY P.`ProductName`";
 
                     using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
                     {
@@ -194,9 +190,9 @@ namespace TranQuik.Pages
                         Console.WriteLine($"Ini adalah Sale Mode {saleMode}");
                         Console.WriteLine($"Ini adalah ModifierGroup {modifierGroupID}");
 
-                        using (MySqlDataReader reader = command.ExecuteReader())
+                        using (MySqlDataReader reader = (MySqlDataReader)await command.ExecuteReaderAsync())
                         {
-                            while (reader.Read())
+                            while (await reader.ReadAsync())
                             {
                                 ModifierMenu modifierMenu = new ModifierMenu();
                                 modifierMenu.ModifierMenuCode = reader["ProductCode"].ToString();
@@ -206,18 +202,18 @@ namespace TranQuik.Pages
                                 modifierMenus.Add(modifierMenu);
                             }
                         }
+
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log the error message and details
                 Console.WriteLine("Error retrieving modifier menus: " + ex.Message);
-                // You can also throw or rethrow the exception based on your application's error handling strategy
             }
 
             return modifierMenus;
         }
+
 
 
         private void AddButtonsToGrid(List<ModifierMenu> modifierMenus)
@@ -287,6 +283,12 @@ namespace TranQuik.Pages
         }
         private void ModifierMenuButton_Click(object sender, RoutedEventArgs e, ModifierMenu modifierMenu)
         {
+            int currentQuantity = 0;
+            int MaxQuantity = modelProcessing.cartProducts
+                                .Where(product => product.ProductId == ProductIDSelected)
+                                .Select(product => product.Quantity)
+                                .DefaultIfEmpty(0) // Handle the case where no matching product is found
+                                .Max();
             // Check if a ChildItem corresponding to the ModifierMenu already exists
             ChildItem existingItem = mainWindow.childItemsSelected.FirstOrDefault(item =>
                 item.Name == modifierMenu.ModifierMenuName &&
@@ -294,45 +296,93 @@ namespace TranQuik.Pages
 
             if (existingItem != null)
             {
-                // Increment the quantity of the existing ChildItem
                 existingItem.Quantity++;
+                if (existingItem.Quantity > MaxQuantity)
+                {
+                    existingItem.Quantity = MaxQuantity;
+                }
+                currentQuantity = existingItem.Quantity;
             }
             else
             {
-                // Create a new ChildItem based on the selected ModifierMenu
                 ChildItem childItem = new ChildItem(
                     modifierMenu.ModifierMenuName,
                     modifierMenu.ModifierMenuPrice,
                     modifierMenu.ModifierMenuQuantity,
                     true // Assuming StatusBar is a property of ChildItem
                 );
+                currentQuantity = modifierMenu.ModifierMenuQuantity;
 
                 // Add the ChildItem to the mainWindow's childItemsSelected collection
                 mainWindow.childItemsSelected.Add(childItem);
             }
 
             // Update the visual state of the button to reflect selection
-            UpdateButtonVisualState(sender as Button, true);
+            UpdateButtonVisualState(sender as Button, true, currentQuantity);
         }
 
-        private void UpdateButtonVisualState(Button button, bool isSelected)
+        private void UpdateButtonVisualState(Button button, bool isSelected, int quantity)
         {
             // Update button appearance based on selection state
             if (isSelected)
             {
-                button.Background = Brushes.LightBlue; // Example: Change background color for selected state
+                button.Background = Brushes.LightBlue;
             }
             else
             {
-                button.Background = Brushes.Azure; // Example: Change background color for deselected state
+                button.Background = Brushes.Azure;
             }
+
+            // Get the existing button content
+            string buttonText = button.Content.ToString();
+
+            // Find the position of "x" in the button content
+            int indexOfX = buttonText.LastIndexOf("x");
+
+            if (indexOfX != -1)
+            {
+                // If "x" is found, remove the previous quantity and update with the new one
+                buttonText = buttonText.Substring(0, indexOfX + 1) + " " + quantity;
+            }
+            else
+            {
+                // If "x" is not found, append the quantity
+                buttonText += $" x{quantity}";
+            }
+
+            // Update the button content
+            button.Content = buttonText;
         }
+
+
 
         private void addOnSave_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
+
+        private void addOnReset_Click(object sender, RoutedEventArgs e)
+        {
+            // Find the product with the specified product ID
+            Product product = modelProcessing.cartProducts.FirstOrDefault(p => p.ProductId == ProductIDSelected);
+
+            // If the product is found, remove its associated child items from mainWindow.childItemsSelected
+            if (product != null)
+            {
+                // Iterate over the child items and remove those associated with the product
+                product.ChildItems.Clear();
+                mainWindow.childItemsSelected.Clear();
+            }
+
+            modelProcessing.UpdateCartUI();
+
             // Close the MenuModifier window
             this.Close();
         }
+
+
+
+
 
 
     }
