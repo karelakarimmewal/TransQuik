@@ -1,7 +1,6 @@
 ﻿using Material.Icons;
 using Material.Icons.WPF;
 using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Asn1.X509;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -21,7 +20,8 @@ namespace TranQuik
     {
         private MainWindow mainWindow; // Reference to MainWindow
         private LocalDbConnector localDbConnector;
-        private List<int> getSalesModeList= new List<int>();
+        private ModelProcessing modelProcessing;
+        private List<int> getSalesModeList = new List<int>();
         private List<int> salesModeList = new List<int>();
         private List<SaleMode> saleModes;
         private int buttonHeight;
@@ -31,7 +31,7 @@ namespace TranQuik
         public int CustomerID;
         public DateTime TimeNow;
 
-        public SaleModePop(MainWindow mainWindow)
+        public SaleModePop(MainWindow mainWindow, ModelProcessing modelProcessing)
         {
             InitializeComponent();
             this.mainWindow = mainWindow; // Store reference to MainWindow
@@ -39,10 +39,10 @@ namespace TranQuik
             columns = 5; // Assuming 3 columns
             buttonWidth = 150; // Adjust as needed based on the button size
             buttonHeight = 110; // Adjust as needed based on the button size
-
+            mainWindow.heldCartManager.SaveHeldCarts(mainWindow.heldCarts);
             GetPayTypeList(AppSettings.ComputerID);
             saleModes = GetSaleModes(); // Retrieve SaleMode data from the database
-            
+
             CreateButtonsForSalesModes(saleModes); // Create buttons based on retrieved SaleMode data
                                                    // Calculate the required size of the window based on the button layout
             int rowCount = (int)Math.Ceiling((double)saleModes.Count / columns);
@@ -51,6 +51,7 @@ namespace TranQuik
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             SizeToContent = SizeToContent.WidthAndHeight;
+            this.modelProcessing = modelProcessing;
         }
         public void GetPayTypeList(int computerID)
         {
@@ -225,7 +226,7 @@ namespace TranQuik
                 Background = backgroundColors,
                 Margin = new Thickness(1),
                 IsEnabled = isHoldBillList,
-             };
+            };
 
             // Create a StackPanel to hold the icon and text
             StackPanel holdBillListContent = new StackPanel
@@ -440,7 +441,7 @@ namespace TranQuik
                     }
                 }
             }
-            
+
         }
 
         private void BackspaceButton_Click(object sender, RoutedEventArgs e)
@@ -496,7 +497,7 @@ namespace TranQuik
             mainWindow.CustomerTime = heldCart.TimeStamp;
             mainWindow.SaleMode = heldCart.SalesMode;
             mainWindow.salesModeText.Text = heldCart.SalesModeName;
-            this.Close();
+            SetSaleModeAndClose(heldCart.SalesMode, heldCart.SalesModeName);
         }
 
         private void SetSaleModeAndClose(int saleMode, string buttonName)
@@ -510,7 +511,8 @@ namespace TranQuik
             paxGrid.Visibility = Visibility.Collapsed;
             mainWindow.StatusCondition.Text = buttonName;
             mainWindow.ProductGroupLoad();
-            this.Close(); 
+            modelProcessing.LoadProductDetails(52);
+            this.Close();
         }
     }
 }

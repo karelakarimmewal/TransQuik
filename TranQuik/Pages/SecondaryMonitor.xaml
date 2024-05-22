@@ -60,10 +60,10 @@
                             <!-- Adjusted height -->
                         </Grid.RowDefinitions>
 
-                        <ScrollViewer Grid.Row="0" Background="{StaticResource PrimaryBackgroundColor}" VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer Grid.Row="0" Height="auto" Background="{StaticResource PrimaryBackgroundColor}" VerticalScrollBarVisibility="Auto">
                             <!--<WrapPanel x:Name="cartWrapPanel" Margin="0" Visibility="Visible" Grid.Row="0" />-->
 
-                            <ListView x:Name="cartPanelSecondary" Margin="0" Visibility="Visible"  Foreground="{StaticResource FontColor}" Grid.Row="0" Background="{StaticResource TertiaryBackgroundColor}" ></ListView>
+                            <ListView x:Name="cartPanelSecondary"  Margin="0" Visibility="Visible"  Foreground="{StaticResource FontColor}" Grid.Row="0" Background="{StaticResource TertiaryBackgroundColor}" ></ListView>
                         </ScrollViewer>
                         <!-- Total Price TextBlock -->
                         <Grid Grid.Row="1" Grid.ColumnSpan="3">
@@ -92,13 +92,13 @@
                         </Grid>
                     </Grid>
                     <Border Grid.Row="1" Margin="10,0,10,10" BorderBrush="LightGray" BorderThickness="1">
-                        <Grid >
+                        <Grid Height="auto">
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="Payment" Text="No Payment" Effect="{StaticResource DropShadowEffect}"  FontSize="14" FontFamily="arial" FontWeight="Bold" FontStyle="Italic" VerticalAlignment="Center" Background="{StaticResource WarningColor}" Foreground="{StaticResource FontColor}" TextAlignment="Center"  />
-                            <Image x:Name="imageLoader" Grid.Row="1"  Height="auto" Margin="0,0,0,0" />
+                            <Image x:Name="imageLoader" Grid.Row="1" Margin="0,0,0,0" />
                         </Grid>
                     </Border>
                 </Grid>

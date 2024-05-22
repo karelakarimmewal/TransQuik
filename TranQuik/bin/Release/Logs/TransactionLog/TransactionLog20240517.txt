@@ -1,0 +1,164 @@
+2024-05-17 08:58:13.162 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:03:37.926 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:04:35.886 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:05:24.646 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:06:50.901 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:09:19.862 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:10:28.804 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:11:15.404 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:12:00.078 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:14:22.277 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:15:12.556 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:21:47.922 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:22:37.706 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:22:56.870 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:23:29.401 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:24:01.642 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:24:19.595 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:25:34.417 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:28:28.395 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:28:39.560 +07:00 [INF] Cart for Customer ID: 1 Payment Process, Selecting.....
+2024-05-17 09:28:40.490 +07:00 [INF] Cart for Customer ID: 1 Payment Process, Cash
+2024-05-17 09:28:41.802 +07:00 [INF] Cart for Customer ID: 1 Cash transaction Successfully return value is 0
+2024-05-17 09:29:26.329 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:29:30.084 +07:00 [INF] Cart for Customer ID: 1 Payment Process, Selecting.....
+2024-05-17 09:29:31.087 +07:00 [INF] Cart for Customer ID: 1 Payment Process, Cash
+2024-05-17 09:29:31.706 +07:00 [INF] Cart for Customer ID: 1 Cash transaction Successfully return value is 0
+2024-05-17 09:32:29.168 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:32:31.158 +07:00 [INF] Cart for Customer ID: 1 Payment Process, Cash
+2024-05-17 09:32:34.954 +07:00 [INF] Cart for Customer ID: 1 Payment Process, Selecting.....
+2024-05-17 09:32:36.808 +07:00 [INF] Cart for Customer ID: 1 Payment Process, Cash
+2024-05-17 09:32:42.250 +07:00 [INF] Cart for Customer ID: 1 Payment Process, Cash
+2024-05-17 09:33:05.557 +07:00 [INF] Cart for Customer ID: 1 Payment Process, Cash
+2024-05-17 09:37:13.367 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:38:02.733 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:38:52.995 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:39:03.166 +07:00 [INF] Cart for Customer ID: 1 Payment Process, Selecting.....
+2024-05-17 09:39:04.682 +07:00 [INF] Cart for Customer ID: 1 Payment Process, Cash
+2024-05-17 09:39:05.815 +07:00 [INF] Cart for Customer ID: 1 Cash transaction Successfully return value is 0
+2024-05-17 09:39:15.494 +07:00 [INF] Transaction 2 (GO BIZ-10)
+2024-05-17 09:39:54.006 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:47:56.924 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:53:08.435 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:55:48.123 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:56:24.977 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:57:12.017 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:57:49.529 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 09:58:49.481 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 10:20:18.350 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 10:30:50.580 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 10:34:37.800 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 10:36:27.258 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 10:39:34.011 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 10:40:50.830 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 10:45:07.184 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 10:48:13.669 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 10:51:00.283 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 10:51:55.828 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 10:52:12.660 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 10:52:26.323 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 10:54:41.659 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 10:56:07.763 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 11:05:29.897 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 11:06:10.119 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 11:06:31.008 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 11:08:36.965 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 11:09:06.063 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 11:09:30.568 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 11:10:20.239 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 11:11:04.535 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 13:35:54.212 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 13:43:52.273 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 13:44:20.375 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 13:45:30.670 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 13:48:03.943 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 13:48:35.704 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 13:49:09.310 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 13:50:24.901 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 13:59:51.684 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 14:00:55.728 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 14:01:29.212 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 14:01:54.205 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 14:02:35.148 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 14:03:08.378 +07:00 [INF] Cart for Customer ID: 1 Payment Process, Selecting.....
+2024-05-17 14:05:23.803 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 14:06:37.092 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 14:08:54.850 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 14:09:09.418 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 14:11:54.697 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 14:12:19.081 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 14:15:03.595 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 14:26:13.101 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 14:53:51.231 +07:00 [INF] Transaction 1 (ToGo Pty-8)
+2024-05-17 14:53:53.024 +07:00 [INF] Cart for Customer ID: 1 Payment Process, Selecting.....
+2024-05-17 14:53:54.067 +07:00 [INF] Cart for Customer ID: 1 Payment Process, Cash
+2024-05-17 15:09:53.794 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 15:19:19.712 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 15:19:22.883 +07:00 [INF] Cart has been held for Order ID: 1 at 17/05/2024 15.19.19
+2024-05-17 15:20:39.952 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 15:20:43.521 +07:00 [INF] Cart has been held for Order ID: 1 at 17/05/2024 15.20.39
+2024-05-17 15:21:20.399 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 15:21:22.813 +07:00 [INF] Cart has been held for Order ID: 1 at 17/05/2024 15.21.20
+2024-05-17 15:21:32.182 +07:00 [INF] Transaction 2 (DINE IN-1)
+2024-05-17 15:21:34.079 +07:00 [INF] Cart has been held for Order ID: 2 at 17/05/2024 15.21.32
+2024-05-17 15:21:34.992 +07:00 [INF] Transaction 3 (DINE IN-1)
+2024-05-17 15:21:36.831 +07:00 [INF] Cart has been held for Order ID: 3 at 17/05/2024 15.21.34
+2024-05-17 15:21:37.455 +07:00 [INF] Transaction 4 (DINE IN-1)
+2024-05-17 15:21:39.150 +07:00 [INF] Cart has been held for Order ID: 4 at 17/05/2024 15.21.37
+2024-05-17 15:21:39.902 +07:00 [INF] Transaction 5 (DINE IN-1)
+2024-05-17 15:21:41.951 +07:00 [INF] Cart has been held for Order ID: 5 at 17/05/2024 15.21.39
+2024-05-17 15:21:43.303 +07:00 [INF] Transaction 6 (Home Delivery-3)
+2024-05-17 15:21:44.839 +07:00 [INF] Cart has been held for Order ID: 6 at 17/05/2024 15.21.43
+2024-05-17 15:21:45.470 +07:00 [INF] Transaction 7 (DINE IN-1)
+2024-05-17 15:21:47.072 +07:00 [INF] Cart has been held for Order ID: 7 at 17/05/2024 15.21.45
+2024-05-17 15:21:47.765 +07:00 [INF] Transaction 8 (Catering-6)
+2024-05-17 15:21:49.343 +07:00 [INF] Cart has been held for Order ID: 8 at 17/05/2024 15.21.47
+2024-05-17 15:24:27.647 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 15:24:29.456 +07:00 [INF] Cart has been held for Order ID: 1 at 17/05/2024 15.24.27
+2024-05-17 15:24:33.285 +07:00 [INF] Transaction 2 (Home Delivery-3)
+2024-05-17 15:24:35.157 +07:00 [INF] Cart has been held for Order ID: 2 at 17/05/2024 15.24.33
+2024-05-17 15:27:12.560 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 15:27:15.049 +07:00 [INF] Cart has been held for Order ID: 1 at 17/05/2024 15.27.12
+2024-05-17 15:27:16.558 +07:00 [INF] Transaction 2 (QR Dine In-4)
+2024-05-17 15:27:18.205 +07:00 [INF] Cart has been held for Order ID: 2 at 17/05/2024 15.27.16
+2024-05-17 15:27:23.549 +07:00 [INF] Transaction 3 (Home Delivery-3)
+2024-05-17 15:27:25.572 +07:00 [INF] Cart has been held for Order ID: 3 at 17/05/2024 15.27.23
+2024-05-17 15:27:26.662 +07:00 [INF] Transaction 4 (GrabSPU-14)
+2024-05-17 15:27:28.725 +07:00 [INF] Cart has been held for Order ID: 4 at 17/05/2024 15.27.26
+2024-05-17 15:27:31.565 +07:00 [INF] Transaction 5 (DINE IN-1)
+2024-05-17 15:27:33.260 +07:00 [INF] Cart has been held for Order ID: 5 at 17/05/2024 15.27.31
+2024-05-17 15:27:36.925 +07:00 [INF] Transaction 6 (DINE IN-1)
+2024-05-17 15:27:40.021 +07:00 [INF] Cart has been held for Order ID: 6 at 17/05/2024 15.27.36
+2024-05-17 15:30:28.269 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 15:30:30.466 +07:00 [INF] Cart has been held for Order ID: 1 at 17/05/2024 15.30.28
+2024-05-17 15:33:07.957 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 15:33:10.217 +07:00 [INF] Cart has been held for Order ID: 1 at 17/05/2024 15.33.07
+2024-05-17 15:34:55.397 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 15:34:57.447 +07:00 [INF] Cart has been held for Order ID: 1 at 17/05/2024 15.34.55
+2024-05-17 15:35:03.242 +07:00 [INF] Transaction 2 (DINE IN-1)
+2024-05-17 15:35:06.739 +07:00 [INF] Cart has been held for Order ID: 2 at 17/05/2024 15.35.03
+2024-05-17 15:35:12.301 +07:00 [INF] Cart for Order ID: 1 at 17/05/2024 15.34.55 has been updated.
+2024-05-17 15:35:13.499 +07:00 [INF] Transaction 3 (Drive Thru-9)
+2024-05-17 15:35:15.618 +07:00 [INF] Cart has been held for Order ID: 3 at 17/05/2024 15.35.13
+2024-05-17 15:38:40.218 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 15:39:55.741 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 15:56:40.695 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 16:02:10.510 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 16:02:14.272 +07:00 [INF] Cart has been held for Order ID: 1 at 17/05/2024 16.02.10
+2024-05-17 16:02:17.093 +07:00 [INF] Transaction 2 (DINE IN-1)
+2024-05-17 16:06:18.636 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 16:06:23.915 +07:00 [INF] Cart for Order ID: 1 Payment Process, Selecting.....
+2024-05-17 16:06:24.910 +07:00 [INF] Cart for Order ID: 1 Payment Process, Cash
+2024-05-17 16:06:28.828 +07:00 [INF] Cart for Order ID: 1 Cash transaction Successfully return value is 3800
+2024-05-17 16:15:31.713 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 16:22:33.079 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 16:23:19.223 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 16:24:05.992 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 16:25:18.199 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 16:25:51.784 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 16:29:25.607 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-17 16:29:30.402 +07:00 [INF] Cart has been held for Order ID: 1 at 17/05/2024 16.29.25
+2024-05-17 16:30:23.935 +07:00 [INF] Cart for Order ID: 1 Payment Process, Selecting.....
+2024-05-17 16:30:25.255 +07:00 [INF] Cart for Order ID: 1 Payment Process, Cash
+2024-05-17 16:30:26.142 +07:00 [INF] Cart for Order ID: 1. Insufficient funds. Please enter more money to proceed.
+2024-05-17 16:30:29.421 +07:00 [INF] Cart for Order ID: 1 Cash transaction Successfully return value is 240400

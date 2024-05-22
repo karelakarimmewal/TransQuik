@@ -40,9 +40,6 @@ namespace TranQuik.Pages
 
             modifierGroup = GetModifierGroups(saleMode);
             CreateButtonsForModifierGroups(modifierGroup);
-            
-
-
             this.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
         }
 
@@ -57,12 +54,12 @@ namespace TranQuik.Pages
                     connection.Open();
 
                     string sqlQuery = @"
-                SELECT DISTINCT PD.ProductDeptID, PD.ProductDeptCode, PD.ProductDeptName
-                FROM Products P
-                JOIN ProductPrice PP ON P.ProductID = PP.ProductID
-                JOIN ProductDept PD ON PD.ProductDeptID = P.ProductDeptID
-                JOIN ProductGroup PG ON P.ProductGroupID = PG.ProductGroupID
-                WHERE P.ProductActivate = 1 AND PG.ProductGroupID = 11 AND PP.SaleMode = @SaleMode";
+                    SELECT DISTINCT PD.ProductDeptID, PD.ProductDeptCode, PD.ProductDeptName
+                    FROM Products P
+                    JOIN ProductPrice PP ON P.ProductID = PP.ProductID
+                    JOIN ProductDept PD ON PD.ProductDeptID = P.ProductDeptID
+                    JOIN ProductGroup PG ON P.ProductGroupID = PG.ProductGroupID
+                    WHERE P.ProductActivate = 1 AND PG.ProductGroupID = 11 AND PP.SaleMode = @SaleMode";
 
                     using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
                     {
@@ -174,14 +171,14 @@ namespace TranQuik.Pages
                     await connection.OpenAsync();
 
                     string sqlQuery = @"
-            SELECT PG.`ProductGroupCode`, P.`ProductDeptID`, PD.`ProductDeptCode`, PD.`ProductDeptName`, 
-                   P.`ProductCode`, P.`ProductName`, P.`ProductName2`, PP.`ProductPrice`, PP.`SaleMode`
-            FROM Products P
-            JOIN ProductPrice PP ON P.`ProductID` = PP.`ProductID`
-            JOIN ProductDept PD ON PD.`ProductDeptID` = P.`ProductDeptID`
-            JOIN ProductGroup PG ON P.`ProductGroupID` = PG.`ProductGroupID`
-            WHERE P.`ProductActivate` = 1 AND PG.`ProductGroupID` = 11 AND PP.`SaleMode` = @SaleMode AND PD.`ProductDeptID` = @ModifierGroupID
-            ORDER BY P.`ProductName`";
+                                    SELECT PG.`ProductGroupCode`, P.`ProductDeptID`, PD.`ProductDeptCode`, PD.`ProductDeptName`, 
+                                           P.`ProductCode`, P.`ProductName`, P.`ProductName2`, PP.`ProductPrice`, PP.`SaleMode`
+                                    FROM Products P
+                                    JOIN ProductPrice PP ON P.`ProductID` = PP.`ProductID`
+                                    JOIN ProductDept PD ON PD.`ProductDeptID` = P.`ProductDeptID`
+                                    JOIN ProductGroup PG ON P.`ProductGroupID` = PG.`ProductGroupID`
+                                    WHERE P.`ProductActivate` = 1 AND PG.`ProductGroupID` = 11 AND PP.`SaleMode` = @SaleMode AND PD.`ProductDeptID` = @ModifierGroupID
+                                    ORDER BY P.`ProductName`";
 
                     using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
                     {
@@ -213,8 +210,6 @@ namespace TranQuik.Pages
 
             return modifierMenus;
         }
-
-
 
         private void AddButtonsToGrid(List<ModifierMenu> modifierMenus)
         {
@@ -278,7 +273,6 @@ namespace TranQuik.Pages
                 Grid.SetRow(button, row);
                 Grid.SetColumn(button, col);
                 buttonGrid.Children.Add(button);
-                this.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
             }
         }
         private void ModifierMenuButton_Click(object sender, RoutedEventArgs e, ModifierMenu modifierMenu)
@@ -326,7 +320,7 @@ namespace TranQuik.Pages
             // Update button appearance based on selection state
             if (isSelected)
             {
-                button.Background = Brushes.LightBlue;
+                button.Background = Brushes.LightSkyBlue;
             }
             else
             {

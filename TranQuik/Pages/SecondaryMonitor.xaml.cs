@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using TranQuik.Model;
 using WpfScreenHelper;
 
@@ -61,7 +60,6 @@ namespace TranQuik.Pages
                     // Rewind the video to the beginning
                     MediaPlayer.Position = TimeSpan.Zero;
                 };
-
             }
             else
             {
@@ -82,7 +80,7 @@ namespace TranQuik.Pages
                 Bordererd.Visibility = Visibility.Visible;
             }
         }
-        
+
         public void UpdateQRCodeImage(byte[] imageData, string transactionQrUrl)
         {
             // Display the QR code image

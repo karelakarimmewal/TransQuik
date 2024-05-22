@@ -1,0 +1,4 @@
+2024-05-22 08:45:33.517 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-22 08:48:47.593 +07:00 [INF] Transaction 2 (DINE IN-1)
+2024-05-22 08:52:07.203 +07:00 [INF] Transaction 3 (DINE IN-1)
+2024-05-22 08:53:49.227 +07:00 [INF] Transaction 4 (DINE IN-1)

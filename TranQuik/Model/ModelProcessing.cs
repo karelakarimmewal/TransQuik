@@ -1,15 +1,21 @@
 ﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TranQuik.Pages;
+using System.Transactions;
 
 namespace TranQuik.Model
 {
@@ -17,17 +23,19 @@ namespace TranQuik.Model
     {
         private LocalDbConnector localDbConnector;
         private MainWindow mainWindow;
-        private  SecondaryMonitor secondaryMonitor;
+        private SecondaryMonitor secondaryMonitor;
         public List<Product> cartProducts = new List<Product>();
         public decimal productVATPercent;
         public string vatDesp;
+        public string isPaymentChange;
 
-        public ModelProcessing(MainWindow mainWindow)
+
+        public ModelProcessing(MainWindow mainWindow, SecondaryMonitor secondaryMonitor)
         {
             this.localDbConnector = new LocalDbConnector(); // Instantiate LocalDbConnector
             this.mainWindow = mainWindow; // Assign the MainWindow instance
-            this.secondaryMonitor = mainWindow.secondaryMonitor;
             GetProductVATInfo();
+            this.secondaryMonitor = secondaryMonitor;
         }
 
         public void GetProductGroupNamesAndIds(out List<string> productGroupNames, out List<int> productGroupIds)
@@ -68,6 +76,7 @@ namespace TranQuik.Model
         }
         public void LoadProductDetails(int productGroupId)
         {
+            mainWindow.MainContentProduct.Children.Clear();
             string query = (productGroupId == -1)
                 ? @"
                     SELECT P.`ProductDeptID`, PD.`ProductDeptName`, P.`ProductCode`, P.`ProductName`, P.`ProductName2`, PP.`ProductPrice`, PP.`SaleMode`
@@ -95,7 +104,7 @@ namespace TranQuik.Model
                 connection.Open();
                 MySqlDataReader reader = command.ExecuteReader();
 
-                mainWindow.MainContentProduct.Children.Clear(); // Clear existing product buttons
+                 // Clear existing product buttons
 
                 while (reader.Read())
                 {
@@ -118,7 +127,6 @@ namespace TranQuik.Model
                     // Add the product button to the wrap panel
                     mainWindow.MainContentProduct.Children.Add(productButton);
                 }
-
                 reader.Close();
             }
         }
@@ -223,8 +231,8 @@ namespace TranQuik.Model
 
             // Define a style for the header columns
             Style headerColumnStyle = new Style(typeof(GridViewColumnHeader));
-            headerColumnStyle.Setters.Add(new Setter(GridViewColumnHeader.BackgroundProperty, Brushes.LightGray)); // Set background color
-            headerColumnStyle.Setters.Add(new Setter(GridViewColumnHeader.ForegroundProperty, Brushes.Black)); // Set foreground color
+            headerColumnStyle.Setters.Add(new Setter(GridViewColumnHeader.BackgroundProperty, (Brush)Application.Current.FindResource("FontColor")));
+            headerColumnStyle.Setters.Add(new Setter(GridViewColumnHeader.ForegroundProperty, Brushes.LightYellow)); // Set foreground color
             headerColumnStyle.Setters.Add(new Setter(GridViewColumnHeader.FontWeightProperty, FontWeights.Bold)); // Set font weight
             headerColumnStyle.Setters.Add(new Setter(GridViewColumnHeader.HorizontalContentAlignmentProperty, HorizontalAlignment.Center)); // Horizontally center the header content
 
@@ -255,7 +263,7 @@ namespace TranQuik.Model
 
             // Add bottom border to each row
             var listViewItemStyle = new Style(typeof(ListViewItem));
-            listViewItemStyle.Setters.Add(new Setter(ListViewItem.BorderBrushProperty, Brushes.LightGray));
+            listViewItemStyle.Setters.Add(new Setter(ListViewItem.BorderBrushProperty, (Brush)Application.Current.FindResource("FontColor")));
             listViewItemStyle.Setters.Add(new Setter(ListViewItem.BorderThicknessProperty, new Thickness(0, 0, 0, 1)));
 
             // Apply the style to the ListView
@@ -272,7 +280,7 @@ namespace TranQuik.Model
             decreaseButtonFactory.SetValue(Button.ContentProperty, "-");
             decreaseButtonFactory.SetValue(Button.FontSizeProperty, 12.0); // Set the font size to 12 points
                                                                            // Assuming you have access to the Product instance
-            
+
             decreaseButtonFactory.SetValue(Button.FontWeightProperty, FontWeights.Bold);
             decreaseButtonFactory.SetValue(Button.WidthProperty, 50.0);
             decreaseButtonFactory.SetValue(Button.MarginProperty, new Thickness(5));
@@ -280,21 +288,8 @@ namespace TranQuik.Model
             decreaseButtonFactory.AddHandler(Button.ClickEvent, new RoutedEventHandler(DecreaseQuantity));
             decreaseButtonFactory.SetValue(Button.StyleProperty, Application.Current.FindResource("DecreaseButtonStyle"));
 
-            // Create and configure the delete button
-            //FrameworkElementFactory deleteButtonFactory = new FrameworkElementFactory(typeof(Button));
-            //deleteButtonFactory.SetValue(Button.ContentProperty, "DEL");
-            //deleteButtonFactory.SetValue(Button.FontWeightProperty, FontWeights.Bold);
-            //deleteButtonFactory.SetValue(Button.HorizontalAlignmentProperty, HorizontalAlignment.Center);
-            //deleteButtonFactory.SetValue(Button.WidthProperty, 75.0);
-            //deleteButtonFactory.SetValue(Button.MarginProperty, new Thickness(5));
-            //deleteButtonFactory.SetBinding(Button.CommandParameterProperty, new Binding("ProductId"));
-            //deleteButtonFactory.AddHandler(Button.ClickEvent, new RoutedEventHandler(DeleteFromCart));
-            //deleteButtonFactory.SetValue(Button.StyleProperty, Application.Current.FindResource("DeleteButtonStyle"));
-
-
             // Add buttons to the stack panel
             stackPanelFactory.AppendChild(decreaseButtonFactory);
-            //stackPanelFactory.AppendChild(deleteButtonFactory);
 
             // Set the stack panel as the visual tree of the DataTemplate
             actionCellTemplate.VisualTree = stackPanelFactory;
@@ -340,7 +335,8 @@ namespace TranQuik.Model
                     TotalPrice = totalProductPrice.ToString("#,0"),
                     ProductId = product.ProductId,
                     Background = rowBackground,
-                    Foreground = rowForeground
+                    Foreground = rowForeground,
+
                 });
 
                 // Add child items if they exist
@@ -355,7 +351,7 @@ namespace TranQuik.Model
                             ProductName = childItem.Name,
                             ProductPrice = childItem.Price.ToString("#,0"),
                             Quantity = childItem.Quantity,
-                            Background = Brushes.LightGray, // Inherit parent's background color
+                            Background = rowBackground, // Inherit parent's background color
                             Foreground = rowForeground // Inherit parent's foreground color
                         });
                     }
@@ -363,7 +359,7 @@ namespace TranQuik.Model
 
 
                 index++; // Increment the index for the next item
-                
+
             }
             // Update displayed total prices
             // Define and apply the custom item container style for ListViewItems
@@ -378,7 +374,7 @@ namespace TranQuik.Model
             mainWindow.GrandTextBlock.Text = $"{totalPrice + (totalPrice * productVATPercent / 100):C0}";
             mainWindow.totalQty.Text = totalQuantity.ToString("0.00");
             mainWindow.GrandTotalCalculator.Text = $"{(totalPrice + (totalPrice * productVATPercent / 100)).ToString("#,0")}";
-            
+
 
             bool hasItemsInCart = cartProducts.Any();
             // Enable or disable the PayButton based on whether there are items in cartProducts
@@ -564,7 +560,7 @@ namespace TranQuik.Model
                         {
                             productVATPercent = reader.GetDecimal("ProductVATPercent");
                             vatDesp = reader.GetString("VATDesp");
-                            
+
                         }
                         else
                         {
@@ -601,6 +597,309 @@ namespace TranQuik.Model
             //secondaryWindow.ResetUI();
         }
 
+        public async void qrisProcess(string PayTypeId, string PayTypeName)
+        {
+            try
+            {
+                // Create transaction asynchronously
+                var (transactionOrderId, transactionQrUrl) = await CreateTransactionAsync(cartProducts, productVATPercent);
+                if (!string.IsNullOrEmpty(transactionQrUrl))
+                {
+                    // Download the QR code image asynchronously
+                    byte[] imageData = await DownloadImageData(transactionQrUrl);
+
+                    if (imageData != null && imageData.Length > 0)
+                    {
+                        // Display the QR code image
+                        BitmapImage bitmapImage = new BitmapImage();
+                        using (MemoryStream stream = new MemoryStream(imageData))
+                        {
+                            bitmapImage.BeginInit();
+                            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                            bitmapImage.StreamSource = stream;
+                            bitmapImage.EndInit();
+                        }
+
+                        mainWindow.UpdateQRCodeImage(imageData, transactionQrUrl);
+                        // Start timer to check transaction status periodically
+                        GetTransactionStatus(transactionOrderId, PayTypeId, PayTypeName);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Failed to download QR code image data.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Failed to retrieve QR code URL.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+        
+        private async Task<byte[]> DownloadImageData(string imageUrl)
+        {
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    // Download the image data asynchronously
+                    HttpResponseMessage response = await httpClient.GetAsync(imageUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Read the image data as a byte array
+                        return await response.Content.ReadAsByteArrayAsync();
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Error downloading image: {response.StatusCode}");
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error downloading image: {ex.Message}");
+                return null;
+            }
+        }
+
+        public async Task<(string, string)> CreateTransactionAsync(List<Product> cartProducts, decimal TaxPercentage)
+        {
+            // Your Midtrans server key and base URL
+            string serverKey = "SB-Mid-server-GNryM0x4oekS6OrCVt5ahnjv";
+            string baseUrl = "https://api.sandbox.midtrans.com/v2/charge";
+            string orderId = Guid.NewGuid().ToString();
+            try
+            {
+                // Prepare the HTTP client
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    // Add authorization header
+                    string authHeader = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{serverKey}:"));
+                    httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", authHeader);
+
+                    // Filter and create item details from the cart products with status set to true
+                    var itemDetails = new List<object>();
+                    foreach (var product in cartProducts)
+                    {
+                        if (product.Status)
+                        {
+                            var itemDetail = new
+                            {
+                                id = product.ProductId,
+                                price = product.ProductPrice,
+                                quantity = product.Quantity,
+                                name = product.ProductName,
+                            };
+
+                            itemDetails.Add(itemDetail);
+
+                            // Add child items if present
+                            if (product.HasChildItems())
+                            {
+                                foreach (var childItem in product.ChildItems)
+                                {
+                                    var childItemDetail = new
+                                    {
+                                        id = childItem.Name,
+                                        price = childItem.Price,
+                                        quantity = childItem.Quantity,
+                                        name = childItem.Name
+                                    };
+
+                                    itemDetails.Add(childItemDetail);
+                                }
+                            }
+                        }
+                    }
+
+                    // Calculate total amount of the cart
+                    // Calculate total amount of the cart
+                    decimal cartTotal = itemDetails.Sum(item =>
+                    {
+                        var itemPrice = (decimal)item.GetType().GetProperty("price").GetValue(item);
+                        var itemQuantity = (int)item.GetType().GetProperty("quantity").GetValue(item);
+                        return itemQuantity * itemPrice;
+                    });
+
+
+                    // Calculate tax amount
+                    decimal taxAmount = cartTotal * (TaxPercentage / 100);
+
+                    // Add tax item to the item details
+                    itemDetails.Add(new
+                    {
+                        id = 0, // Assuming tax item ID is an integer (adjust as needed)
+                        price = taxAmount,
+                        quantity = 1,
+                        name = "Tax"
+                    });
+
+                    // Define the request body
+                    var requestBody = new
+                    {
+                        payment_type = "qris",
+                        transaction_details = new
+                        {
+                            order_id = orderId,
+                            gross_amount = cartTotal + taxAmount, // Include tax in the total amount
+                        },
+                        item_details = itemDetails,
+                        customer_details = new
+                        {
+                            first_name = "John",
+                            last_name = "Doe",
+                            email = "john.doe@example.com",
+                            phone = "000000"
+                        }
+                    };
+
+                    // Convert the request body to JSON
+                    string json = JsonConvert.SerializeObject(requestBody);
+
+                    // Send the POST request
+                    HttpResponseMessage response = await httpClient.PostAsync(baseUrl, new StringContent(json, Encoding.UTF8, "application/json"));
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Read the response content
+                        string responseContent = await response.Content.ReadAsStringAsync();
+
+                        // Parse the JSON response
+                        var jsonResponse = JObject.Parse(responseContent);
+
+                        // Retrieve transaction status
+                        string transactionStatus = jsonResponse["transaction_status"]?.ToString();
+
+                        // Retrieve URL from actions array (assuming there's only one action)
+                        string url = jsonResponse["actions"]?[0]?["url"]?.ToString();
+                        Console.WriteLine($"Ini adalah Transaction Status : {transactionStatus}");
+                        Console.WriteLine($"Ini adalah URL: {url}");
+                        // Return transaction status and URL as a tuple
+                        return (orderId, url);
+                    }
+                    else
+                    {
+                        // Handle unsuccessful request
+                        string errorResponse = await response.Content.ReadAsStringAsync();
+                        MessageBox.Show($"Error: {response.StatusCode}\n{errorResponse}");
+
+                        // Return null values as a tuple
+                        return (null, null);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+
+                // Return null values as a tuple
+                return (null, null);
+            }
+        }
+
+
+        private async void GetTransactionStatus(string orderId, string PayTypeId, string PayTypeName)
+        {
+            string BaseUrl = "https://api.sandbox.midtrans.com";
+
+            // Define your Midtrans server key
+            string serverKey = "SB-Mid-server-GNryM0x4oekS6OrCVt5ahnjv";
+
+            // Define the delay between each status check attempt
+            int delayMilliseconds = 1000; // 1 second
+
+            bool isDone = false;
+            while (!isDone) // Continue indefinitely
+            {
+                try
+                {
+                    if (PayTypeId != isPaymentChange)
+                    {
+                        isDone = true;
+                        mainWindow.QrisDone("Cancel", PayTypeId, PayTypeName);
+                    }
+                    Console.WriteLine("Chekcing");
+                    // Construct the URL for the status check API
+                    string statusCheckUrl = $"{BaseUrl}/v2/{orderId}/status";
+
+                    // Prepare the HTTP client
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        // Add authorization header
+                        string authHeader = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{serverKey}:"));
+                        httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", authHeader);
+
+                        // Send the GET request to the status check API
+                        HttpResponseMessage response = await httpClient.GetAsync(statusCheckUrl);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            // Read the response content
+                            string responseContent = await response.Content.ReadAsStringAsync();
+
+                            // Parse the JSON response
+                            var jsonResponse = JObject.Parse(responseContent);
+
+                            // Extract status message and transaction status
+                            string statusMessage = jsonResponse["status_message"]?.ToString();
+                            string transactionStatus = jsonResponse["transaction_status"]?.ToString();
+                            // Set background color based on transaction status
+                            Brush backgroundBrush;
+                            switch (transactionStatus)
+                            {
+                                case "settlement":
+                                    // Light green background for Settlement status
+                                    backgroundBrush = Brushes.LightGreen;
+                                    transactionStatus = "Settlement";
+                                    mainWindow.QrisDone(transactionStatus, PayTypeId, PayTypeName);
+                                    
+                                    isDone = true;
+                                    break;
+                                case "pending":
+                                    // Light yellow background for Pending status
+                                    backgroundBrush = Brushes.Yellow;
+                                    transactionStatus = "Pending";
+                                    break;
+                                case "cancel":
+                                    // Light red background for Cancel status
+                                    backgroundBrush = Brushes.LightSalmon;
+                                    transactionStatus = "Cancel";
+                                    mainWindow.QrisDone(transactionStatus, PayTypeId, PayTypeName);
+                                    isDone = true;
+                                    ResetUI();
+                                    
+                                    break;
+                                case "expire":
+                                    // Light gray background for Expire status
+                                    backgroundBrush = Brushes.LightGray;
+                                    transactionStatus = "Expire";
+                                    mainWindow.QrisDone(transactionStatus, PayTypeId, PayTypeName);
+                                    ResetUI();
+                                    isDone = true;
+                                    break;
+                                default:
+                                    // Default background color for other statuses
+                                    backgroundBrush = Brushes.White;
+                                    transactionStatus = "IDLE";
+                                    break;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error getting transaction status: {ex.Message}");
+                }
+
+                // Delay before the next status check attempt
+                await Task.Delay(delayMilliseconds);
+            }
+        }
 
     }
 }

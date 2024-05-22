@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Windows;
 
 namespace TranQuik.Configuration
 {
@@ -75,7 +76,6 @@ namespace TranQuik.Configuration
                 { "_CloudDbUser", "" },
                 { "_CloudDbPassword", "" },
                 { "_CloudDbName", "" },
-                
             };
 
             string json = JsonSerializer.Serialize(defaultSettings, new JsonSerializerOptions { WriteIndented = true });

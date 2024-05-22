@@ -1,32 +1,65 @@
 ﻿using Material.Icons;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
 
 namespace TranQuik.Model
 {
-    
     public class Customer
     {
         private static int lastCustomerId = 0; // Static field to track the last used CustomerId
-        public int CustomerId { get; private set; } // CustomerId property
+        private static DateTime lastCreationDate = DateTime.MinValue; // Static field to track the date of the last customer creation
 
+        public int CustomerId { get; private set; } // CustomerId property
         public DateTime Time { get; private set; } // Time property
 
         // Constructor to initialize a new Customer instance
         public Customer(DateTime time)
         {
+            LoadLastCustomerData(); // Load last customer data from file
+
+            // Check if the current date is different from the date when the last customer was created
+            if (lastCreationDate.Date != time.Date)
+            {
+                lastCustomerId = 0; // Reset lastCustomerId to 0 for a new day
+                lastCreationDate = time.Date; // Update the last creation date
+            }
+
             CustomerId = ++lastCustomerId; // Increment and assign the new CustomerId
             Time = time; // Set the Time property
+
+            SaveLastCustomerData(); // Save last customer data to file
+        }
+
+        // Method to save last customer data to file
+        private void SaveLastCustomerData()
+        {
+            var data = new { LastCustomerId = lastCustomerId, LastCreationDate = lastCreationDate };
+            string jsonData = JsonConvert.SerializeObject(data);
+            File.WriteAllText("last_customer_data.json", jsonData);
+        }
+
+        // Method to load last customer data from file
+        private void LoadLastCustomerData()
+        {
+            if (File.Exists("last_customer_data.json"))
+            {
+                string jsonData = File.ReadAllText("last_customer_data.json");
+                var data = JsonConvert.DeserializeObject<dynamic>(jsonData);
+                lastCustomerId = data.LastCustomerId;
+                lastCreationDate = data.LastCreationDate;
+            }
         }
     }
-
 
     public class Product
     {
         public int ProductId { get; set; }
+
         public string ProductName { get; set; }
         public decimal ProductPrice { get; set; }
         public int Quantity { get; set; } = 1; // Default quantity is 1
@@ -49,7 +82,6 @@ namespace TranQuik.Model
         }
     }
 
-
     public class ChildItem
     {
         public string Name { get; set; }
@@ -64,7 +96,6 @@ namespace TranQuik.Model
             Status = status;
         }
     }
-
 
     public class SaleMode
     {

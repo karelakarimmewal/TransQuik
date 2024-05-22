@@ -1,14 +1,14 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.IO;
 
 namespace TranQuik.Model
 {
-    public class ProductDetails 
+    public class ProductDetails
     {
         private LocalDbConnector localDbConnector;
         private MainWindow mainWindow;

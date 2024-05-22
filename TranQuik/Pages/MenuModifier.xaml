@@ -11,9 +11,9 @@
         WindowStyle="None"
         WindowState="Normal"
         ResizeMode="NoResize"
-        Height="500" 
+        Height="600"
         Width="800">
-    <Grid  Background="{StaticResource FontColor}" Effect="{StaticResource DropShadowEffect}">
+    <Grid  Background="{StaticResource FontColor}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="auto"/>
@@ -29,11 +29,9 @@
             <Button x:Name="addOnReset" Grid.Column="0" Content="{materialIcons:MaterialIconExt Kind=DeleteAlert}" Background="{StaticResource ErrorColor}" Foreground="{StaticResource FontColor}" Grid.Row="0" HorizontalAlignment="Right" Width="72" Margin="1" Click="addOnReset_Click"/>
         </Grid>
         <TextBlock Text="Add On Menu" Grid.Row="0" FontSize="32" FontFamily="arial"  Foreground="LightYellow" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
-        <Grid x:Name="GridModifierModeGroup" Grid.Row="1" >
-
+        <Grid x:Name="GridModifierModeGroup" ShowGridLines="True" Grid.Row="1">
         </Grid>
-        <Grid x:Name="GridModifierModeMenu" Grid.Row="2" >
-
+        <Grid x:Name="GridModifierModeMenu" ShowGridLines="True" Grid.Row="2">
         </Grid>
     </Grid>
 </Window>

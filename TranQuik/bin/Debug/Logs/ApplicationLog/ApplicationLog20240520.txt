@@ -1,0 +1,210 @@
+2024-05-20 08:58:43.716 +07:00 [INF] Application Started
+2024-05-20 10:39:46.729 +07:00 [INF] Application Started
+2024-05-20 10:40:04.665 +07:00 [INF] Application Started
+2024-05-20 10:41:17.501 +07:00 [INF] Application Started
+2024-05-20 10:43:07.177 +07:00 [INF] Application Started
+2024-05-20 10:45:15.515 +07:00 [INF] Application Started
+2024-05-20 10:45:40.546 +07:00 [INF] Hold Button Clicked
+2024-05-20 10:45:47.555 +07:00 [INF] Application Stopped
+2024-05-20 10:49:43.919 +07:00 [INF] Application Started
+2024-05-20 10:50:17.534 +07:00 [INF] Application Started
+2024-05-20 10:52:52.099 +07:00 [INF] Application Started
+2024-05-20 10:54:27.232 +07:00 [INF] Application Started
+2024-05-20 10:55:51.421 +07:00 [INF] Application Started
+2024-05-20 10:56:02.432 +07:00 [INF] Application Stopped
+2024-05-20 11:00:41.062 +07:00 [INF] Application Started
+2024-05-20 11:01:09.183 +07:00 [INF] Application Stopped
+2024-05-20 11:04:49.465 +07:00 [INF] Application Started
+2024-05-20 11:10:26.254 +07:00 [INF] Application Started
+2024-05-20 11:10:35.079 +07:00 [INF] Application Started
+2024-05-20 11:10:59.990 +07:00 [INF] Application Started
+2024-05-20 11:11:39.976 +07:00 [INF] Application Started
+2024-05-20 11:32:35.671 +07:00 [INF] Application Started
+2024-05-20 11:40:47.857 +07:00 [INF] Application Started
+2024-05-20 11:40:54.352 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:40:57.796 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:41:00.290 +07:00 [INF] Application Stopped
+2024-05-20 11:46:40.086 +07:00 [INF] Application Started
+2024-05-20 11:46:46.754 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:46:50.002 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:46:50.817 +07:00 [INF] Hold List Button Clicked
+2024-05-20 11:46:52.017 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 11:46:55.202 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:46:55.985 +07:00 [INF] Hold List Button Clicked
+2024-05-20 11:46:57.265 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 11:46:58.360 +07:00 [INF] Application Stopped
+2024-05-20 11:47:17.471 +07:00 [INF] Application Started
+2024-05-20 11:47:29.505 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:47:30.921 +07:00 [INF] Hold List Button Clicked
+2024-05-20 11:47:34.504 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 11:47:38.609 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:47:39.337 +07:00 [INF] Hold List Button Clicked
+2024-05-20 11:47:42.665 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 11:47:44.129 +07:00 [INF] Application Stopped
+2024-05-20 11:50:01.017 +07:00 [INF] Application Started
+2024-05-20 11:50:07.689 +07:00 [INF] Hold List Button Clicked
+2024-05-20 11:51:53.855 +07:00 [INF] Application Started
+2024-05-20 11:51:57.418 +07:00 [INF] Hold List Button Clicked
+2024-05-20 11:52:08.496 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:54:51.089 +07:00 [INF] Application Started
+2024-05-20 11:54:54.335 +07:00 [INF] Hold List Button Clicked
+2024-05-20 11:54:58.536 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:54:59.383 +07:00 [INF] Hold List Button Clicked
+2024-05-20 11:55:01.663 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 11:55:06.119 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:55:09.951 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:55:10.583 +07:00 [INF] Hold List Button Clicked
+2024-05-20 11:55:13.432 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 11:55:15.414 +07:00 [INF] Hold List Button Clicked
+2024-05-20 11:55:18.278 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:55:26.295 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:55:28.063 +07:00 [INF] Hold List Button Clicked
+2024-05-20 11:55:30.502 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 11:55:42.607 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:55:43.647 +07:00 [INF] Hold List Button Clicked
+2024-05-20 11:55:45.687 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 11:55:48.574 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:55:52.479 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:55:56.192 +07:00 [INF] Hold Button Clicked
+2024-05-20 11:55:56.806 +07:00 [INF] Hold List Button Clicked
+2024-05-20 11:56:11.242 +07:00 [INF] Hold List Button Clicked
+2024-05-20 11:56:29.288 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 11:56:31.255 +07:00 [INF] Application Stopped
+2024-05-20 12:00:48.596 +07:00 [INF] Application Started
+2024-05-20 12:00:53.565 +07:00 [INF] Hold Button Clicked
+2024-05-20 12:00:54.319 +07:00 [INF] Hold List Button Clicked
+2024-05-20 12:00:55.166 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 12:00:58.038 +07:00 [INF] Hold Button Clicked
+2024-05-20 12:00:58.886 +07:00 [INF] Hold List Button Clicked
+2024-05-20 12:00:59.718 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 12:01:02.342 +07:00 [INF] Hold Button Clicked
+2024-05-20 12:01:02.999 +07:00 [INF] Hold List Button Clicked
+2024-05-20 12:01:04.263 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 12:01:05.453 +07:00 [INF] Application Stopped
+2024-05-20 12:01:21.207 +07:00 [INF] Application Started
+2024-05-20 12:01:27.782 +07:00 [INF] Hold Button Clicked
+2024-05-20 12:01:28.400 +07:00 [INF] Hold List Button Clicked
+2024-05-20 12:02:09.491 +07:00 [INF] Application Started
+2024-05-20 12:02:12.590 +07:00 [INF] Hold List Button Clicked
+2024-05-20 12:02:14.629 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 12:02:17.750 +07:00 [INF] Hold Button Clicked
+2024-05-20 12:02:18.542 +07:00 [INF] Hold List Button Clicked
+2024-05-20 12:02:21.333 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 12:02:22.372 +07:00 [INF] Application Stopped
+2024-05-20 12:03:06.189 +07:00 [INF] Application Started
+2024-05-20 12:18:28.875 +07:00 [INF] Application Started
+2024-05-20 12:24:11.572 +07:00 [INF] Application Started
+2024-05-20 12:24:16.048 +07:00 [INF] Hold List Button Clicked
+2024-05-20 12:26:25.226 +07:00 [INF] Application Started
+2024-05-20 12:26:28.439 +07:00 [INF] Hold List Button Clicked
+2024-05-20 12:29:06.971 +07:00 [INF] Application Started
+2024-05-20 12:29:09.922 +07:00 [INF] Hold List Button Clicked
+2024-05-20 12:30:56.059 +07:00 [INF] Application Started
+2024-05-20 12:31:04.198 +07:00 [INF] Application Started
+2024-05-20 12:31:27.081 +07:00 [INF] Hold List Button Clicked
+2024-05-20 12:31:35.350 +07:00 [INF] Application Stopped
+2024-05-20 13:44:06.517 +07:00 [INF] Application Started
+2024-05-20 13:45:04.223 +07:00 [INF] Hold List Button Clicked
+2024-05-20 13:48:36.226 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 13:48:38.010 +07:00 [INF] Application Stopped
+2024-05-20 14:00:52.755 +07:00 [INF] Application Started
+2024-05-20 14:01:14.822 +07:00 [INF] Application Stopped
+2024-05-20 14:11:29.624 +07:00 [INF] Application Started
+2024-05-20 14:11:34.931 +07:00 [INF] Application Stopped
+2024-05-20 14:11:57.194 +07:00 [INF] Application Started
+2024-05-20 14:13:36.277 +07:00 [INF] Application Started
+2024-05-20 14:16:02.315 +07:00 [INF] Application Started
+2024-05-20 14:18:26.601 +07:00 [INF] Application Started
+2024-05-20 14:19:10.585 +07:00 [INF] Application Started
+2024-05-20 14:23:25.114 +07:00 [INF] Application Started
+2024-05-20 14:29:49.227 +07:00 [INF] Application Started
+2024-05-20 14:30:25.641 +07:00 [INF] Application Stopped
+2024-05-20 14:35:19.948 +07:00 [INF] Application Started
+2024-05-20 14:35:23.600 +07:00 [INF] Hold List Button Clicked
+2024-05-20 14:35:47.577 +07:00 [INF] Application Stopped
+2024-05-20 14:36:29.188 +07:00 [INF] Application Started
+2024-05-20 14:37:20.912 +07:00 [INF] Application Stopped
+2024-05-20 15:12:46.669 +07:00 [INF] Application Started
+2024-05-20 15:13:01.542 +07:00 [INF] Application Stopped
+2024-05-20 15:14:09.243 +07:00 [INF] Application Started
+2024-05-20 15:15:00.572 +07:00 [INF] Application Stopped
+2024-05-20 15:18:19.323 +07:00 [INF] Application Started
+2024-05-20 15:18:53.803 +07:00 [INF] Application Stopped
+2024-05-20 15:19:00.791 +07:00 [INF] Application Started
+2024-05-20 15:19:17.450 +07:00 [INF] Application Stopped
+2024-05-20 15:19:51.272 +07:00 [INF] Application Started
+2024-05-20 15:20:05.626 +07:00 [INF] Application Stopped
+2024-05-20 15:20:15.655 +07:00 [INF] Application Started
+2024-05-20 15:34:07.937 +07:00 [INF] Application Started
+2024-05-20 15:34:22.239 +07:00 [INF] Application Stopped
+2024-05-20 15:34:43.427 +07:00 [INF] Application Started
+2024-05-20 15:35:11.152 +07:00 [INF] Application Started
+2024-05-20 15:35:48.575 +07:00 [INF] Application Started
+2024-05-20 15:36:02.838 +07:00 [INF] Hold List Button Clicked
+2024-05-20 15:36:04.127 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 15:36:04.718 +07:00 [INF] Hold List Button Clicked
+2024-05-20 15:37:58.501 +07:00 [INF] Application Started
+2024-05-20 15:38:08.167 +07:00 [INF] Hold List Button Clicked
+2024-05-20 15:38:20.988 +07:00 [INF] Application Started
+2024-05-20 15:38:23.553 +07:00 [INF] Hold List Button Clicked
+2024-05-20 15:38:41.590 +07:00 [INF] Hold List Button Clicked
+2024-05-20 15:40:39.092 +07:00 [INF] Application Started
+2024-05-20 15:40:42.832 +07:00 [INF] Hold List Button Clicked
+2024-05-20 15:40:51.454 +07:00 [INF] Hold List Button Clicked
+2024-05-20 15:41:52.975 +07:00 [INF] Application Started
+2024-05-20 15:42:30.129 +07:00 [INF] Application Started
+2024-05-20 15:42:33.305 +07:00 [INF] Hold List Button Clicked
+2024-05-20 15:43:20.210 +07:00 [INF] Application Started
+2024-05-20 15:44:32.692 +07:00 [INF] Application Started
+2024-05-20 15:44:35.966 +07:00 [INF] Hold List Button Clicked
+2024-05-20 16:30:01.793 +07:00 [INF] Application Started
+2024-05-20 16:30:25.585 +07:00 [INF] Hold List Button Clicked
+2024-05-20 16:30:44.993 +07:00 [INF] Application Stopped
+2024-05-20 16:33:20.545 +07:00 [INF] Application Started
+2024-05-20 16:33:37.037 +07:00 [INF] Application Stopped
+2024-05-20 16:34:42.001 +07:00 [INF] Application Started
+2024-05-20 16:35:02.425 +07:00 [INF] Application Stopped
+2024-05-20 16:37:09.141 +07:00 [INF] Application Started
+2024-05-20 16:39:19.068 +07:00 [INF] Application Started
+2024-05-20 16:39:23.407 +07:00 [INF] Hold List Button Clicked
+2024-05-20 16:41:27.110 +07:00 [INF] Application Started
+2024-05-20 16:41:59.798 +07:00 [INF] Application Stopped
+2024-05-20 16:46:30.786 +07:00 [INF] Application Started
+2024-05-20 16:47:24.929 +07:00 [INF] Application Started
+2024-05-20 16:47:28.534 +07:00 [INF] Application Stopped
+2024-05-20 16:47:32.695 +07:00 [INF] Application Started
+2024-05-20 16:47:34.725 +07:00 [INF] Hold List Button Clicked
+2024-05-20 16:49:21.740 +07:00 [INF] Hold List Button Clicked
+2024-05-20 16:50:25.955 +07:00 [INF] Hold List Button Clicked
+2024-05-20 16:51:15.367 +07:00 [INF] Application Stopped
+2024-05-20 16:54:05.195 +07:00 [INF] Application Started
+2024-05-20 16:55:12.174 +07:00 [INF] Application Started
+2024-05-20 16:55:16.531 +07:00 [INF] Hold List Button Clicked
+2024-05-20 16:55:24.338 +07:00 [INF] Application Stopped
+2024-05-20 17:14:49.759 +07:00 [INF] Application Started
+2024-05-20 17:14:58.312 +07:00 [INF] Application Started
+2024-05-20 17:15:02.767 +07:00 [INF] Hold List Button Clicked
+2024-05-20 17:15:11.621 +07:00 [INF] Application Stopped
+2024-05-20 17:15:55.571 +07:00 [INF] Application Started
+2024-05-20 17:16:13.613 +07:00 [INF] Application Stopped
+2024-05-20 17:20:43.689 +07:00 [INF] Application Started
+2024-05-20 17:21:04.116 +07:00 [INF] Application Stopped
+2024-05-20 17:24:32.341 +07:00 [INF] Application Started
+2024-05-20 17:24:36.412 +07:00 [INF] Hold List Button Clicked
+2024-05-20 17:24:47.731 +07:00 [INF] Application Stopped
+2024-05-20 17:25:09.603 +07:00 [INF] Application Started
+2024-05-20 17:25:41.338 +07:00 [INF] Hold List Button Clicked
+2024-05-20 17:25:57.676 +07:00 [INF] Application Stopped
+2024-05-20 17:27:18.588 +07:00 [INF] Application Started
+2024-05-20 17:27:22.660 +07:00 [INF] Hold List Button Clicked
+2024-05-20 17:28:03.160 +07:00 [INF] Application Started
+2024-05-20 17:28:07.019 +07:00 [INF] Hold List Button Clicked
+2024-05-20 17:28:21.075 +07:00 [INF] Hold List Button Clicked
+2024-05-20 17:28:30.762 +07:00 [INF] Hold List Button Clicked
+2024-05-20 17:28:31.628 +07:00 [INF] Handle Back Button Clicked
+2024-05-20 17:28:32.682 +07:00 [INF] Application Stopped
+2024-05-20 17:32:19.713 +07:00 [INF] Application Started
+2024-05-20 17:32:24.298 +07:00 [INF] Hold List Button Clicked
+2024-05-20 17:33:22.137 +07:00 [INF] Application Stopped
+2024-05-20 17:33:58.214 +07:00 [INF] Application Started
+2024-05-20 17:34:01.722 +07:00 [INF] Hold List Button Clicked
