@@ -1,6 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +15,6 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TranQuik.Pages;
-using System.Transactions;
 
 namespace TranQuik.Model
 {
@@ -23,21 +22,27 @@ namespace TranQuik.Model
     {
         private LocalDbConnector localDbConnector;
         private MainWindow mainWindow;
-        private SecondaryMonitor secondaryMonitor;
+        public SecondaryMonitor secondaryMonitor;
         public List<Product> cartProducts = new List<Product>();
         public decimal productVATPercent;
         public string vatDesp;
         public string isPaymentChange;
+        private bool isReset;
 
-
-        public ModelProcessing(MainWindow mainWindow, SecondaryMonitor secondaryMonitor)
+        public ModelProcessing(MainWindow mainWindow)
         {
             this.localDbConnector = new LocalDbConnector(); // Instantiate LocalDbConnector
             this.mainWindow = mainWindow; // Assign the MainWindow instance
             GetProductVATInfo();
-            this.secondaryMonitor = secondaryMonitor;
+
         }
 
+
+        // Method to update the SecondaryMonitor reference
+        public void UpdateSecondaryMonitor(SecondaryMonitor secondaryMonitors)
+        {
+            secondaryMonitor = secondaryMonitors;
+        }
         public void GetProductGroupNamesAndIds(out List<string> productGroupNames, out List<int> productGroupIds)
         {
             productGroupNames = new List<string>();
@@ -121,7 +126,6 @@ namespace TranQuik.Model
 
                     // Create the product button
                     Button productButton = CreateProductButton(product, imagePath);
-
                     productButton.Click += ProductButton_Click;
 
                     // Add the product button to the wrap panel
@@ -135,12 +139,12 @@ namespace TranQuik.Model
         {
             // Check if image creation is allowed based on application setting
             bool allowImage = bool.Parse(Properties.Settings.Default["_AppAllowImage"].ToString());
-
+            int width = 99;
             // Create product button
             Button productButton = new Button
             {
                 Height = 118,
-                Width = 100, // Set fixed width
+                Width = width, // Set fixed width
                 FontWeight = FontWeights.Bold,
                 BorderThickness = new Thickness(0.8),
                 Tag = product // Assign product instance to Tag property
@@ -171,12 +175,11 @@ namespace TranQuik.Model
                 Image img = new Image
                 {
                     Source = image,
-                    Width = 100,
+                    Width = width,
                     Height = 100,
                 };
                 stackPanel.Children.Insert(0, img); // Insert image at the beginning
             }
-
             // Set the content of the button to the stack panel
             productButton.Content = stackPanel;
 
@@ -191,7 +194,7 @@ namespace TranQuik.Model
             Product product = (Product)clickedButton.Tag as Product;
             if (product != null)
             {
-                Console.WriteLine($"Product added to cart: {product.ProductId}, {product.ProductName}, Price: {product.ProductPrice}");
+                
                 AddToCart(product);
             }
             // Implement logic for handling the click on the product button
@@ -256,46 +259,33 @@ namespace TranQuik.Model
             quantityColumnTemplate.VisualTree = quantityTextBlockFactory;
 
             gridView.Columns.Add(new GridViewColumn { Header = "#", DisplayMemberBinding = new Binding("Index"), Width = 25, HeaderContainerStyle = headerColumnStyle, CellTemplate = indexColumnTemplate });
-            gridView.Columns.Add(new GridViewColumn { Header = "Product", DisplayMemberBinding = new Binding("ProductName"), Width = 70, HeaderContainerStyle = headerColumnStyle });
-            gridView.Columns.Add(new GridViewColumn { Header = "Price", DisplayMemberBinding = new Binding("ProductPrice"), Width = 70, HeaderContainerStyle = headerColumnStyle });
-            gridView.Columns.Add(new GridViewColumn { Header = "Qty", DisplayMemberBinding = new Binding("Quantity"), Width = 25, HeaderContainerStyle = headerColumnStyle, CellTemplate = quantityColumnTemplate });
-            gridView.Columns.Add(new GridViewColumn { Header = "Total", DisplayMemberBinding = new Binding("TotalPrice"), Width = 68, HeaderContainerStyle = headerColumnStyle });
+            gridView.Columns.Add(new GridViewColumn { Header = "Product", DisplayMemberBinding = new Binding("ProductName"), Width = 120, HeaderContainerStyle = headerColumnStyle });
+            gridView.Columns.Add(new GridViewColumn { Header = "Price", DisplayMemberBinding = new Binding("ProductPrice"), Width = 80, HeaderContainerStyle = headerColumnStyle });
+            gridView.Columns.Add(new GridViewColumn { Header = "Qty", DisplayMemberBinding = new Binding("Quantity"), Width = 30, HeaderContainerStyle = headerColumnStyle, CellTemplate = quantityColumnTemplate });
+            gridView.Columns.Add(new GridViewColumn { Header = "Total", DisplayMemberBinding = new Binding("TotalPrice"), Width = 80, HeaderContainerStyle = headerColumnStyle });
 
-            // Add bottom border to each row
+            // Define the height of each row
+            double rowHeight = 40; // Set the desired height for each row (in pixels)
+
+            // Create a Style for ListViewItem
             var listViewItemStyle = new Style(typeof(ListViewItem));
-            listViewItemStyle.Setters.Add(new Setter(ListViewItem.BorderBrushProperty, (Brush)Application.Current.FindResource("FontColor")));
-            listViewItemStyle.Setters.Add(new Setter(ListViewItem.BorderThicknessProperty, new Thickness(0, 0, 0, 1)));
 
-            // Apply the style to the ListView
+            // Setters for ListViewItem properties
+            listViewItemStyle.Setters.Add(new Setter(ListViewItem.HeightProperty, rowHeight)); // Set the height of each ListViewItem
+            listViewItemStyle.Setters.Add(new Setter(ListViewItem.BorderBrushProperty, (Brush)Application.Current.FindResource("FontColor"))); // Set border brush
+            listViewItemStyle.Setters.Add(new Setter(ListViewItem.BorderThicknessProperty, new Thickness(0, 0, 0, 1))); // Set border thickness (bottom only)
+            listViewItemStyle.Setters.Add(new Setter(ListViewItem.HorizontalContentAlignmentProperty, HorizontalAlignment.Center)); // Center content horizontally
+
+            // Apply the style to the ItemContainerStyle of ListView
             mainWindow.cartGridListView.ItemContainerStyle = listViewItemStyle;
-
 
             // Create a DataTemplate for the Action column
             DataTemplate actionCellTemplate = new DataTemplate();
             FrameworkElementFactory stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
             stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
 
-            //Create and configure the decrease button
-            FrameworkElementFactory decreaseButtonFactory = new FrameworkElementFactory(typeof(Button));
-            decreaseButtonFactory.SetValue(Button.ContentProperty, "-");
-            decreaseButtonFactory.SetValue(Button.FontSizeProperty, 12.0); // Set the font size to 12 points
-                                                                           // Assuming you have access to the Product instance
-
-            decreaseButtonFactory.SetValue(Button.FontWeightProperty, FontWeights.Bold);
-            decreaseButtonFactory.SetValue(Button.WidthProperty, 50.0);
-            decreaseButtonFactory.SetValue(Button.MarginProperty, new Thickness(5));
-            decreaseButtonFactory.SetBinding(Button.CommandParameterProperty, new Binding("ProductId"));
-            decreaseButtonFactory.AddHandler(Button.ClickEvent, new RoutedEventHandler(DecreaseQuantity));
-            decreaseButtonFactory.SetValue(Button.StyleProperty, Application.Current.FindResource("DecreaseButtonStyle"));
-
-            // Add buttons to the stack panel
-            stackPanelFactory.AppendChild(decreaseButtonFactory);
-
             // Set the stack panel as the visual tree of the DataTemplate
             actionCellTemplate.VisualTree = stackPanelFactory;
-
-            // Add the Action column to the GridView
-            gridView.Columns.Add(new GridViewColumn { Header = "Action", CellTemplate = actionCellTemplate, Width = 75, HeaderContainerStyle = headerColumnStyle });
 
             // Set the ListView's View to the created GridView
             mainWindow.cartGridListView.View = gridView;
@@ -364,6 +354,9 @@ namespace TranQuik.Model
             // Update displayed total prices
             // Define and apply the custom item container style for ListViewItems
             Style itemContainerStyle = new Style(typeof(ListViewItem));
+            itemContainerStyle.Setters.Add(new Setter(ListViewItem.HeightProperty, rowHeight)); // Set the height of each ListViewItem
+            itemContainerStyle.Setters.Add(new Setter(ListViewItem.BorderBrushProperty, (Brush)Application.Current.FindResource("FontColor"))); // Set border brush
+            itemContainerStyle.Setters.Add(new Setter(ListViewItem.BorderThicknessProperty, new Thickness(0, 0, 0, 1))); // Set border thickness (bottom only)
             itemContainerStyle.Setters.Add(new Setter(ListViewItem.BackgroundProperty, new Binding("Background")));
             itemContainerStyle.Setters.Add(new Setter(ListViewItem.ForegroundProperty, new Binding("Foreground")));
             mainWindow.cartGridListView.ItemContainerStyle = itemContainerStyle;
@@ -388,6 +381,14 @@ namespace TranQuik.Model
                 // Scroll into the last item
                 mainWindow.cartGridListView.ScrollIntoView(mainWindow.cartGridListView.Items[mainWindow.cartGridListView.Items.Count - 1]);
             }
+            // Assuming you have access to the necessary variables: lastCartId, mainWindow, cartProducts, SaleMode
+            int customerID = mainWindow.OrderID;
+            Cart cart = new Cart(customerID, cartProducts, mainWindow.SaleMode, isReset);
+            if (isReset)
+            {
+                isReset = false;
+            }
+
         }
 
         private void DecreaseQuantity(object sender, RoutedEventArgs e)
@@ -520,7 +521,15 @@ namespace TranQuik.Model
                 double returnAmount = currentTextValue - grandTotalValue;
 
                 // Update the TotalReturnCalculator with the calculated value
-                mainWindow.TotalReturnCalculator.Text = returnAmount.ToString("#,0");
+                if (returnAmount < 0)
+                {
+                    mainWindow.TotalReturnCalculator.Text = "0";
+                }
+                else
+                {
+                    mainWindow.TotalReturnCalculator.Text = returnAmount.ToString("#,0");
+                }
+                
             }
             else
             {
@@ -585,6 +594,7 @@ namespace TranQuik.Model
         public void ResetUI()
         {
             // Clear the display after processing the input
+            isReset = true;
             mainWindow.isNew = true;
             mainWindow.displayText.Text = "0";
             cartProducts.Clear();
@@ -594,6 +604,7 @@ namespace TranQuik.Model
             mainWindow.MainContentProduct.Visibility = Visibility.Hidden;
             mainWindow.SaleMode = 0;
             mainWindow.SaleModeView();
+            secondaryMonitor.Payment.Text = "None Selected";
             //secondaryWindow.ResetUI();
         }
 

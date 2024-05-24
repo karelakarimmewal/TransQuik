@@ -18,6 +18,7 @@ namespace TranQuik.Pages
         private ModelProcessing modelProcessing;
         public SecondaryMonitor(ModelProcessing modelProcessing)
         {
+            modelProcessing.UpdateSecondaryMonitor(this);
             InitializeComponent();
             BorderCheck();
             Screen[] screens = Screen.AllScreens.ToArray();
@@ -67,7 +68,6 @@ namespace TranQuik.Pages
                 this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             }
         }
-
         private void BorderCheck()
         {
             int BorderSettings = Properties.Settings.Default._AppSecMonitorBorder;

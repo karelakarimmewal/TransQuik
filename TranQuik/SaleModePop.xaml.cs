@@ -22,8 +22,6 @@ namespace TranQuik
         private LocalDbConnector localDbConnector;
         private ModelProcessing modelProcessing;
         private List<int> getSalesModeList = new List<int>();
-        private List<int> salesModeList = new List<int>();
-        private List<SaleMode> saleModes;
         private int buttonHeight;
         private int buttonWidth;
         private int columns;
@@ -41,11 +39,11 @@ namespace TranQuik
             buttonHeight = 110; // Adjust as needed based on the button size
             mainWindow.heldCartManager.SaveHeldCarts(mainWindow.heldCarts);
             GetPayTypeList(AppSettings.ComputerID);
-            saleModes = GetSaleModes(); // Retrieve SaleMode data from the database
+            mainWindow.saleModes = GetSaleModes(); // Retrieve SaleMode data from the database
 
-            CreateButtonsForSalesModes(saleModes); // Create buttons based on retrieved SaleMode data
+            CreateButtonsForSalesModes(mainWindow.saleModes); // Create buttons based on retrieved SaleMode data
                                                    // Calculate the required size of the window based on the button layout
-            int rowCount = (int)Math.Ceiling((double)saleModes.Count / columns);
+            int rowCount = (int)Math.Ceiling((double)mainWindow.saleModes.Count / columns);
             double totalWidth = columns * buttonWidth;
             double totalHeight = rowCount * buttonHeight;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -457,7 +455,7 @@ namespace TranQuik
         private void HandleBackButtonClick(object sender, RoutedEventArgs e)
         {
             Log.ForContext("LogType", "ApplicationLog").Information($"Handle Back Button Clicked");
-            CreateButtonsForSalesModes(saleModes);
+            CreateButtonsForSalesModes(mainWindow.saleModes);
         }
         private void HoldBillListButton_Click(object sender, RoutedEventArgs e)
         {
@@ -509,7 +507,8 @@ namespace TranQuik
                 mainWindow.salesModeText.Text = buttonName;
             }
             paxGrid.Visibility = Visibility.Collapsed;
-            mainWindow.StatusCondition.Text = buttonName;
+            mainWindow.StatusCondition.Text = $"{buttonName} ({paxDisplay.Text})";
+            mainWindow.paxTotal = int.Parse(paxDisplay.Text);
             mainWindow.ProductGroupLoad();
             modelProcessing.LoadProductDetails(52);
             this.Close();

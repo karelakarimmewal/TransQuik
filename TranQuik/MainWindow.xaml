@@ -17,7 +17,7 @@
         >
     <Border Background="{StaticResource TertiaryBackgroundColor}">
         <!--CONTENT START-->
-        <Grid>
+        <Grid Margin="5,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="45"/>
                 <RowDefinition/>
@@ -201,7 +201,8 @@
                             Background="{StaticResource PrimaryButtonColor}"
                             Grid.Row="2" Click="PayButton_Click" >
                                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <materialIcons:MaterialIcon Kind="PaymentClock" Width="45" Height="45" VerticalAlignment="Center"/>
+                                    <materialIcons:MaterialIcon Kind="ScheduledPayment" Width="40" Height="40" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Continue to Payment" FontSize="14"  VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
                             <Grid Grid.Row="3">
@@ -212,6 +213,19 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Button Height="36" 
+                                        Content="10.000"
+                                Margin="1,1"
+                                Style="{StaticResource ButtonStyle}" 
+                                Effect="{StaticResource DropShadowEffect}"
+                                HorizontalAlignment="Stretch" 
+                                VerticalAlignment="Center"
+                                Foreground="Black"
+                                        FontSize="16"
+                                Background="LightYellow"
+                                Grid.Column="0" Click="fastCash_Click">
+                                </Button>
+                                <Button Height="36" 
+                                        Content="20.000"
                                 Margin="1,1"
                                 Style="{StaticResource ButtonStyle}" 
                                 Effect="{StaticResource DropShadowEffect}"
@@ -219,49 +233,31 @@
                                 VerticalAlignment="Center"
                                 Foreground="Black"
                                 Background="LightYellow"
-                                Grid.Column="0">
-                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Text="10.000" FontSize="16"  VerticalAlignment="Center"/>
-                                    </StackPanel>
+                                Grid.Column="1" Click="fastCash_Click" 
+                                        FontSize="16"
+                                        >
                                 </Button>
                                 <Button Height="36" 
                                 Margin="1,1"
+                                        Content="50.000"
                                 Style="{StaticResource ButtonStyle}" 
                                 Effect="{StaticResource DropShadowEffect}"
                                 HorizontalAlignment="Stretch" 
                                 VerticalAlignment="Center"
                                 Foreground="Black"
                                 Background="LightYellow"
-                                Grid.Column="1">
-                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Text="20.000" FontSize="16"  VerticalAlignment="Center"/>
-                                    </StackPanel>
+                                Grid.Column="2" Click="fastCash_Click" FontSize="16">
                                 </Button>
                                 <Button Height="36" 
                                 Margin="1,1"
+                                        Content="100.000"
                                 Style="{StaticResource ButtonStyle}" 
                                 Effect="{StaticResource DropShadowEffect}"
                                 HorizontalAlignment="Stretch" 
                                 VerticalAlignment="Center"
                                 Foreground="Black"
                                 Background="LightYellow"
-                                Grid.Column="2">
-                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Text="50.000" FontSize="16"  VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
-                                <Button Height="36" 
-                                Margin="1,1"
-                                Style="{StaticResource ButtonStyle}" 
-                                Effect="{StaticResource DropShadowEffect}"
-                                HorizontalAlignment="Stretch" 
-                                VerticalAlignment="Center"
-                                Foreground="Black"
-                                Background="LightYellow"
-                                Grid.Column="3">
-                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Text="100.000" FontSize="16"  VerticalAlignment="Center"/>
-                                    </StackPanel>
+                                Grid.Column="3" Click="fastCash_Click" FontSize="16">
                                 </Button>
                             </Grid>
                         </Grid>
@@ -274,13 +270,14 @@
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Vertical" Grid.Row="0">
                         <Button Height="72" 
+                            IsEnabled="False"
                             Width="90"
                             Margin="0,1"
                             Style="{StaticResource ButtonStyle}" 
                             Effect="{StaticResource DropShadowEffect}"
                             HorizontalAlignment="Center" 
                             VerticalAlignment="Center"
-                            Background="{StaticResource PrimaryButtonColor}">
+                            Background="{StaticResource AccentColor}">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <materialIcons:MaterialIcon Kind="Smartphone" Width="28" Height="30" VerticalAlignment="Center"/>
                                 <TextBlock Text="Mobile Order" FontSize="10"  VerticalAlignment="Center"/>
@@ -293,7 +290,7 @@
                             Effect="{StaticResource DropShadowEffect}"
                             HorizontalAlignment="Center" 
                             VerticalAlignment="Center"
-                            Background="{StaticResource PrimaryButtonColor}">
+                            Background="{StaticResource PrimaryButtonColor}" Click="changeSalesMode_Click">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <materialIcons:MaterialIcon Kind="Exchange" Width="28" Height="30" VerticalAlignment="Center"/>
                                 <TextBlock Text="Change" FontSize="10"  VerticalAlignment="Center"/>
@@ -312,7 +309,7 @@
                                 <TextBlock Text="Clear List" FontSize="10"  VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="ModifierButton" Height="72" 
+                        <Button x:Name="ModifierButton" Height="72" Visibility="Collapsed"
                             Width="90"
                             Margin="0,1"
                             Style="{StaticResource ButtonStyle}" 
@@ -330,7 +327,7 @@
                         <Button x:Name="BillDetail" Height="72" 
                         Width="90"
                         Margin="0,1"
-                                IsEnabled="True"
+                        IsEnabled="True"
                         Style="{StaticResource ButtonStyle}" 
                         Effect="{StaticResource DropShadowEffect}"
                         HorizontalAlignment="Center" 
@@ -354,7 +351,7 @@
                                 <TextBlock Text="Hold" FontSize="10"  VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
-                        <Button Height="72" 
+                        <!--<Button Height="72" 
                 Width="90"
                 Margin="0,1"
                 Style="{StaticResource ButtonStyle}" 
@@ -366,7 +363,7 @@
                                 <materialIcons:MaterialIcon Kind="HandCoin" Width="28" Height="30" VerticalAlignment="Center"/>
                                 <TextBlock Text="PayCash" FontSize="10"  VerticalAlignment="Center"/>
                             </StackPanel>
-                        </Button>
+                        </Button>-->
                     </StackPanel>
                 </Grid>
                 <Border Grid.Row="1" Grid.Column="2" BorderBrush="LightGray" BorderThickness="1,0,0,0">

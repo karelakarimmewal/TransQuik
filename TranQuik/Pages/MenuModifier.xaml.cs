@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using TranQuik.Model;
@@ -24,24 +25,50 @@ namespace TranQuik.Pages
         private int ProductIDSelected;
         private List<ModifierGroup> modifierGroup;
         private List<ModifierMenu> modifierMenus;
+        private bool isTouchEvent;
+
 
 
         public MenuModifier(MainWindow mainWindow, ModelProcessing modelProcessing, int productID)
         {
-            InitializeComponent();
-            this.mainWindow = mainWindow;
-            this.modelProcessing = modelProcessing;
+            this.mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
+            this.modelProcessing = modelProcessing ?? throw new ArgumentNullException(nameof(modelProcessing));
             this.ProductIDSelected = productID;
             this.localDbConnector = new LocalDbConnector();
-            columns = 5; // Assuming 3 columns
+            columns = 5; // Assuming 5 columns
             buttonWidth = 150; // Adjust as needed based on the button size
             buttonHeight = 100; // Adjust as needed based on the button size
             saleMode = mainWindow.SaleMode;
-
+            InitializeComponent();
+            InitializeButtonHandlers();
             modifierGroup = GetModifierGroups(saleMode);
             CreateButtonsForModifierGroups(modifierGroup);
-            this.SizeToContent = System.Windows.SizeToContent.WidthAndHeight;
+            // Retrieve the product details using the productID
+            Product selectedProduct = modelProcessing.cartProducts.FirstOrDefault(p => p.ProductId == ProductIDSelected);
+
+            if (selectedProduct != null)
+            {
+                quantityDisplay.Text = selectedProduct.Quantity.ToString();
+            }
+            else
+            {
+                // Handle the case where the product is not found
+                quantityDisplay.Text = "1";
+            }
+
+
+            SizeToContent = SizeToContent.WidthAndHeight;
         }
+
+        private void InitializeButtonHandlers()
+        {
+            addOnSave.Click += AddOnSave_Click;
+            addOnSave.TouchDown += AddOnSave_TouchDown;
+
+            addOnReset.Click += AddOnReset_Click;
+            addOnReset.TouchDown += AddOnReset_TouchDown;
+        }
+
 
         public List<ModifierGroup> GetModifierGroups(int saleMode)
         {
@@ -141,7 +168,9 @@ namespace TranQuik.Pages
                 button.Content = stackPanel;
 
                 // Add Click Event Handler with ModifierGroupID and ModifierGroupName parameters
-                button.Click += (sender, e) => ModifierGroup_Click(sender, e, modifierGroup.ModifierGroupID, modifierGroup.ModifierName);
+                button.Click += (sender, e) => Button_Click(sender, e, modifierGroup.ModifierGroupID, modifierGroup.ModifierName);
+                button.TouchDown += (sender, e) => Button_TouchDown(sender, e, modifierGroup.ModifierGroupID, modifierGroup.ModifierName);
+
                 // Add Button to UniformGrid
                 uniformGrid.Children.Add(button);
             }
@@ -264,7 +293,9 @@ namespace TranQuik.Pages
                 };
 
                 // Attach click event handler to the button
-                button.Click += (sender, e) => ModifierMenuButton_Click(sender, e, modifierMenu);
+                button.Click += (sender, e) => Button_Click(sender, e, modifierMenu);
+                button.TouchDown += (sender, e) => Button_TouchDown(sender, e, modifierMenu);
+                
 
                 // Apply DropShadowEffect to the button
                 button.Effect = new DropShadowEffect();
@@ -336,7 +367,7 @@ namespace TranQuik.Pages
             if (indexOfX != -1)
             {
                 // If "x" is found, remove the previous quantity and update with the new one
-                buttonText = buttonText.Substring(0, indexOfX + 1) + " " + quantity;
+                buttonText = buttonText.Substring(0, indexOfX + 1) + "" + quantity;
             }
             else
             {
@@ -352,6 +383,7 @@ namespace TranQuik.Pages
 
         private void addOnSave_Click(object sender, RoutedEventArgs e)
         {
+
             this.Close();
         }
 
@@ -374,9 +406,208 @@ namespace TranQuik.Pages
             this.Close();
         }
 
+        private void quantityDisplay_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (modelProcessing == null)
+            {
+                Console.WriteLine("Error: modelProcessing is null.");
+                return;
+            }
+
+            // Retrieve the product details using the productID
+            Product selectedProduct = modelProcessing.cartProducts.FirstOrDefault(p => p.ProductId == ProductIDSelected);
+
+            if (selectedProduct != null)
+            {
+                if (int.TryParse(quantityDisplay.Text, out int newQuantity))
+                {
+                    if (newQuantity >= 1)
+                    {
+                        selectedProduct.Quantity = newQuantity;
+                    }
+                    else
+                    {
+                        // If the new quantity is less than 1, reset to the last valid quantity
+                        quantityDisplay.Text = "1";
+                        selectedProduct.Quantity = 1;
+                    }
+                }
+                modelProcessing.UpdateCartUI();
+
+            }
+        }
+
+
+        private void HandleNumberButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                string number = button.Content.ToString();
+
+                // If the textbox is empty, replace the default value with the clicked number
+                if (string.IsNullOrEmpty(quantityDisplay.Text))
+                {
+                    // Validate that the first number is not '0'
+                    if (number != "0")
+                    {
+                        quantityDisplay.Text = number;
+                        mainWindow.paxTotal = int.Parse(quantityDisplay.Text);
+                    }
+                }
+                else
+                {
+                    // Ensure that the input can start with '0'
+                    if (number != "0" || (!quantityDisplay.Text.StartsWith("0") && quantityDisplay.Text.Length == 1))
+                    {
+                        quantityDisplay.Text += number;
+                        mainWindow.paxTotal = int.Parse(quantityDisplay.Text);
+                    }
+                }
+            }
+        }
+
+        private void HandleBackspaceButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(quantityDisplay.Text))
+            {
+                quantityDisplay.Text = quantityDisplay.Text.Substring(0, quantityDisplay.Text.Length - 1);
+            }
+        }
+
+        private void HandleDeleteItemClick(object sender, RoutedEventArgs e)
+        {
+            if (modelProcessing == null)
+            {
+                Console.WriteLine("Error: modelProcessing is null.");
+                return;
+            }
+
+            // Retrieve the product details using the productID
+            Product selectedProduct = modelProcessing.cartProducts.FirstOrDefault(p => p.ProductId == ProductIDSelected);
+
+            if (selectedProduct != null)
+            {
+                // Set the product status to False
+                selectedProduct.Status = false;
+                modelProcessing.UpdateCartUI();
+                this.Close();
+            }
+            else
+            {
+                Console.WriteLine("Error: Product not found.");
+            }
+        }
 
 
 
+        private void Button_TouchDown(object sender, TouchEventArgs e, string modifierGroupID, string modifierName)
+        {
+            isTouchEvent = true;
+            ModifierGroup_Click(sender, new RoutedEventArgs(), modifierGroupID, modifierName);
+        }
+
+        private void Button_TouchDown(object sender, TouchEventArgs e, ModifierMenu modifierMenu)
+        {
+            isTouchEvent = true;
+            ModifierMenuButton_Click(sender, new RoutedEventArgs(), modifierMenu);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e, string modifierGroupID, string modifierName)
+        {
+            if (isTouchEvent)
+            {
+                isTouchEvent = false; // Reset the flag
+                return;
+            }
+
+            ModifierGroup_Click(sender, e, modifierGroupID, modifierName);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e, ModifierMenu modifierMenu)
+        {
+            if (isTouchEvent)
+            {
+                isTouchEvent = false; // Reset the flag
+                return;
+            }
+
+            ModifierMenuButton_Click(sender, e, modifierMenu);
+        }
+        private void AddOnSave_TouchDown(object sender, TouchEventArgs e)
+        {
+            isTouchEvent = true;
+
+            addOnSave_Click(sender, new RoutedEventArgs());
+        }
+
+        private void AddOnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (isTouchEvent)
+            {
+                isTouchEvent = false; // Reset the flag
+                return;
+            }
+            addOnSave_Click(sender, new RoutedEventArgs());
+        }
+
+        private void AddOnReset_TouchDown(object sender, TouchEventArgs e)
+        {
+            isTouchEvent = true;
+            addOnReset_Click(sender, new RoutedEventArgs());
+        }
+
+        private void AddOnReset_Click(object sender, RoutedEventArgs e)
+        {
+            if (isTouchEvent)
+            {
+                isTouchEvent = false; // Reset the flag
+                return;
+            }
+            addOnReset_Click(sender, new RoutedEventArgs());
+        }
+
+        private void NumberButton_TouchDown(object sender, TouchEventArgs e)
+        {
+            isTouchEvent = true;
+            HandleNumberButtonClick(sender, e);
+        }
+
+        private void NumberButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!isTouchEvent)
+            {
+                HandleNumberButtonClick(sender,e);
+            }
+            isTouchEvent = false; // Reset the flag
+        }
+        private void BackspaceButton_TouchDown(object sender, TouchEventArgs e)
+        {
+            isTouchEvent = true;
+            HandleBackspaceButtonClick(sender, e);
+        }
+
+        private void BackspaceButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!isTouchEvent)
+            {
+                HandleBackspaceButtonClick(sender, e);
+            }
+            isTouchEvent = false; // Reset the flag
+        }
+        private void deleteItem_TouchDown(object sender, TouchEventArgs e)
+        {
+            isTouchEvent = true;
+            HandleDeleteItemClick(sender, e);
+        }
+
+        private void deleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (!isTouchEvent)
+            {
+                HandleDeleteItemClick(sender, e);
+            }
+            isTouchEvent = false; // Reset the flag
+        }
 
 
     }

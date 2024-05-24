@@ -11,11 +11,11 @@
         WindowStyle="None"
         WindowState="Normal"
         ResizeMode="NoResize"
-        Height="600"
-        Width="800">
+        Height="300" Width="600">
     <Grid  Background="{StaticResource FontColor}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
@@ -25,13 +25,104 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="addOnSave" Grid.Column="1" Content="{materialIcons:MaterialIconExt Kind=ContentSaveMove}" Background="{StaticResource ButtonEnabledColor1}" Foreground="{StaticResource FontColor}" Grid.Row="0" HorizontalAlignment="Right" Width="72" Margin="1" Click="addOnSave_Click"/>
-            <Button x:Name="addOnReset" Grid.Column="0" Content="{materialIcons:MaterialIconExt Kind=DeleteAlert}" Background="{StaticResource ErrorColor}" Foreground="{StaticResource FontColor}" Grid.Row="0" HorizontalAlignment="Right" Width="72" Margin="1" Click="addOnReset_Click"/>
+            <!--<Button Background="{StaticResource ButtonEnabledColor1}" Foreground="{StaticResource FontColor}" Grid.Row="0" HorizontalAlignment="Right" Width="72" Margin="1" Click="addOnSave_Click">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                    <materialIcons:MaterialIconExt Kind="ContentSaveMove"  />
+                    <TextBlock Text="Save" Margin="5,0,0,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>-->
+            <Button Height="72" 
+                    Width="72"   
+                    x:Name="addOnSave" 
+                    Grid.Column="1" 
+                    Style="{StaticResource ButtonStyle}" 
+                    Background="{StaticResource ButtonEnabledColor1}"
+                    Foreground="{StaticResource FontColor}"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" Margin="1">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <materialIcons:MaterialIcon Kind="ContentSave" Width="24" Height="24" VerticalAlignment="Center"/>
+                    <TextBlock Text="Save Modifier"  VerticalAlignment="Center" FontSize="10"/>
+                </StackPanel>
+            </Button>
+            <Button Height="72" 
+                    Width="72"   
+                    x:Name="addOnReset" 
+                    Grid.Column="0"
+                    Style="{StaticResource ButtonStyle}" 
+                    Background="{StaticResource ErrorColor}"
+                    Foreground="{StaticResource FontColor}"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" Margin="1" >
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <materialIcons:MaterialIcon Kind="RestoreFromTrash" Width="24" Height="24" VerticalAlignment="Center"/>
+                    <TextBlock Text="Reset AddOn"  VerticalAlignment="Center" FontSize="10"/>
+                </StackPanel>
+            </Button>
+            <!--<Button x:Name="addOnReset" Grid.Column="0" Background="{StaticResource ErrorColor}" Foreground="{StaticResource FontColor}" Grid.Row="0" HorizontalAlignment="Right" Width="72" Margin="1" Click="addOnReset_Click">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                    <materialIcons:MaterialIconExt Kind="DeleteAlert"  />
+                    <TextBlock Text="Reset" Margin="5,0,0,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>-->
         </Grid>
-        <TextBlock Text="Add On Menu" Grid.Row="0" FontSize="32" FontFamily="arial"  Foreground="LightYellow" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
-        <Grid x:Name="GridModifierModeGroup" ShowGridLines="True" Grid.Row="1">
+        <TextBlock Text="Modifier Menu" Grid.Row="0" FontSize="32" FontFamily="arial"  Foreground="LightYellow" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
+        <Grid x:Name="quantityItem" Visibility="Visible" Grid.Row="1" Margin="0, 5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <!-- Buttons for numbers 0-9 and backspace -->
+            <Border Grid.Column="0" Background="LightYellow" BorderBrush="{StaticResource FontColor}" BorderThickness="1" />
+            <TextBox x:Name="quantityDisplay" Text="1" Grid.Column="0" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Background="LightYellow" HorizontalAlignment="Center" VerticalAlignment="Center" TextChanged="quantityDisplay_TextChanged" BorderThickness="0"/>
+            <Button Content="0" Grid.Column="1" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" TouchDown="NumberButton_Click" />
+            <Button Content="1" Grid.Column="2" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" TouchDown="NumberButton_Click"/>
+            <Button Content="2" Grid.Column="3" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" TouchDown="NumberButton_Click"/>
+            <Button Content="3" Grid.Column="4" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" TouchDown="NumberButton_Click"/>
+            <Button Content="4" Grid.Column="5" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" TouchDown="NumberButton_Click"/>
+            <Button Content="5" Grid.Column="6" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" TouchDown="NumberButton_Click"/>
+            <Button Content="6" Grid.Column="7" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" TouchDown="NumberButton_Click"/>
+            <Button Content="7" Grid.Column="8" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" TouchDown="NumberButton_Click"/>
+            <Button Content="8" Grid.Column="9" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" TouchDown="NumberButton_Click"/>
+            <Button Content="9" Grid.Column="10" Background="Azure" FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource FontColor}" Click="NumberButton_Click" TouchDown="NumberButton_Click"/>
+            <Button Grid.Column="11" Background="{StaticResource ButtonEnabledColor2}" FontWeight="SemiBold"  Foreground="{StaticResource FontColor}" Click="BackspaceButton_Click" TouchDown="BackspaceButton_Click">
+                <Viewbox Width="28" Height="24">
+                    <!-- Adjust width and height as needed -->
+                    <ContentControl Content="{materialIcons:MaterialIconExt Kind=Backspace}" FontSize="14" />
+                </Viewbox>
+            </Button>
+            <Button Height="72" 
+                    Width="72"   
+                    Grid.Column="12" 
+                    Style="{StaticResource ButtonStyle}" 
+                    Background="{StaticResource ErrorColor}"
+                    Foreground="{StaticResource FontColor}"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" Click="deleteItem_Click" TouchDown="deleteItem_Click">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <materialIcons:MaterialIcon Kind="TrashCircle" Width="24" Height="24" VerticalAlignment="Center"/>
+                    <TextBlock Text="Item"  VerticalAlignment="Center" FontSize="10"/>
+                </StackPanel>
+            </Button>
         </Grid>
-        <Grid x:Name="GridModifierModeMenu" ShowGridLines="True" Grid.Row="2">
+        <Grid x:Name="GridModifierModeGroup" ShowGridLines="True" Grid.Row="2">
+        </Grid>
+        <Grid x:Name="GridModifierModeMenu" ShowGridLines="True" Grid.Row="3">
         </Grid>
     </Grid>
 </Window>

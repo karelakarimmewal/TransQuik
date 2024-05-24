@@ -1,4 +1,5 @@
-﻿using Microsoft.CSharp.RuntimeBinder;
+﻿using Google.Protobuf.WellKnownTypes;
+using Microsoft.CSharp.RuntimeBinder;
 using MySql.Data.MySqlClient;
 using Serilog;
 using System;
@@ -31,10 +32,12 @@ namespace TranQuik
         private LocalDbConnector localDbConnector;
         private ModelProcessing modelProcessing;
         private TransactionStatus transactionStatus;
+        private SaleMode saleMode;
         public HeldCartManager heldCartManager;
 
         // User Interface Elements
         public List<Button> productGroupButtons = new List<Button>(); // List of buttons for product groups
+        public List<SaleMode> saleModes;
 
         // Application State
         public int SaleMode = 0; // Sale mode indicator
@@ -76,7 +79,7 @@ namespace TranQuik
             InitializeComponent();
             GetPayTypeList((Properties.Settings.Default._ComputerID));
             Loaded += WindowLoaded;
-            modelProcessing = new ModelProcessing(this, this.secondaryMonitor);
+            modelProcessing = new ModelProcessing(this);
             if (workingArea.Width <= 1038)
             {
                 this.WindowState = WindowState.Maximized;
@@ -102,11 +105,21 @@ namespace TranQuik
 
         public void ModifierMenuView(int productID)
         {
-            MenuModifier menuModifier = new MenuModifier(this, modelProcessing, productID); // Pass reference to MainWindow
-            menuModifier.Topmost = true;
-            menuModifier.ShowInTaskbar = false;
-            menuModifier.ShowDialog(); // Show SaleModePop window as modal
+            if (modelProcessing != null)
+            {
+                MenuModifier menuModifier = new MenuModifier(this, modelProcessing, productID);
+
+                // Set TouchDialogMode to Full to enable proper touch handling
+
+                menuModifier.ShowInTaskbar = false;
+                menuModifier.ShowDialog();
+            }
+            else
+            {
+                Console.WriteLine("Error: modelProcessing is null and cannot create MenuModifier.");
+            }
         }
+
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
@@ -129,15 +142,24 @@ namespace TranQuik
                     // Create buttons for each product group and add them to the WrapPanel
                     for (int i = 0; i < productGroupNames.Count; i++)
                     {
+                        TextBlock textBlock = new TextBlock
+                        {
+                            Text = productGroupNames[i],
+                            TextWrapping = TextWrapping.Wrap,
+                            TextAlignment = TextAlignment.Center, // Optional: Center-align the text
+                            VerticalAlignment = VerticalAlignment.Center, // Center-align vertically
+                            HorizontalAlignment = HorizontalAlignment.Center, // Center-align horizontally
+                            Foreground = (SolidColorBrush)FindResource("FontColor")
+                        };
+
                         Button button = new Button
                         {
-                            Content = productGroupNames[i],
+                            Content = textBlock,
                             Height = 50,
-                            Width = 99,
+                            Width = 98,
                             FontWeight = FontWeights.Bold,
                             BorderThickness = new Thickness(0),
                             Tag = productGroupIds[i],
-                            Foreground = (SolidColorBrush)FindResource("FontColor"),
                             Background = Brushes.Azure,
                             Effect = (System.Windows.Media.Effects.Effect)FindResource("DropShadowEffect"),
                             Style = (System.Windows.Style)FindResource("ButtonStyle")
@@ -147,6 +169,7 @@ namespace TranQuik
                         ProductGroupName.Children.Add(button);
                         productGroupButtons.Add(button);
                     }
+
                 }
                 catch (Exception ex)
                 {
@@ -231,7 +254,6 @@ namespace TranQuik
                         };
                         // Search for the product in cartProducts by ProductId
                         Product foundProduct = modelProcessing.cartProducts.FirstOrDefault(p => p.ProductId == productId);
-
                         if (foundProduct != null)
                         {
                             // Output the ChildItems of the found product
@@ -256,9 +278,12 @@ namespace TranQuik
                         ModifierButton.IsEnabled = true;
 
                         // Open the function or command to retrieve child items (modifiers)
-                        ModifierMenuView(productId);
-
-                        // Add retrieved child items to the selected product's ChildItems collection
+                        if (foundProduct.Status)
+                        {
+                            ModifierMenuView(productId);
+                        }
+                        
+                                                // Add retrieved child items to the selected product's ChildItems collection
                         if (childItemsSelected != null && childItemsSelected.Any())
                         {
                             foreach (var item in childItemsSelected)
@@ -274,8 +299,6 @@ namespace TranQuik
                             if (product.ProductId == selectedProduct.ProductId)
                             {
                                 productFound = true;
-                                // Update the existing product with the updated quantity and child items
-                                product.Quantity = selectedProduct.Quantity;
                                 product.ChildItems = selectedProduct.ChildItems;
                                 break;
                             }
@@ -327,10 +350,33 @@ namespace TranQuik
             shutDownPopup.Topmost = true;
             shutDownPopup.ShowDialog();
         }
+        private void fastCash_Click(object sender, RoutedEventArgs e)
+        {
+            // Check if any product in cartProducts has status set to true
+            if (modelProcessing.cartProducts.Any(product => product.Status))
+            {
+                if (sender is Button button)
+                {
+                    if (button.Content is string buttonText)
+                    {
+                        // Call the payCashButton method
+                        PayButton_Click(sender, e);
+
+                        // Set the displayText.Text to the button text
+                        displayText.Text = buttonText;
+
+                        // Call the Calculating method of modelProcessing
+                        modelProcessing.Calculating();
+                    }
+                }
+            }
+        }
 
         private void payCashButton(object sender, RoutedEventArgs e)
         {
             // Clear all child elements (buttons) from the MainContentProduct wrap panel
+            modelProcessing.isPaymentChange = "1";
+            secondaryMonitor.Payment.Text = "Cash";
             MainContentProduct.Children.Clear();
             PayementProcess.Visibility = Visibility.Visible;
             MainContentProduct.Visibility = Visibility.Hidden;
@@ -403,7 +449,6 @@ namespace TranQuik
         {
             // Clear existing children in PaymentMethod
             PaymentMethod.Children.Clear();
-
 
             // Create a new Grid to contain the buttons
             Grid buttonGrid = new Grid();
@@ -836,7 +881,7 @@ namespace TranQuik
             // Print the document
             doc.Print();
             transactionStatus = new TransactionStatus(true, modelProcessing);
-            transactionStatus.Show();
+            transactionStatus.ShowDialog();
         }
 
         private int CalculateRequiredHeight()
@@ -896,11 +941,11 @@ namespace TranQuik
             sb.AppendLine(new string('=', colWidth));
             sb.AppendLine($"Receipt Number : {receiptNumber}");
             sb.AppendLine($"Date           : {DateTime.Now}");
-            sb.AppendLine($"Cashier        : ");
+            sb.AppendLine($"Cashier        : Dev Cashier");
             sb.AppendLine(new string('=', colWidth));
             sb.AppendLine("RK Grand Boulevard, Kabupaten Tangerang, Banten 15710");
-            sb.AppendLine("Vat Reg. No. : Your VAT Reg No.");
-            sb.AppendLine("TEL          : Your Phone Number");
+            sb.AppendLine($"Vat Reg. No. : {modelProcessing.productVATPercent}");
+            sb.AppendLine("TEL          : 123456789012");
             sb.AppendLine($"Payment Type : {PayTypeName}");
             sb.AppendLine(new string('=', colWidth));
             sb.AppendLine();
@@ -1039,5 +1084,33 @@ namespace TranQuik
                 Clipboard.SetText(transactionQrUrl);
             };
         }
+
+        private void changeSalesMode_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle between SaleModeIDs 1 and 2
+            if (SaleMode == 1)
+            {
+                SaleMode = 2;
+            }
+            else if (SaleMode == 2)
+            {
+                SaleMode = 1;
+            }
+            else
+            {
+                MessageBox.Show("Cannot change salemode from this ! Action forboidden");
+            }
+
+            // Find the SaleMode object in the list based on SaleModeID
+            SaleMode selectedSaleMode = saleModes.FirstOrDefault(mode => mode.SaleModeID == SaleMode);
+
+            // Update your UI to display the SaleModeName of the selected SaleMode
+            if (selectedSaleMode != null)
+            {
+                StatusCondition.Text = $"{selectedSaleMode.SaleModeName} ({paxTotal})";
+                salesModeText.Text = selectedSaleMode.SaleModeName;
+            }
+        }
+
     }
 }

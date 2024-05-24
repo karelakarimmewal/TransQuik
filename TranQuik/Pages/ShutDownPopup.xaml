@@ -29,7 +29,7 @@
                     Height="100"
                     Style="{StaticResource ButtonStyle}" 
                     Effect="{StaticResource DropShadowEffect}"
-                        Background="{StaticResource AccentColor}"
+                        Background="{StaticResource ErrorColor}"
                     
                     Margin="0" Click="ShutdownButton" VerticalAlignment="Center">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -42,7 +42,7 @@
                     <Button Grid.Column="1"
                     Height="100"
                     Style="{StaticResource ButtonStyle}" 
-                    Background="{StaticResource SuccessColor}"
+                    Background="{StaticResource AccentColor}"
                     Effect="{StaticResource DropShadowEffect}"
                     
                     Margin="0" Click="CancelButton" VerticalAlignment="Center">

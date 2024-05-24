@@ -1,0 +1,37 @@
+2024-05-24 08:50:38.828 +07:00 [INF] Cart for Order ID: 66 Payment Process, Selecting.....
+2024-05-24 08:50:42.368 +07:00 [INF] Cart has been held for Order ID: 66 at 22/05/2024 22.49.17
+2024-05-24 08:54:36.471 +07:00 [INF] Transaction 1 (DINE IN-1)
+2024-05-24 08:54:38.669 +07:00 [INF] Cart for Order ID: 1 Payment Process, Selecting.....
+2024-05-24 08:55:14.578 +07:00 [INF] Cart for Order ID: 1 Payment Process, Cash
+2024-05-24 08:55:17.575 +07:00 [INF] Cart for Order ID: 1 Payment Process, Cash
+2024-05-24 08:55:19.222 +07:00 [INF] Cart for Order ID: 1 Payment Process, Cash
+2024-05-24 08:55:20.156 +07:00 [INF] Cart for Order ID: 1 Payment Process, Selecting.....
+2024-05-24 08:55:34.582 +07:00 [INF] Cart has been held for Order ID: 1 at 24/05/2024 08.54.36
+2024-05-24 08:55:35.900 +07:00 [INF] Transaction 2 (DINE IN-1)
+2024-05-24 08:55:39.873 +07:00 [INF] Cart for Order ID: 2 Payment Process, Cash
+2024-05-24 09:00:26.588 +07:00 [INF] Transaction 3 (DINE IN-1)
+2024-05-24 09:00:32.660 +07:00 [INF] Cart for Order ID: 3 Payment Process, Selecting.....
+2024-05-24 09:00:41.111 +07:00 [INF] Cart for Order ID: 3 Payment Process, Cash
+2024-05-24 09:01:27.079 +07:00 [INF] Transaction 4 (DINE IN-1)
+2024-05-24 09:01:29.588 +07:00 [INF] Cart for Order ID: 4 Payment Process, Selecting.....
+2024-05-24 09:01:36.448 +07:00 [INF] Cart for Order ID: 4 Payment Process, Cash
+2024-05-24 09:02:11.937 +07:00 [INF] Transaction 5 (DINE IN-1)
+2024-05-24 09:02:14.702 +07:00 [INF] Cart for Order ID: 5 Payment Process, Selecting.....
+2024-05-24 09:02:22.021 +07:00 [INF] Cart for Order ID: 5 Payment Process, Selecting.....
+2024-05-24 09:02:40.701 +07:00 [INF] Cart for Order ID: 5 Payment Process, Selecting.....
+2024-05-24 09:02:52.412 +07:00 [INF] Cart for Order ID: 5 Payment Process, Cash
+2024-05-24 09:03:31.493 +07:00 [INF] Transaction 6 (DINE IN-1)
+2024-05-24 09:03:34.593 +07:00 [INF] Cart for Order ID: 6 Payment Process, Selecting.....
+2024-05-24 09:03:40.852 +07:00 [INF] Cart for Order ID: 6 Payment Process, Cash
+2024-05-24 09:05:44.373 +07:00 [INF] Transaction 7 (DINE IN-1)
+2024-05-24 09:09:06.416 +07:00 [INF] Transaction 8 (DINE IN-1)
+2024-05-24 09:18:41.025 +07:00 [INF] Transaction 9 (DINE IN-1)
+2024-05-24 09:18:56.792 +07:00 [INF] Transaction 10 (DINE IN-1)
+2024-05-24 09:19:10.242 +07:00 [INF] Transaction 11 (DINE IN-1)
+2024-05-24 09:20:39.340 +07:00 [INF] Transaction 12 (DINE IN-1)
+2024-05-24 09:21:07.902 +07:00 [INF] Transaction 13 (DINE IN-1)
+2024-05-24 09:22:11.826 +07:00 [INF] Transaction 14 (DINE IN-1)
+2024-05-24 09:29:32.664 +07:00 [INF] Transaction 15 (DINE IN-1)
+2024-05-24 09:29:40.925 +07:00 [INF] Cart for Order ID: 15 Payment Process, Selecting.....
+2024-05-24 09:35:31.541 +07:00 [INF] Transaction 16 (DINE IN-1)
+2024-05-24 09:36:03.359 +07:00 [INF] Transaction 17 (DINE IN-1)
